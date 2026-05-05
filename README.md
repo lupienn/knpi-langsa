@@ -14,11 +14,6 @@ Website sistem informasi untuk mendukung pengelolaan data dan kegiatan KNPI Kota
 - (Sesuaikan: PHP / Laravel / Node.js)
 - MySQL
 
-## Cara Menjalankan
-```bash
-git clone https://github.com/lupienn/knpi-langsa.git
-cd knpi-langsa
+## Author
 
-Author
-
-GitHub: https://github.com/lupienn
+### GitHub: https://github.com/lupienn
