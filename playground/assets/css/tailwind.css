@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply h-full font-sans antialiased;
+  }
+
+  #__nuxt {
+    @apply h-full;
+  }
+
+  * {
+    @apply box-border;
+  }
+}
+
+@layer components {
+  /* Input field base style */
+  .form-input-base {
+    @apply w-full pl-11 pr-4 py-3 rounded-xl
+           bg-white/5 border border-white/10 text-slate-100
+           placeholder-slate-500 font-sans text-sm
+           focus:outline-none focus:border-knpi-500 focus:bg-knpi-600/10
+           focus:ring-2 focus:ring-knpi-500/20
+           disabled:opacity-60 disabled:cursor-not-allowed
+           transition-all duration-200;
+  }
+
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply w-full py-3.5 px-6 rounded-xl
+           bg-gradient-to-r from-knpi-600 to-knpi-500
+           text-white font-bold text-sm tracking-wide
+           hover:shadow-knpi hover:-translate-y-0.5
+           active:translate-y-0
+           disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none
+           transition-all duration-200 cursor-pointer flex items-center justify-center gap-2;
+  }
+
+  /* Nav item sidebar */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl
+           text-slate-500 text-sm font-medium
+           hover:bg-white/5 hover:text-slate-300
+           transition-all duration-200 no-underline;
+  }
+
+  .nav-item.active {
+    @apply bg-knpi-600/15 text-knpi-400 border border-knpi-600/20;
+  }
+
+  /* Badge role */
+  .badge {
+    @apply inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-admin { @apply bg-knpi-600/20 text-knpi-400 border border-knpi-600/30; }
+  .badge-pengurus { @apply bg-emerald-500/20 text-emerald-400 border border-emerald-500/30; }
+  .badge-anggota { @apply bg-slate-500/20 text-slate-400 border border-slate-500/30; }
+}
