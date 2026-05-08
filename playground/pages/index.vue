@@ -1,29 +1,27 @@
 <template>
   <div class="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-knpi-500 selection:text-white">
     <!-- Navbar -->
-    <header class="sticky top-0 z-50 w-full border-b border-slate-200/50 bg-white/80 backdrop-blur-md transition-all">
+    <header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#003399] shadow-lg">
       <div class="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#003399] to-knpi-500 shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" fill="none">
-              <path d="M32 4L8 16V34C8 47.3 18.4 59.8 32 63C45.6 59.8 56 47.3 56 34V16L32 4Z" fill="#FFD700" />
-              <text x="32" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="900" fill="#003399" letter-spacing="0.5">KNPI</text>
-            </svg>
-          </div>
-          <span class="text-xl font-extrabold tracking-tight text-[#003399]">KNPI Langsa</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 64 64" fill="none" class="drop-shadow-md">
+            <path d="M32 4L8 16V34C8 47.3 18.4 59.8 32 63C45.6 59.8 56 47.3 56 34V16L32 4Z" fill="#FFD700" />
+            <text x="32" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="900" fill="#003399" letter-spacing="0.5">KNPI</text>
+          </svg>
+          <span class="text-xl font-extrabold tracking-wide text-white">KNPI Langsa</span>
         </div>
 
         <!-- Desktop Menu -->
         <nav class="hidden md:flex items-center gap-8">
-          <a href="#beranda" class="text-sm font-semibold text-[#003399] transition hover:text-knpi-500">Beranda</a>
-          <a href="#berita" class="text-sm font-medium text-slate-600 transition hover:text-knpi-500">Berita</a>
-          <a href="#pinjam-gedung" class="text-sm font-medium text-slate-600 transition hover:text-knpi-500">Pinjam Pakai Gedung</a>
+          <a href="#beranda" class="text-sm font-semibold text-[#FFD700] border-b-2 border-[#FFD700] pb-1">Beranda</a>
+          <a href="#berita" class="text-sm font-medium text-white/80 hover:text-white transition-colors pb-1">Berita</a>
+          <a href="#pinjam-gedung" class="text-sm font-medium text-white/80 hover:text-white transition-colors pb-1">Pinjam Pakai Gedung</a>
         </nav>
 
         <!-- Right: Login Button -->
         <div class="flex items-center">
-          <NuxtLink to="/login" class="flex items-center gap-2 rounded-full bg-[#003399] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-900/20 transition hover:-translate-y-0.5 hover:bg-blue-800">
+          <NuxtLink to="/login" class="flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 py-2.5 text-sm font-bold text-white backdrop-blur-sm transition-all hover:bg-white hover:text-[#003399] hover:shadow-lg hover:shadow-white/20">
             <LucideLogIn :size="16" />
             <span>Masuk</span>
           </NuxtLink>
@@ -64,22 +62,29 @@
             </div>
 
             <!-- Hero Right: Image & Geometry -->
-            <div class="reveal reveal-delay-200 relative lg:ml-auto w-full max-w-md lg:max-w-none aspect-[4/5] lg:aspect-square">
+            <div class="reveal reveal-delay-200 relative lg:ml-auto w-full max-w-sm lg:max-w-md mx-auto aspect-[3/4]">
               <!-- Geometric Background Accents -->
-              <div class="absolute -top-6 -right-6 w-64 h-64 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-float"></div>
-              <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-float-slow"></div>
-              <div class="absolute inset-0 border-2 border-[#003399]/10 rounded-[2.5rem] transform rotate-3 scale-105"></div>
-              <div class="absolute inset-0 bg-gradient-to-tr from-[#003399] to-knpi-400 rounded-[2rem] transform -rotate-2"></div>
+              <div class="absolute -top-10 -right-10 w-72 h-72 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float"></div>
+              <div class="absolute -bottom-12 -left-12 w-80 h-80 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-float-slow"></div>
               
-              <!-- Placeholder Image -->
-              <div class="absolute inset-1 bg-slate-200 rounded-[1.8rem] overflow-hidden shadow-2xl">
-                <!-- Replace with actual image -->
-                <div class="w-full h-full bg-slate-300 flex flex-col items-center justify-center relative">
-                  <LucideUser :size="80" class="text-slate-400 mb-4" />
-                  <p class="text-slate-500 font-bold text-lg">Foto Ketua KNPI</p>
-                  <div class="absolute bottom-0 w-full bg-gradient-to-t from-[#003399]/90 to-transparent pt-20 pb-6 px-6 text-left">
-                    <p class="text-white font-extrabold text-xl">Nama Ketua</p>
-                    <p class="text-[#FFD700] text-sm font-medium">Ketua DPD KNPI Kota Langsa</p>
+              <!-- Abstract Frame -->
+              <div class="absolute inset-0 border-2 border-[#003399]/20 rounded-[2.5rem] transform rotate-3 scale-105 transition-transform duration-700 hover:rotate-6"></div>
+              <div class="absolute inset-0 bg-gradient-to-tr from-[#003399] to-blue-600 rounded-[2.5rem] transform -rotate-2 opacity-10"></div>
+              
+              <!-- Actual Image Card -->
+              <div class="absolute inset-0 bg-white p-2 rounded-[2.5rem] shadow-2xl group transform transition-transform duration-500 hover:-translate-y-2">
+                <div class="relative w-full h-full rounded-[2rem] overflow-hidden bg-slate-100">
+                  <img src="~/assets/ketua-knpi.jpeg" alt="Foto Ketua KNPI Kota Langsa" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  
+                  <!-- Gradient Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#003399]/90 via-[#003399]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <!-- Text Information -->
+                  <div class="absolute bottom-0 w-full p-6 text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <p class="text-white font-extrabold text-2xl drop-shadow-lg mb-2">Dr. RIZKI MAULANA, S.Sos, SH., MSP., MH</p>
+                    <div class="inline-block bg-[#FFD700] text-amber-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-md">
+                      Ketua DPD KNPI Kota Langsa
+                    </div>
                   </div>
                 </div>
               </div>
