@@ -6,14 +6,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
   devtools: { enabled: true },
-  compatibilityDate: 'latest',
 
   css: ['~/assets/css/tailwind.css'],
-
-  tailwindcss: {
-    configPath: '~/tailwind.config.ts',
-    exposeConfig: false,
-  },
 
   runtimeConfig: {
     // Private (server-only)
@@ -30,6 +24,12 @@ export default defineNuxtConfig({
       appUrl: process.env.NUXT_PUBLIC_APP_URL || 'http://localhost:3000',
     },
   },
+  compatibilityDate: 'latest',
 
   myModule: {},
+
+  tailwindcss: {
+    configPath: '~/tailwind.config.ts',
+    exposeConfig: false,
+  },
 })

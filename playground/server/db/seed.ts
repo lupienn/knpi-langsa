@@ -4,7 +4,6 @@
  */
 
 import mysql from 'mysql2/promise'
-import { drizzle } from 'drizzle-orm/mysql2'
 import bcrypt from 'bcryptjs'
 import * as dotenv from 'dotenv'
 
@@ -57,8 +56,8 @@ async function seed() {
     // Cek apakah admin sudah ada
     const [rows] = await connection.execute(
       'SELECT id FROM pengguna WHERE username = ? LIMIT 1',
-      ['admin']
-    ) as any[]
+      ['admin'],
+    ) as mysql.RowDataPacket[][]
 
     if (rows.length > 0) {
       console.log('ℹ️  Admin sudah ada, melewati seed pengguna admin.')
@@ -69,7 +68,7 @@ async function seed() {
 
       await connection.execute(
         'INSERT INTO pengguna (nama, username, password, peran) VALUES (?, ?, ?, ?)',
-        ['Administrator KNPI', 'admin', passwordHash, 'admin']
+        ['Administrator KNPI', 'admin', passwordHash, 'admin'],
       )
       console.log('✅ Pengguna admin berhasil dibuat.')
       console.log('   Username : admin')

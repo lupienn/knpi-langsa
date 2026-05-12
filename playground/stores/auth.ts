@@ -1,5 +1,12 @@
 import { defineStore } from 'pinia'
 
+interface ApiResponse {
+  data: {
+    token: string
+    pengguna: Pengguna
+  }
+}
+
 interface Pengguna {
   id: number
   nama: string
@@ -20,8 +27,8 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   getters: {
-    terautentikasi: (state) => !!state.token,
-    penggunaLogin: (state) => state.pengguna,
+    terautentikasi: state => !!state.token,
+    penggunaLogin: state => state.pengguna,
   },
 
   actions: {
@@ -35,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
         throw new Error(error.value.data?.statusMessage || 'Login gagal.')
       }
 
-      const result = data.value as any
+      const result = data.value as ApiResponse
       this.token = result.data.token
       this.pengguna = result.data.pengguna
 
@@ -61,7 +68,7 @@ export const useAuthStore = defineStore('auth', {
         return
       }
 
-      const result = data.value as any
+      const result = data.value as ApiResponse
       this.pengguna = result.data.pengguna
     },
 

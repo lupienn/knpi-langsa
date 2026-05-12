@@ -18,7 +18,7 @@ export default {
       // Warna KNPI diambil dari warna biru Graha Pemuda
       colors: {
         knpi: {
-          50:  '#eef5ff',
+          50: '#eef5ff',
           100: '#d9eaff',
           200: '#bcd8ff',
           300: '#8ebdff',
@@ -45,7 +45,7 @@ export default {
         'spin-slow': 'spin 1s linear infinite',
       },
       keyframes: {
-        float: {
+        'float': {
           '0%, 100%': { transform: 'translate(0, 0)' },
           '50%': { transform: 'translate(20px, -20px)' },
         },
@@ -58,8 +58,8 @@ export default {
         xs: '2px',
       },
       boxShadow: {
-        'knpi': '0 8px 25px rgba(26, 99, 200, 0.35)',
-        'card': '0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+        knpi: '0 8px 25px rgba(26, 99, 200, 0.35)',
+        card: '0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
       },
     },
   },
