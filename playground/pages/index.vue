@@ -64,36 +64,46 @@
       <!-- Hero Section -->
       <section
         id="beranda"
-        class="relative overflow-hidden pt-24 pb-32 lg:pt-36 lg:pb-40"
+        class="relative overflow-hidden pt-24 pb-32 lg:pt-36 lg:pb-40 bg-gradient-to-b from-slate-50 to-white"
       >
+        <!-- Hero Background Effects -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full pointer-events-none opacity-40">
+          <div class="absolute top-1/4 left-0 w-96 h-96 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
+          <div class="absolute top-1/3 right-0 w-96 h-96 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;" />
+        </div>
+
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center">
+          <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-12 items-center">
             <!-- Hero Left: Text -->
             <div class="reveal max-w-2xl">
-              <div class="inline-flex items-center gap-2 rounded-full bg-[#003399]/10 px-3 py-1.5 text-sm font-bold text-[#003399] mb-6 border border-[#003399]/20">
-                <span class="relative flex h-2.5 w-2.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#003399] opacity-75" />
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#003399]" />
+              <div class="inline-flex items-center gap-2.5 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#003399] mb-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFD700] opacity-75" />
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FFD700]" />
                 </span>
-                Pemuda Hebat
+                <span class="uppercase tracking-wide">Pemuda Hebat</span>
               </div>
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                Sinergi <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#003399] to-knpi-500">Pemuda</span> Membangun Kota Langsa
+              <h1 class="text-4xl sm:text-5xl lg:text-[4rem] font-black tracking-tight text-slate-900 leading-[1.1]">
+                Sinergi <span class="relative inline-block whitespace-nowrap">
+                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#003399] to-blue-500">Pemuda</span>
+                  <svg class="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-3 sm:h-4 text-[#FFD700] opacity-80" viewBox="0 0 100 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M0,10 Q50,25 100,10" /></svg>
+                </span>
+                <br>Membangun Kota Langsa
               </h1>
-              <p class="mt-6 text-lg leading-relaxed text-slate-600">
-                Komite Nasional Pemuda Indonesia (KNPI) adalah wadah berhimpunnya organisasi kemasyarakatan pemuda (OKP) di Indonesia. KNPI Kota Langsa berkomitmen untuk menjadi motor penggerak pembangunan daerah dan mencetak pemimpin masa depan yang berintegritas.
+              <p class="mt-8 text-lg sm:text-xl leading-relaxed text-slate-600 font-medium">
+                Komite Nasional Pemuda Indonesia (KNPI) adalah wadah berhimpunnya organisasi kemasyarakatan pemuda (OKP). Kami berkomitmen menjadi motor penggerak pembangunan daerah dan mencetak pemimpin masa depan.
               </p>
-              <div class="mt-8 flex flex-wrap gap-4">
+              <div class="mt-10 flex flex-wrap gap-4 items-center">
                 <a
                   href="#berita"
-                  class="flex items-center gap-2 rounded-full bg-[#003399] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-900/20 transition hover:-translate-y-0.5 hover:bg-blue-800"
+                  class="flex items-center gap-2 rounded-full bg-[#003399] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-900/20 transition-all hover:-translate-y-1 hover:bg-blue-800 hover:shadow-blue-900/30"
                 >
                   Jelajahi Berita
-                  <LucideArrowRight :size="16" />
+                  <LucideArrowRight :size="18" />
                 </a>
                 <a
                   href="#visi-misi"
-                  class="flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-slate-700 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50"
+                  class="flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-slate-700 shadow-sm ring-1 ring-slate-200 transition-all hover:-translate-y-1 hover:bg-slate-50 hover:shadow-md"
                 >
                   Pelajari Lebih Lanjut
                 </a>
@@ -141,68 +151,115 @@
       <!-- Visi & Misi Section -->
       <section
         id="visi-misi"
-        class="py-24 bg-white"
+        class="py-24 bg-gradient-to-b from-white to-slate-50 relative overflow-hidden"
       >
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Decorative Backgrounds -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-[#FFD700]/5 blur-[100px]" />
+          <div class="absolute -bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-[#003399]/5 blur-[100px]" />
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="reveal text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
               Visi & Misi
             </h2>
-            <div class="mt-4 h-1.5 w-24 bg-[#FFD700] mx-auto rounded-full" />
+            <div class="mt-4 h-1.5 w-24 bg-gradient-to-r from-[#003399] to-[#FFD700] mx-auto rounded-full" />
+            <p class="mt-6 text-slate-600 text-lg">
+              Arah pergerakan dan cita-cita luhur KNPI Kota Langsa dalam mewujudkan generasi muda yang unggul dan berintegritas.
+            </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            <!-- Visi -->
-            <div class="reveal reveal-delay-100 flex flex-col p-8 rounded-3xl bg-slate-50 border border-slate-100 shadow-sm hover:shadow-md transition">
-              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#003399]/10 text-[#003399] mb-6">
-                <LucideTarget :size="28" />
+          <!-- Visi Showcase -->
+          <div class="reveal max-w-4xl mx-auto mb-16">
+            <div class="relative bg-gradient-to-br from-[#003399] to-blue-800 rounded-[2.5rem] p-10 md:p-14 text-center overflow-hidden shadow-2xl shadow-blue-900/20 group hover:shadow-blue-900/30 transition-all duration-500 hover:-translate-y-1">
+              <!-- Overlay patterns -->
+              <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-[80px] opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+              <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+              
+              <div class="relative z-10">
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-[#FFD700] mb-6 backdrop-blur-md ring-1 ring-white/20 shadow-inner">
+                  <LucideTarget :size="32" />
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-blue-100 mb-2 uppercase tracking-widest">
+                  Visi
+                </h3>
+                <h2 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight drop-shadow-md">
+                  "Pemuda Hebat"
+                </h2>
               </div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-4">
-                Visi
-              </h3>
-              <p class="text-slate-600 leading-relaxed font-medium text-xl italic text-center">
-                "Pemuda Hebat"
-              </p>
             </div>
+          </div>
 
-            <!-- Misi -->
-            <div class="reveal reveal-delay-200 flex flex-col p-8 rounded-3xl bg-[#003399] text-white shadow-xl shadow-blue-900/20">
-              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-[#FFD700] mb-6 backdrop-blur-sm">
-                <LucideUsers :size="28" />
+          <!-- Misi Grid -->
+          <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 reveal">
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#003399]/10 text-[#003399] font-bold text-sm border border-[#003399]/20">
+                <LucideUsers :size="16" />
+                Misi Kami
               </div>
-              <h3 class="text-2xl font-bold text-white mb-6">
-                Misi
-              </h3>
-              <ul class="space-y-4">
-                <li class="flex items-start gap-3">
-                  <LucideCheckCircle2
-                    :size="20"
-                    class="text-[#FFD700] shrink-0 mt-0.5"
-                  />
-                  <span class="text-blue-100/90 leading-relaxed">Konsolidasi Penguatan Kelembagaan dan Kaderisasi OKP,</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <LucideCheckCircle2
-                    :size="20"
-                    class="text-[#FFD700] shrink-0 mt-0.5"
-                  />
-                  <span class="text-blue-100/90 leading-relaxed">Mendorong Kemandirian Pemuda berbasis Entrepreneur, Ekonomi Kreatif, dan Literasi,</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <LucideCheckCircle2
-                    :size="20"
-                    class="text-[#FFD700] shrink-0 mt-0.5"
-                  />
-                  <span class="text-blue-100/90 leading-relaxed">Relasi Sinergis Pemuda dan Pemerintah sebagai Mitra Strategis dalam Pembangunan Daerah,</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <LucideCheckCircle2
-                    :size="20"
-                    class="text-[#FFD700] shrink-0 mt-0.5"
-                  />
-                  <span class="text-blue-100/90 leading-relaxed">Revitalisasi Semangat Pemuda dalam pembentukan Integritas untuk menjawab tantangan Global dan ancaman Narkoba melalui wawasan kebangsaan dan Karakter Islamiah.</span>
-                </li>
-              </ul>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              <!-- Misi 1 -->
+              <div class="reveal reveal-delay-100 group relative bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#003399]/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 text-[10rem] leading-none font-black text-slate-50 opacity-50 group-hover:text-[#003399]/5 transition-colors duration-300 select-none pointer-events-none -mt-8 -mr-4">
+                  1
+                </div>
+                <div class="relative z-10">
+                  <div class="w-14 h-14 rounded-2xl bg-blue-50 text-[#003399] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#003399] group-hover:text-white transition-all duration-300 ring-1 ring-slate-100 group-hover:ring-blue-800">
+                    <LucideBuilding2 :size="28" />
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed">
+                    Konsolidasi Penguatan Kelembagaan dan Kaderisasi OKP.
+                  </h4>
+                </div>
+              </div>
+
+              <!-- Misi 2 -->
+              <div class="reveal reveal-delay-200 group relative bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#FFD700]/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 text-[10rem] leading-none font-black text-slate-50 opacity-50 group-hover:text-[#FFD700]/10 transition-colors duration-300 select-none pointer-events-none -mt-8 -mr-4">
+                  2
+                </div>
+                <div class="relative z-10">
+                  <div class="w-14 h-14 rounded-2xl bg-yellow-50 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#FFD700] group-hover:text-amber-900 transition-all duration-300 ring-1 ring-slate-100 group-hover:ring-yellow-400">
+                    <LucideTrendingUp :size="28" />
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed">
+                    Mendorong Kemandirian Pemuda berbasis Entrepreneur, Ekonomi Kreatif, dan Literasi.
+                  </h4>
+                </div>
+              </div>
+
+              <!-- Misi 3 -->
+              <div class="reveal reveal-delay-300 group relative bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#003399]/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 text-[10rem] leading-none font-black text-slate-50 opacity-50 group-hover:text-[#003399]/5 transition-colors duration-300 select-none pointer-events-none -mt-8 -mr-4">
+                  3
+                </div>
+                <div class="relative z-10">
+                  <div class="w-14 h-14 rounded-2xl bg-blue-50 text-[#003399] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#003399] group-hover:text-white transition-all duration-300 ring-1 ring-slate-100 group-hover:ring-blue-800">
+                    <LucideHandshake :size="28" />
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed">
+                    Relasi Sinergis Pemuda dan Pemerintah sebagai Mitra Strategis dalam Pembangunan Daerah.
+                  </h4>
+                </div>
+              </div>
+
+              <!-- Misi 4 -->
+              <div class="reveal reveal-delay-400 group relative bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#FFD700]/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 text-[10rem] leading-none font-black text-slate-50 opacity-50 group-hover:text-[#FFD700]/10 transition-colors duration-300 select-none pointer-events-none -mt-8 -mr-4">
+                  4
+                </div>
+                <div class="relative z-10">
+                  <div class="w-14 h-14 rounded-2xl bg-yellow-50 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#FFD700] group-hover:text-amber-900 transition-all duration-300 ring-1 ring-slate-100 group-hover:ring-yellow-400">
+                    <LucideShieldCheck :size="28" />
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed">
+                    Revitalisasi Semangat Pemuda dalam pembentukan Integritas untuk menjawab tantangan Global dan ancaman Narkoba melalui wawasan kebangsaan dan Karakter Islamiah.
+                  </h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
