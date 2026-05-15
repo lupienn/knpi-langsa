@@ -75,10 +75,10 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#003399] opacity-75" />
                   <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#003399]" />
                 </span>
-                Pemuda Kuat, Langsa Hebat
+                Pemuda Hebat
               </div>
               <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                Bersatu Membangun <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#003399] to-knpi-500">Generasi Emas</span> Kota Langsa
+                Sinergi <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#003399] to-knpi-500">Pemuda</span> Membangun Kota Langsa
               </h1>
               <p class="mt-6 text-lg leading-relaxed text-slate-600">
                 Komite Nasional Pemuda Indonesia (KNPI) adalah wadah berhimpunnya organisasi kemasyarakatan pemuda (OKP) di Indonesia. KNPI Kota Langsa berkomitmen untuk menjadi motor penggerak pembangunan daerah dan mencetak pemimpin masa depan yang berintegritas.
@@ -160,8 +160,8 @@
               <h3 class="text-2xl font-bold text-slate-900 mb-4">
                 Visi
               </h3>
-              <p class="text-slate-600 leading-relaxed font-medium">
-                "Terwujudnya pemuda Kota Langsa yang mandiri, berdaya saing, berakhlak mulia, dan berperan aktif dalam pembangunan daerah menuju Langsa yang maju dan sejahtera."
+              <p class="text-slate-600 leading-relaxed font-medium text-xl italic text-center">
+                "Pemuda Hebat"
               </p>
             </div>
 
@@ -179,21 +179,28 @@
                     :size="20"
                     class="text-[#FFD700] shrink-0 mt-0.5"
                   />
-                  <span class="text-blue-100/90 leading-relaxed">Meningkatkan kualitas sumber daya pemuda melalui pendidikan dan pelatihan.</span>
+                  <span class="text-blue-100/90 leading-relaxed">Konsolidasi Penguatan Kelembagaan dan Kaderisasi OKP,</span>
                 </li>
                 <li class="flex items-start gap-3">
                   <LucideCheckCircle2
                     :size="20"
                     class="text-[#FFD700] shrink-0 mt-0.5"
                   />
-                  <span class="text-blue-100/90 leading-relaxed">Mendorong partisipasi aktif pemuda dalam berbagai sektor pembangunan daerah.</span>
+                  <span class="text-blue-100/90 leading-relaxed">Mendorong Kemandirian Pemuda berbasis Entrepreneur, Ekonomi Kreatif, dan Literasi,</span>
                 </li>
                 <li class="flex items-start gap-3">
                   <LucideCheckCircle2
                     :size="20"
                     class="text-[#FFD700] shrink-0 mt-0.5"
                   />
-                  <span class="text-blue-100/90 leading-relaxed">Memperkokoh persatuan dan kesatuan pemuda di tengah keberagaman.</span>
+                  <span class="text-blue-100/90 leading-relaxed">Relasi Sinergis Pemuda dan Pemerintah sebagai Mitra Strategis dalam Pembangunan Daerah,</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <LucideCheckCircle2
+                    :size="20"
+                    class="text-[#FFD700] shrink-0 mt-0.5"
+                  />
+                  <span class="text-blue-100/90 leading-relaxed">Revitalisasi Semangat Pemuda dalam pembentukan Integritas untuk menjawab tantangan Global dan ancaman Narkoba melalui wawasan kebangsaan dan Karakter Islamiah.</span>
                 </li>
               </ul>
             </div>
