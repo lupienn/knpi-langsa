@@ -5,29 +5,7 @@
       <div class="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="36"
-            height="36"
-            viewBox="0 0 64 64"
-            fill="none"
-            class="drop-shadow-md"
-          >
-            <path
-              d="M32 4L8 16V34C8 47.3 18.4 59.8 32 63C45.6 59.8 56 47.3 56 34V16L32 4Z"
-              fill="#FFD700"
-            />
-            <text
-              x="32"
-              y="38"
-              text-anchor="middle"
-              font-family="system-ui,sans-serif"
-              font-size="14"
-              font-weight="900"
-              fill="#003399"
-              letter-spacing="0.5"
-            >KNPI</text>
-          </svg>
+          <img src="~/assets/logo-knpi.png" alt="Logo KNPI Langsa" class="h-9 w-auto drop-shadow-md" />
           <span class="text-xl font-extrabold tracking-wide text-white">KNPI Langsa</span>
         </div>
 
@@ -412,9 +390,7 @@
           <!-- Brand -->
           <div class="lg:col-span-2">
             <div class="flex items-center gap-3 mb-6">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#003399] to-knpi-500">
-                <span class="text-xs font-extrabold text-[#FFD700]">KNPI</span>
-              </div>
+              <img src="~/assets/logo-knpi.png" alt="Logo KNPI Langsa" class="h-10 w-10 object-contain drop-shadow-md" />
               <span class="text-xl font-extrabold text-white">KNPI Kota Langsa</span>
             </div>
             <p class="text-sm leading-relaxed text-slate-400 max-w-sm">
@@ -527,6 +503,12 @@ definePageMeta({ layout: false })
 useSeoMeta({
   title: 'Beranda — KNPI Langsa',
   description: 'Situs resmi Komite Nasional Pemuda Indonesia (KNPI) Kota Langsa.',
+})
+
+useHead({
+  link: [
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+  ]
 })
 
 // Data Program Kerja
