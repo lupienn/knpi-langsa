@@ -100,25 +100,13 @@
 
               <!-- Actual Image Card -->
               <div class="absolute inset-0 bg-white p-2 rounded-[2.5rem] shadow-2xl group transform transition-transform duration-500 hover:-translate-y-2">
-                <div class="relative w-full h-full rounded-[2rem] overflow-hidden bg-slate-100">
+                <div class="relative w-full h-full rounded-[2rem] overflow-hidden bg-white flex items-center justify-center">
                   <img
                     src="~/assets/ketua,sekret,bendahara knpi langsa.png"
                     alt="Foto Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa"
-                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    class="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
                   >
 
-                  <!-- Gradient Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#003399]/90 via-[#003399]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <!-- Text Information -->
-                  <div class="absolute bottom-0 w-full p-4 sm:p-6 text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <p class="text-white font-extrabold text-lg sm:text-xl lg:text-2xl drop-shadow-lg mb-2">
-                      Ketua, Sekretaris & Bendahara
-                    </p>
-                    <div class="inline-block bg-[#FFD700] text-amber-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-md">
-                      DPD KNPI Kota Langsa
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -501,7 +489,7 @@
 definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: 'Beranda — KNPI Langsa',
+  title: 'KNPI Langsa',
   description: 'Situs resmi Komite Nasional Pemuda Indonesia (KNPI) Kota Langsa.',
 })
 
