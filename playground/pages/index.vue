@@ -111,7 +111,7 @@
             </div>
 
             <!-- Hero Right: Image & Geometry -->
-            <div class="reveal reveal-delay-200 relative lg:ml-auto w-full max-w-sm lg:max-w-md mx-auto aspect-[3/4]">
+            <div class="reveal reveal-delay-200 relative lg:ml-auto w-full max-w-lg lg:max-w-xl mx-auto aspect-[4/3]">
               <!-- Geometric Background Accents -->
               <div class="absolute -top-10 -right-10 w-72 h-72 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" />
               <div class="absolute -bottom-12 -left-12 w-80 h-80 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-float-slow" />
@@ -124,8 +124,8 @@
               <div class="absolute inset-0 bg-white p-2 rounded-[2.5rem] shadow-2xl group transform transition-transform duration-500 hover:-translate-y-2">
                 <div class="relative w-full h-full rounded-[2rem] overflow-hidden bg-slate-100">
                   <img
-                    src="~/assets/ketua-knpi.jpeg"
-                    alt="Foto Ketua KNPI Kota Langsa"
+                    src="~/assets/ketua,sekret,bendahara knpi langsa.png"
+                    alt="Foto Pengurus Inti KNPI Kota Langsa"
                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   >
 
@@ -134,11 +134,11 @@
 
                   <!-- Text Information -->
                   <div class="absolute bottom-0 w-full p-6 text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <p class="text-white font-extrabold text-2xl drop-shadow-lg mb-2">
-                      Dr. RIZKI MAULANA, S.Sos, SH., MSP., MH
+                    <p class="text-white font-extrabold text-xl sm:text-2xl drop-shadow-lg mb-2">
+                      Pengurus Inti
                     </p>
                     <div class="inline-block bg-[#FFD700] text-amber-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-md">
-                      Ketua DPD KNPI Kota Langsa
+                      DPD KNPI Kota Langsa
                     </div>
                   </div>
                 </div>
