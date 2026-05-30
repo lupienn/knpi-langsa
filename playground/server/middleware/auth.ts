@@ -1,11 +1,15 @@
 import { verifyJWT } from '../utils/jwt'
 
 export default defineEventHandler(async (event) => {
-  const protectedPaths = ['/api/auth/me', '/api/dashboard']
+  const protectedPaths = ['/api/auth/me', '/api/dashboard', '/api/berita', '/api/pinjam-gedung']
   const path = event.path
+  const method = event.method
 
   const isProtected = protectedPaths.some(p => path.startsWith(p))
   if (!isProtected) return
+
+  // Izinkan POST publik untuk pengajuan pinjam gedung (tanpa login)
+  if (path.startsWith('/api/pinjam-gedung') && method === 'POST' && !path.includes('/')) return
 
   const authHeader = getHeader(event, 'authorization')
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
