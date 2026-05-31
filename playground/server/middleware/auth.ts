@@ -1,7 +1,7 @@
 import { verifyJWT } from '../utils/jwt'
 
 export default defineEventHandler(async (event) => {
-  const protectedPaths = ['/api/auth/me', '/api/dashboard', '/api/berita', '/api/pinjam-gedung']
+  const protectedPaths = ['/api/auth/me', '/api/dashboard', '/api/berita', '/api/pinjam-gedung', '/api/upload']
   const path = event.path
   const method = event.method
 

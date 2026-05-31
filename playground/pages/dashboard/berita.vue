@@ -304,15 +304,50 @@
               </div>
             </div>
 
-            <!-- URL Gambar -->
+            <!-- Gambar -->
             <div>
-              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">URL Gambar (Opsional)</label>
-              <input
-                v-model="form.gambarUrl"
-                type="url"
-                placeholder="https://contoh.com/gambar.jpg"
-                class="form-input-base !pl-4"
+              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Gambar (Opsional)</label>
+              
+              <!-- Preview gambar yang sudah ada -->
+              <div v-if="previewGambar || form.gambarUrl" class="mb-3 relative rounded-xl overflow-hidden border border-white/10 bg-white/5">
+                <img :src="previewGambar || form.gambarUrl" alt="Preview gambar" class="w-full h-48 object-cover" />
+                <button
+                  type="button"
+                  class="absolute top-2 right-2 rounded-lg bg-black/60 p-1.5 text-white hover:bg-red-500/80 transition"
+                  @click="hapusGambar"
+                >
+                  <LucideX :size="14" />
+                </button>
+              </div>
+
+              <!-- Upload Zone -->
+              <div
+                v-if="!previewGambar && !form.gambarUrl"
+                class="relative flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-white/15 bg-white/[0.03] p-8 text-center transition hover:border-knpi-500/40 hover:bg-white/[0.06] cursor-pointer"
+                @click="($refs.inputGambar as HTMLInputElement)?.click()"
+                @dragover.prevent
+                @drop.prevent="handleDrop"
               >
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-knpi-600/15 text-knpi-400">
+                  <LucideUploadCloud :size="24" />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-300">Klik atau seret gambar ke sini</p>
+                  <p class="mt-1 text-xs text-slate-600">JPG, PNG, WebP, GIF — Maks. 5MB</p>
+                </div>
+              </div>
+              <input
+                ref="inputGambar"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                class="hidden"
+                @change="handleFileChange"
+              />
+              <!-- Upload progress -->
+              <div v-if="sedangUpload" class="mt-2 flex items-center gap-2 text-xs text-knpi-400">
+                <LucideLoader :size="14" class="animate-spin" />
+                <span>Mengunggah gambar...</span>
+              </div>
             </div>
 
             <!-- Tombol Submit -->
@@ -466,6 +501,9 @@ const form = reactive({
   status: 'draf',
   gambarUrl: '',
 })
+const fileGambar = ref<File | null>(null)
+const previewGambar = ref('')
+const sedangUpload = ref(false)
 
 // Delete state
 const tampilKonfirmasiHapus = ref(false)
@@ -524,7 +562,63 @@ function resetForm() {
   form.kategori = 'kegiatan'
   form.status = 'draf'
   form.gambarUrl = ''
+  fileGambar.value = null
+  previewGambar.value = ''
   idDiedit.value = null
+}
+
+// Upload helpers
+function handleFileChange(e: Event) {
+  const target = e.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    pilihFile(target.files[0])
+  }
+}
+
+function handleDrop(e: DragEvent) {
+  if (e.dataTransfer?.files && e.dataTransfer.files[0]) {
+    pilihFile(e.dataTransfer.files[0])
+  }
+}
+
+function pilihFile(file: File) {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+  if (!allowedTypes.includes(file.type)) {
+    tampilkanToast('Format file tidak didukung. Gunakan JPG, PNG, WebP, atau GIF.', 'error')
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    tampilkanToast('Ukuran file melebihi 5MB.', 'error')
+    return
+  }
+  fileGambar.value = file
+  previewGambar.value = URL.createObjectURL(file)
+}
+
+function hapusGambar() {
+  fileGambar.value = null
+  previewGambar.value = ''
+  form.gambarUrl = ''
+}
+
+async function uploadGambar(): Promise<string | null> {
+  if (!fileGambar.value) return null
+  sedangUpload.value = true
+  try {
+    const formData = new FormData()
+    formData.append('gambar', fileGambar.value)
+    const res = await $fetch<{ berhasil: boolean; url: string }>('/api/upload', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${authStore.token}` },
+      body: formData,
+    })
+    return res.url
+  } catch {
+    tampilkanToast('Gagal mengunggah gambar.', 'error')
+    return null
+  } finally {
+    sedangUpload.value = false
+  }
 }
 
 function bukaFormTambah() {
@@ -552,6 +646,12 @@ async function simpanBerita() {
   }
   sedangMenyimpan.value = true
   try {
+    // Upload gambar jika ada file baru
+    if (fileGambar.value) {
+      const url = await uploadGambar()
+      if (url) form.gambarUrl = url
+    }
+
     if (modeEdit.value && idDiedit.value) {
       await $fetch(`/api/berita/${idDiedit.value}`, {
         method: 'PUT',
