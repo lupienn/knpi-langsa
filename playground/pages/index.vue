@@ -354,9 +354,10 @@
             </div>
 
             <!-- News Cards -->
-            <div
+            <NuxtLink
               v-for="item in daftarBerita"
               :key="item.id"
+              :to="`/berita/${item.id}`"
               class="snap-start shrink-0 w-[85vw] sm:w-[340px] md:w-[380px] bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col overflow-hidden"
             >
               <div class="aspect-[16/10] bg-slate-200 overflow-hidden relative">
@@ -384,7 +385,7 @@
                   Baca Selengkapnya <LucideChevronRight :size="16" />
                 </span>
               </div>
-            </div>
+            </NuxtLink>
           </div>
 
           <div class="mt-4 text-center sm:hidden">
