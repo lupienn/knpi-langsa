@@ -33,43 +33,42 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async login(username: string, password: string) {
-      const { data, error } = await useFetch('/api/auth/login', {
-        method: 'POST',
-        body: { username, password },
-      })
+      try {
+        const result = await $fetch<ApiResponse>('/api/auth/login', {
+          method: 'POST',
+          body: { username, password },
+        })
 
-      if (error.value) {
-        throw new Error(error.value.data?.statusMessage || 'Login gagal.')
+        this.token = result.data.token
+        this.pengguna = result.data.pengguna
+
+        // Simpan token di cookie agar persistent
+        const tokenCookie = useCookie('auth_token', {
+          maxAge: 60 * 60 * 24 * 7, // 7 hari
+          httpOnly: false,
+          secure: false,
+          sameSite: 'lax',
+        })
+        tokenCookie.value = this.token
       }
-
-      const result = data.value as ApiResponse
-      this.token = result.data.token
-      this.pengguna = result.data.pengguna
-
-      // Simpan token di cookie agar persistent
-      const tokenCookie = useCookie('auth_token', {
-        maxAge: 60 * 60 * 24 * 7, // 7 hari
-        httpOnly: false,
-        secure: false,
-        sameSite: 'lax',
-      })
-      tokenCookie.value = this.token
+      catch (err: any) {
+        throw new Error(err?.data?.statusMessage || 'Login gagal.')
+      }
     },
 
     async ambilProfil() {
       if (!this.token) return
 
-      const { data, error } = await useFetch('/api/auth/me', {
-        headers: { Authorization: `Bearer ${this.token}` },
-      })
+      try {
+        const result = await $fetch<ApiResponse>('/api/auth/me', {
+          headers: { Authorization: `Bearer ${this.token}` },
+        })
 
-      if (error.value) {
-        this.logout()
-        return
+        this.pengguna = result.data.pengguna
       }
-
-      const result = data.value as ApiResponse
-      this.pengguna = result.data.pengguna
+      catch {
+        this.logout()
+      }
     },
 
     inisialisasiDariCookie() {
