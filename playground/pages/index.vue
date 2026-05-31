@@ -109,31 +109,48 @@
       </section>
 
       <!-- Dewan Pengurus Section -->
-      <section id="pengurus" class="py-24 bg-white relative overflow-hidden">
-        <!-- Decorative Elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-          <div class="absolute top-0 right-0 w-[30%] h-[50%] rounded-bl-[100%] bg-slate-50" />
+      <section id="pengurus" class="py-32 relative overflow-hidden bg-slate-50">
+        <!-- Premium Decorative Background -->
+        <div class="absolute inset-0 pointer-events-none">
+          <!-- Grid Pattern -->
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMCwgNTEsIDE1MywgMC4xKSIvPjwvc3ZnPg==')] opacity-60" />
+          
+          <!-- Animated Blobs -->
+          <div class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-[#003399]/30 to-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl animate-float" />
+          <div class="absolute top-1/2 -left-40 w-96 h-96 bg-gradient-to-tr from-[#FFD700]/30 to-yellow-200/20 rounded-full mix-blend-multiply filter blur-3xl animate-float-slow" />
+          <div class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] bg-gradient-to-t from-white to-transparent" />
         </div>
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-            <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-white text-[#003399] font-bold text-sm tracking-widest mb-6 shadow-sm border border-slate-200">STRUKTUR ORGANISASI</span>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight drop-shadow-sm">
               Dewan Pengurus
             </h2>
-            <div class="mt-4 h-1.5 w-24 bg-gradient-to-r from-[#003399] to-[#FFD700] mx-auto rounded-full" />
-            <p class="mt-6 text-slate-600 text-lg">
-              Struktur Kepengurusan DPD KNPI Kota Langsa yang berdedikasi membangun sinergi dan pergerakan pemuda.
+            <div class="mt-8 h-1.5 w-32 bg-gradient-to-r from-[#003399] via-blue-500 to-[#FFD700] mx-auto rounded-full" />
+            <p class="mt-8 text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
+              Pilar penggerak visi dan misi Komite Nasional Pemuda Indonesia (KNPI) DPD Kota Langsa.
             </p>
           </div>
 
-          <div class="reveal max-w-5xl mx-auto">
-            <div class="group relative bg-white rounded-[3rem] p-4 sm:p-8 text-center border border-slate-100 shadow-2xl shadow-slate-200/50 hover:shadow-blue-900/10 transition-all duration-500">
-              <!-- Background abstract shapes -->
-              <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
-              <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+          <div class="reveal max-w-6xl mx-auto">
+            <!-- Glassmorphism Card Frame -->
+            <div class="relative rounded-[2.5rem] md:rounded-[3.5rem] p-4 sm:p-6 md:p-8 bg-white/50 backdrop-blur-2xl border border-white/80 shadow-[0_20px_60px_-15px_rgba(0,51,153,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(0,51,153,0.25)] transition-all duration-700">
               
-              <div class="relative rounded-[2rem] overflow-hidden bg-slate-50 border border-slate-100 flex items-center justify-center aspect-video">
-                <img src="~/assets/ketua,sekret,bendahara knpi langsa.png" alt="Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa" class="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]" />
+              <!-- Glowing accents behind the inner card -->
+              <div class="absolute inset-0 bg-gradient-to-br from-white/90 to-white/30 rounded-[2.5rem] md:rounded-[3.5rem] pointer-events-none" />
+              
+              <!-- Inner Content -->
+              <div class="relative bg-white rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-sm flex items-center justify-center p-2 md:p-4 aspect-video group border border-slate-100">
+                
+                <!-- Decorative Corner Accents -->
+                <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#003399]/5 to-transparent rounded-br-[100%] pointer-events-none transition-transform duration-700 group-hover:scale-125" />
+                <div class="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-[#FFD700]/10 to-transparent rounded-tl-[100%] pointer-events-none transition-transform duration-700 group-hover:scale-125" />
+                
+                <img src="~/assets/ketua,sekret,bendahara knpi langsa.png" alt="Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa" class="w-full h-full object-contain object-center transform transition-transform duration-1000 group-hover:scale-105 relative z-10" />
+                
+                <!-- Overlay Gradient on Hover -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20" />
               </div>
             </div>
           </div>
