@@ -70,7 +70,7 @@
           
           <!-- Hero Content -->
           <div class="absolute inset-0 flex flex-col justify-end pb-16 md:pb-24">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
               <!-- Category Badge -->
               <div class="inline-block bg-[#FFD700] text-amber-900 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg mb-4 md:mb-6">
                 {{ berita.kategori }}
@@ -97,7 +97,7 @@
         </div>
 
         <!-- Article Card -->
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl w-full relative z-10 -mt-10 md:-mt-16 mb-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl w-full relative z-10 -mt-10 md:-mt-16 mb-20 animate-fade-in-up delay-300 opacity-0">
           <article class="bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
             <div class="p-6 sm:p-8 md:p-10 lg:p-12">
               <!-- Summary/Lead -->
@@ -177,6 +177,14 @@ onMounted(async () => {
         description: res.data.ringkasan,
         ogImage: res.data.gambarUrl,
       })
+      
+      // Auto-scroll ke bagian artikel (seperti membuka artikel)
+      setTimeout(() => {
+        window.scrollTo({
+          top: window.innerHeight * 0.45,
+          behavior: 'smooth'
+        })
+      }, 150)
     } else {
       error.value = true
     }
@@ -204,3 +212,36 @@ const salinLink = () => {
   alert('Link berita disalin ke clipboard!')
 }
 </script>
+
+<style scoped>
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+</style>
