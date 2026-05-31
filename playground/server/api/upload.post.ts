@@ -42,8 +42,9 @@ export default defineEventHandler(async (event) => {
   const ext = extname(file.filename) || '.jpg'
   const namaFile = `${Date.now()}-${randomUUID().slice(0, 8)}${ext}`
 
-  // Simpan ke public/uploads/
-  const uploadDir = join(process.cwd(), 'public', 'uploads')
+  // Simpan ke public/uploads/ (pastikan masuk ke folder playground jika script dijalankan dari root)
+  const baseDir = process.cwd().endsWith('playground') ? process.cwd() : join(process.cwd(), 'playground')
+  const uploadDir = join(baseDir, 'public', 'uploads')
   await mkdir(uploadDir, { recursive: true })
   const filePath = join(uploadDir, namaFile)
   await writeFile(filePath, file.data)

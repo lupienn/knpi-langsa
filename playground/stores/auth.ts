@@ -85,7 +85,7 @@ export const useAuthStore = defineStore('auth', {
       const tokenCookie = useCookie('auth_token')
       tokenCookie.value = null
 
-      navigateTo('/login')
+      navigateTo('/')
     },
   },
 })
