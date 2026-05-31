@@ -40,74 +40,100 @@
 
     <main>
       <!-- Hero Section -->
-      <section
-        id="beranda"
-        class="relative overflow-hidden pt-24 pb-32 lg:pt-36 lg:pb-40 bg-gradient-to-b from-slate-50 to-white"
-      >
-        <!-- Hero Background Effects -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full pointer-events-none opacity-40">
-          <div class="absolute top-1/4 left-0 w-96 h-96 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
-          <div class="absolute top-1/3 right-0 w-96 h-96 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;" />
+      <!-- Hero Section Slider -->
+      <section id="beranda" class="relative w-full h-screen min-h-[600px] bg-slate-900 overflow-hidden">
+        <div v-for="(slide, index) in slides" :key="index"
+             class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+             :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+          
+          <!-- Background Image -->
+          <div class="absolute inset-0">
+            <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover" onerror="this.src='/favicon.ico'; this.classList.add('object-contain', 'p-20', 'bg-slate-800')" />
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="absolute inset-0 flex items-center">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="max-w-3xl transform transition-all duration-1000 delay-300"
+                   :class="currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'">
+                <div class="inline-flex items-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md px-4 py-2 text-sm font-bold text-white mb-6 border border-white/20">
+                  <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFD700] opacity-75" />
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FFD700]" />
+                  </span>
+                  <span class="uppercase tracking-wide">KNPI Kota Langsa</span>
+                </div>
+                
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight mb-4 drop-shadow-2xl">
+                  {{ slide.title }}
+                  <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-yellow-200 mt-2">
+                    {{ slide.subtitle }}
+                  </span>
+                </h1>
+                
+                <p class="mt-6 text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl drop-shadow-md border-l-4 border-[#FFD700] pl-4">
+                  {{ slide.description }}
+                </p>
+                
+                <div class="mt-10 flex flex-wrap gap-4 items-center">
+                  <a href="#berita" class="flex items-center gap-2 rounded-full bg-[#003399] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-900/40 transition-all hover:-translate-y-1 hover:bg-blue-800">
+                    Jelajahi Berita
+                    <LucideArrowRight :size="18" />
+                  </a>
+                  <a href="#pengurus" class="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-8 py-4 text-sm font-bold text-white border border-white/20 transition-all hover:-translate-y-1 hover:bg-white/20">
+                    Dewan Pengurus
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider Navigation Controls -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+          <button v-for="(_, index) in slides" :key="'dot-'+index" 
+                  @click="currentSlide = index"
+                  class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+                  :class="currentSlide === index ? 'w-12 bg-[#FFD700]' : 'w-3 bg-white/50 hover:bg-white'">
+          </button>
+        </div>
+        
+        <button @click="prevSlide" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md border border-white/20 hover:bg-black/40 transition-all">
+          <LucideChevronLeft :size="24" />
+        </button>
+        <button @click="nextSlide" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md border border-white/20 hover:bg-black/40 transition-all">
+          <LucideChevronRight :size="24" />
+        </button>
+      </section>
+
+      <!-- Dewan Pengurus Section -->
+      <section id="pengurus" class="py-24 bg-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="absolute top-0 right-0 w-[30%] h-[50%] rounded-bl-[100%] bg-slate-50" />
         </div>
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-12 items-center">
-            <!-- Hero Left: Text -->
-            <div class="reveal max-w-2xl">
-              <div class="inline-flex items-center gap-2.5 rounded-full bg-white px-4 py-2 text-sm font-bold text-[#003399] mb-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFD700] opacity-75" />
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FFD700]" />
-                </span>
-                <span class="uppercase tracking-wide">Pemuda Hebat</span>
-              </div>
-              <h1 class="text-4xl sm:text-5xl lg:text-[4rem] font-black tracking-tight text-slate-900 leading-[1.1]">
-                Sinergi <span class="relative inline-block whitespace-nowrap">
-                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#003399] to-blue-500">Pemuda</span>
-                  <svg class="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-3 sm:h-4 text-[#FFD700] opacity-80" viewBox="0 0 100 20" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M0,10 Q50,25 100,10" /></svg>
-                </span>
-                <br>Membangun Kota Langsa
-              </h1>
-              <p class="mt-8 text-lg sm:text-xl leading-relaxed text-slate-600 font-medium">
-                Komite Nasional Pemuda Indonesia (KNPI) adalah wadah berhimpunnya organisasi kemasyarakatan pemuda (OKP). Kami berkomitmen menjadi motor penggerak pembangunan daerah dan mencetak pemimpin masa depan.
-              </p>
-              <div class="mt-10 flex flex-wrap gap-4 items-center">
-                <a
-                  href="#berita"
-                  class="flex items-center gap-2 rounded-full bg-[#003399] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-900/20 transition-all hover:-translate-y-1 hover:bg-blue-800 hover:shadow-blue-900/30"
-                >
-                  Jelajahi Berita
-                  <LucideArrowRight :size="18" />
-                </a>
-                <a
-                  href="#visi-misi"
-                  class="flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-slate-700 shadow-sm ring-1 ring-slate-200 transition-all hover:-translate-y-1 hover:bg-slate-50 hover:shadow-md"
-                >
-                  Pelajari Lebih Lanjut
-                </a>
-              </div>
-            </div>
+          <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+            <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+              Dewan Pengurus
+            </h2>
+            <div class="mt-4 h-1.5 w-24 bg-gradient-to-r from-[#003399] to-[#FFD700] mx-auto rounded-full" />
+            <p class="mt-6 text-slate-600 text-lg">
+              Struktur Kepengurusan DPD KNPI Kota Langsa yang berdedikasi membangun sinergi dan pergerakan pemuda.
+            </p>
+          </div>
 
-            <!-- Hero Right: Image & Geometry -->
-            <div class="reveal reveal-delay-200 relative lg:ml-auto w-full max-w-lg lg:max-w-2xl mx-auto aspect-video">
-              <!-- Geometric Background Accents -->
-              <div class="absolute -top-10 -right-10 w-72 h-72 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" />
-              <div class="absolute -bottom-12 -left-12 w-80 h-80 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-float-slow" />
-
-              <!-- Abstract Frame -->
-              <div class="absolute inset-0 border-2 border-[#003399]/20 rounded-[2.5rem] transform rotate-3 scale-105 transition-transform duration-700 hover:rotate-6" />
-              <div class="absolute inset-0 bg-gradient-to-tr from-[#003399] to-blue-600 rounded-[2.5rem] transform -rotate-2 opacity-10" />
-
-              <!-- Actual Image Card -->
-              <div class="absolute inset-0 bg-white p-2 rounded-[2.5rem] shadow-2xl group transform transition-transform duration-500 hover:-translate-y-2">
-                <div class="relative w-full h-full rounded-[2rem] overflow-hidden bg-white flex items-center justify-center">
-                  <img
-                    src="~/assets/ketua,sekret,bendahara knpi langsa.png"
-                    alt="Foto Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa"
-                    class="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
-                  >
-
-                </div>
+          <div class="reveal max-w-5xl mx-auto">
+            <div class="group relative bg-white rounded-[3rem] p-4 sm:p-8 text-center border border-slate-100 shadow-2xl shadow-slate-200/50 hover:shadow-blue-900/10 transition-all duration-500">
+              <!-- Background abstract shapes -->
+              <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+              <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#003399] rounded-full mix-blend-multiply filter blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+              
+              <div class="relative rounded-[2rem] overflow-hidden bg-slate-50 border border-slate-100 flex items-center justify-center aspect-video">
+                <img src="~/assets/ketua,sekret,bendahara knpi langsa.png" alt="Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa" class="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]" />
               </div>
             </div>
           </div>
@@ -486,7 +512,93 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+
 definePageMeta({ layout: false })
+
+// Slider Logic
+const slides = [
+  {
+    image: '/images/slider/1.jpeg',
+    title: 'Bakti Pada Negeri',
+    subtitle: 'Sinergi & Kolaborasi Pemuda',
+    description: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.'
+  },
+  {
+    image: '/images/slider/2.jpeg',
+    title: 'Pemuda Hebat',
+    subtitle: 'Membangun Kota Langsa',
+    description: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.'
+  },
+  {
+    image: '/images/slider/3.jpeg',
+    title: 'Bersatu Kita Maju',
+    subtitle: 'Kemandirian & Aksi Nyata',
+    description: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.'
+  },
+  {
+    image: '/images/slider/4.jpeg',
+    title: 'Energi Pemuda',
+    subtitle: 'Menggerakkan Perubahan',
+    description: 'Setiap karya dan inovasi pemuda adalah langkah nyata menuju masa depan yang lebih baik dan gemilang.'
+  },
+  {
+    image: '/images/slider/5.jpeg',
+    title: 'Generasi Cerdas',
+    subtitle: 'Solusi Untuk Negeri',
+    description: 'Pemuda adalah kunci utama dalam menjawab berbagai tantangan zaman dengan kreativitas dan kecerdasan.'
+  },
+  {
+    image: '/images/slider/6.jpeg',
+    title: 'Semangat Kolaborasi',
+    subtitle: 'Merajut Asa, Mewujudkan Cita',
+    description: 'Bersama-sama membangun ekosistem yang suportif bagi tumbuh kembangnya potensi pemuda daerah.'
+  },
+  {
+    image: '/images/slider/7.jpeg',
+    title: 'Tangguh & Adaptif',
+    subtitle: 'Pemuda di Era Digital',
+    description: 'Siap menghadapi persaingan global dengan memperkuat literasi digital dan kemampuan wirausaha.'
+  },
+  {
+    image: '/images/slider/8.jpeg',
+    title: 'Aksi Nyata',
+    subtitle: 'Kepedulian Sosial & Lingkungan',
+    description: 'Wujud nyata kepedulian pemuda dalam menjaga kelestarian lingkungan dan membantu sesama.'
+  },
+  {
+    image: '/images/slider/9.jpeg',
+    title: 'Kreativitas Tanpa Batas',
+    subtitle: 'Wadah Inovasi & Seni',
+    description: 'Mengembangkan bakat dan minat pemuda dalam bidang seni, budaya, dan ekonomi kreatif.'
+  },
+  {
+    image: '/images/slider/10.jpeg',
+    title: 'Masa Depan Cerah',
+    subtitle: 'Pemuda Langsa Berjaya',
+    description: 'Menuju Indonesia Emas dengan mencetak generasi muda Kota Langsa yang unggul, berprestasi, dan berakhlak mulia.'
+  }
+]
+
+const currentSlide = ref(0)
+let slideInterval: any
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.length
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
+}
+
+// Auto-play slider
+onMounted(() => {
+  slideInterval = setInterval(nextSlide, 5000)
+})
+
+onUnmounted(() => {
+  if (slideInterval) clearInterval(slideInterval)
+})
 
 useSeoMeta({
   title: 'KNPI Langsa',
