@@ -337,32 +337,48 @@
 
           <!-- Horizontal Scroll Container -->
           <div class="reveal reveal-delay-200 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 flex gap-6 scrollbar-hide">
+            <!-- Loading State -->
+            <div v-if="memuatBerita" class="flex items-center justify-center w-full py-20">
+              <div class="flex flex-col items-center gap-4">
+                <div class="w-10 h-10 border-4 border-[#003399] border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-slate-400 text-sm font-medium">Memuat berita...</span>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div v-else-if="daftarBerita.length === 0" class="flex items-center justify-center w-full py-20">
+              <div class="text-center">
+                <LucideNewspaper :size="48" class="mx-auto text-slate-300 mb-4" />
+                <p class="text-slate-400 font-medium">Belum ada berita yang diterbitkan.</p>
+              </div>
+            </div>
+
             <!-- News Cards -->
             <div
-              v-for="i in 5"
-              :key="i"
+              v-for="item in daftarBerita"
+              :key="item.id"
               class="snap-start shrink-0 w-[85vw] sm:w-[340px] md:w-[380px] bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col overflow-hidden"
             >
               <div class="aspect-[16/10] bg-slate-200 overflow-hidden relative">
-                <div class="absolute inset-0 bg-[#003399]/5 group-hover:bg-transparent transition-colors z-10" />
-                <LucideImage
-                  :size="40"
-                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400"
-                />
+                <div class="absolute inset-0 bg-[#003399]/10 group-hover:bg-transparent transition-colors z-10" />
+                <img v-if="item.gambarUrl" :src="item.gambarUrl" :alt="item.judul" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                <div v-else class="absolute inset-0 flex items-center justify-center">
+                  <LucideImage :size="40" class="text-slate-300" />
+                </div>
                 <div class="absolute top-4 left-4 z-20 bg-[#FFD700] text-amber-900 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                  Kegiatan
+                  {{ item.kategori }}
                 </div>
               </div>
               <div class="p-6 flex-1 flex flex-col">
                 <div class="flex items-center gap-2 text-xs font-medium text-slate-400 mb-3">
                   <LucideCalendar :size="14" />
-                  <span>{{ new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) }}</span>
+                  <span>{{ formatTanggal(item.createdAt) }}</span>
                 </div>
                 <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-[#003399] transition-colors line-clamp-2">
-                  Pemuda KNPI Langsa Menggelar Aksi Bakti Sosial Membersihkan Lingkungan
+                  {{ item.judul }}
                 </h3>
                 <p class="text-sm text-slate-500 line-clamp-2 mb-6 flex-1">
-                  Sebagai bentuk kepedulian terhadap lingkungan, pengurus DPD KNPI Kota Langsa bersama dengan masyarakat sekitar melakukan gotong royong massal...
+                  {{ item.ringkasan }}
                 </p>
                 <span class="text-sm font-bold text-[#003399] flex items-center gap-1 group-hover:gap-2 transition-all">
                   Baca Selengkapnya <LucideChevronRight :size="16" />
@@ -608,9 +624,10 @@ const prevSlide = () => {
   currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
 }
 
-// Auto-play slider
+// Auto-play slider + ambil berita dari API
 onMounted(() => {
   slideInterval = setInterval(nextSlide, 5000)
+  ambilBerita()
 })
 
 onUnmounted(() => {
@@ -627,6 +644,32 @@ useHead({
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
   ]
 })
+
+// Data Berita Terkini (diambil dari API publik)
+const daftarBerita = ref<any[]>([])
+const memuatBerita = ref(true)
+
+const formatTanggal = (tanggal: string) => {
+  try {
+    return new Date(tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+  } catch {
+    return tanggal
+  }
+}
+
+const ambilBerita = async () => {
+  memuatBerita.value = true
+  try {
+    const res = await $fetch<{ berhasil: boolean; data: any[] }>('/api/publik/berita')
+    if (res.berhasil) {
+      daftarBerita.value = res.data
+    }
+  } catch (err) {
+    console.error('Gagal memuat berita:', err)
+  } finally {
+    memuatBerita.value = false
+  }
+}
 
 // Data Program Kerja
 const programKerja = [
