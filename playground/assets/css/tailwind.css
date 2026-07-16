@@ -6,7 +6,7 @@
 
 @layer base {
   html, body {
-    @apply h-full font-sans antialiased;
+    @apply h-full font-sans antialiased text-slate-100 bg-[#090d16] selection:bg-knpi-500/30 selection:text-knpi-200;
   }
 
   #__nuxt {
@@ -16,53 +16,80 @@
   * {
     @apply box-border;
   }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.6);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(48, 112, 240, 0.4);
+  }
 }
 
 @layer components {
   /* Input field base style */
   .form-input-base {
-    @apply w-full pl-11 pr-4 py-3 rounded-xl
-           bg-white/5 border border-white/10 text-slate-100
-           placeholder-slate-500 font-sans text-sm
-           focus:outline-none focus:border-knpi-500 focus:bg-knpi-600/10
-           focus:ring-2 focus:ring-knpi-500/20
+    @apply w-full pl-11 pr-4 py-3.5 rounded-xl
+           bg-slate-900/60 border border-white/10 text-slate-100
+           placeholder-slate-500 font-sans text-sm tracking-wide
+           focus:outline-none focus:border-knpi-500/80 focus:bg-knpi-950/40
+           focus:ring-4 focus:ring-knpi-500/15 shadow-inner
            disabled:opacity-60 disabled:cursor-not-allowed
            transition-all duration-200;
   }
 
   /* Glassmorphism card */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl
+           shadow-card transition-all duration-300 relative overflow-hidden;
+  }
+
+  .glass-card-hover {
+    @apply glass-card hover:border-knpi-500/30 hover:shadow-card-hover hover:-translate-y-1;
   }
 
   /* Primary button */
   .btn-primary {
     @apply w-full py-3.5 px-6 rounded-xl
-           bg-gradient-to-r from-knpi-600 to-knpi-500
-           text-white font-bold text-sm tracking-wide
-           hover:shadow-knpi hover:-translate-y-0.5
-           active:translate-y-0
+           bg-gradient-to-r from-knpi-600 via-knpi-500 to-blue-500
+           text-white font-bold text-sm tracking-wide shadow-knpi
+           hover:shadow-knpi-glow hover:-translate-y-0.5 hover:brightness-110
+           active:translate-y-0 active:scale-[0.99]
            disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none
            transition-all duration-200 cursor-pointer flex items-center justify-center gap-2;
   }
 
   /* Nav item sidebar */
   .nav-item {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl
-           text-slate-500 text-sm font-medium
-           hover:bg-white/5 hover:text-slate-300
-           transition-all duration-200 no-underline;
+    @apply flex items-center gap-3.5 px-3.5 py-3 rounded-xl
+           text-slate-400 text-sm font-medium
+           hover:bg-white/[0.06] hover:text-slate-100
+           transition-all duration-200 no-underline relative overflow-hidden;
   }
 
   .nav-item.active {
-    @apply bg-knpi-600/15 text-knpi-400 border border-knpi-600/20;
+    @apply bg-gradient-to-r from-knpi-600/25 to-knpi-500/10 text-white font-semibold border border-knpi-500/30 shadow-sm;
+  }
+
+  .nav-item.active::before {
+    content: '';
+    @apply absolute left-0 top-2 bottom-2 w-1 bg-gradient-to-b from-knpi-400 to-knpi-600 rounded-r-full shadow-glow;
   }
 
   /* Badge role */
   .badge {
-    @apply inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold tracking-wide backdrop-blur-md;
   }
-  .badge-admin { @apply bg-knpi-600/20 text-knpi-400 border border-knpi-600/30; }
-  .badge-pengurus { @apply bg-emerald-500/20 text-emerald-400 border border-emerald-500/30; }
-  .badge-anggota { @apply bg-slate-500/20 text-slate-400 border border-slate-500/30; }
+  .badge-admin { @apply bg-knpi-600/20 text-knpi-300 border border-knpi-500/30 shadow-sm; }
+  .badge-pengurus { @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-sm; }
+  .badge-anggota { @apply bg-slate-500/20 text-slate-300 border border-slate-500/30 shadow-sm; }
 }
+

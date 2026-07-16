@@ -55,6 +55,21 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Agent & Skills
+.agents/
+.kiro/
+skills-lock.json
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# System & OS Files
+Thumbs.db
+desktop.ini
+
 # public files
 playground/public/uploads/*
 !playground/public/uploads/.gitkeep
+
