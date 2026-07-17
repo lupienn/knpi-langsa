@@ -40,7 +40,10 @@
       v-if="sedangMemuat"
       class="mt-8 flex items-center justify-center gap-2 text-sm text-slate-500"
     >
-      <LucideLoader :size="18" class="animate-spin" />
+      <LucideLoader
+        :size="18"
+        class="animate-spin"
+      />
       Memuat data berita...
     </div>
 
@@ -210,166 +213,260 @@
     <!-- ============ MODAL FORM BERITA ============ -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0"
+      enter-from-class="opacity-0 scale-95"
       leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0"
+      leave-to-class="opacity-0 scale-95"
     >
       <div
         v-if="tampilForm"
-        class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4 pt-10 backdrop-blur-sm"
+        class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/75 p-4 sm:p-6 backdrop-blur-md"
         @click.self="tampilForm = false"
       >
-        <div class="glass-card w-full max-w-2xl p-6 shadow-2xl sm:p-8">
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-bold text-slate-100">
-              {{ modeEdit ? 'Edit Berita' : 'Tambah Berita Baru' }}
-            </h3>
+        <div class="glass-card w-full max-w-3xl p-6 sm:p-8 shadow-2xl relative border border-white/10 bg-slate-950/80 my-8">
+          <!-- Ambient Glow Effect -->
+          <div class="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-knpi-500/10 blur-3xl" />
+          <div class="pointer-events-none absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-emerald-500/10 blur-3xl" />
+
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-6 relative">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-knpi-600 to-knpi-500 text-white shadow-knpi">
+                <LucidePlusCircle
+                  v-if="!modeEdit"
+                  :size="20"
+                />
+                <LucidePencil
+                  v-else
+                  :size="18"
+                />
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight">
+                  {{ modeEdit ? 'Edit Berita & Pengumuman' : 'Buat Berita Baru' }}
+                </h3>
+                <p class="text-xs text-slate-400">
+                  {{ modeEdit ? 'Perbarui konten atau status berita yang sudah terpublikasi' : 'Isi formulir berikut untuk menerbitkan berita ke portal KNPI Langsa' }}
+                </p>
+              </div>
+            </div>
             <button
-              class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-white/10"
+              class="rounded-xl border border-white/10 p-2 text-slate-400 hover:bg-white/10 hover:text-white transition cursor-pointer"
               @click="tampilForm = false"
             >
-              <LucideX :size="16" />
+              <LucideX :size="18" />
             </button>
           </div>
 
           <form
-            class="flex flex-col gap-5"
+            class="flex flex-col gap-6 relative"
             @submit.prevent="simpanBerita"
           >
-            <!-- Judul -->
-            <div>
-              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Judul Berita *</label>
-              <input
-                v-model="form.judul"
-                type="text"
-                placeholder="Masukkan judul berita..."
-                class="form-input-base !pl-4"
-              >
-            </div>
-
-            <!-- Ringkasan -->
-            <div>
-              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Ringkasan *</label>
-              <input
-                v-model="form.ringkasan"
-                type="text"
-                placeholder="Ringkasan singkat berita..."
-                class="form-input-base !pl-4"
-              >
-            </div>
-
-            <!-- Konten -->
-            <div>
-              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Konten *</label>
-              <textarea
-                v-model="form.konten"
-                rows="8"
-                placeholder="Tulis konten berita di sini..."
-                class="form-input-base !pl-4 resize-none"
-              />
-            </div>
-
-            <!-- Row: Kategori + Status -->
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Kategori</label>
-                <select
-                  v-model="form.kategori"
-                  class="form-input-base !pl-4"
-                >
-                  <option value="kegiatan">
-                    Kegiatan
-                  </option>
-                  <option value="pengumuman">
-                    Pengumuman
-                  </option>
-                  <option value="artikel">
-                    Artikel
-                  </option>
-                </select>
-              </div>
-              <div>
-                <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Status</label>
-                <select
-                  v-model="form.status"
-                  class="form-input-base !pl-4"
-                >
-                  <option value="draf">
-                    Draf
-                  </option>
-                  <option value="terbit">
-                    Terbit
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Gambar -->
-            <div>
-              <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Gambar (Opsional)</label>
-              
-              <!-- Preview gambar yang sudah ada -->
-              <div v-if="previewGambar || form.gambarUrl" class="mb-3 relative rounded-xl overflow-hidden border border-white/10 bg-white/5">
-                <img :src="previewGambar || form.gambarUrl" alt="Preview gambar" class="w-full h-48 object-cover" />
-                <button
-                  type="button"
-                  class="absolute top-2 right-2 rounded-lg bg-black/60 p-1.5 text-white hover:bg-red-500/80 transition"
-                  @click="hapusGambar"
-                >
-                  <LucideX :size="14" />
-                </button>
-              </div>
-
-              <!-- Upload Zone -->
-              <div
-                v-if="!previewGambar && !form.gambarUrl"
-                class="relative flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-white/15 bg-white/[0.03] p-8 text-center transition hover:border-knpi-500/40 hover:bg-white/[0.06] cursor-pointer"
-                @click="($refs.inputGambar as HTMLInputElement)?.click()"
-                @dragover.prevent
-                @drop.prevent="handleDrop"
-              >
-                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-knpi-600/15 text-knpi-400">
-                  <LucideUploadCloud :size="24" />
-                </div>
+            <!-- Grid Utama: Form Input & Opsi -->
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+              <!-- Kolom Kiri: Konten Utama (8 cols) -->
+              <div class="lg:col-span-8 flex flex-col gap-5">
+                <!-- Judul Berita -->
                 <div>
-                  <p class="text-sm font-semibold text-slate-300">Klik atau seret gambar ke sini</p>
-                  <p class="mt-1 text-xs text-slate-600">JPG, PNG, WebP, GIF — Maks. 5MB</p>
+                  <label class="mb-1.5 flex items-center justify-between text-xs font-semibold text-slate-300">
+                    <span>Judul Berita <span class="text-red-400">*</span></span>
+                    <span class="text-[10px] text-slate-500 font-normal">{{ form.judul.length }}/120 karakter</span>
+                  </label>
+                  <input
+                    v-model="form.judul"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Judul berita"
+                    class="form-input-base !pl-4 focus:border-knpi-500 focus:ring-1 focus:ring-knpi-500"
+                    required
+                  >
+                </div>
+
+                <!-- Ringkasan Singkat -->
+                <div>
+                  <label class="mb-1.5 flex items-center justify-between text-xs font-semibold text-slate-300">
+                    <span>Ringkasan Singkat <span class="text-red-400">*</span></span>
+                    <span class="text-[10px] text-slate-500 font-normal">Tampil di feed & kartu berita</span>
+                  </label>
+                  <input
+                    v-model="form.ringkasan"
+                    type="text"
+                    placeholder="Ringkasan berita"
+                    class="form-input-base !pl-4"
+                    required
+                  >
+                </div>
+
+                <!-- Konten Lengkap -->
+                <div>
+                  <label class="mb-1.5 block text-xs font-semibold text-slate-300">
+                    Isi Konten Berita <span class="text-red-400">*</span>
+                  </label>
+                  <textarea
+                    v-model="form.konten"
+                    rows="9"
+                    placeholder="Isi berita"
+                    class="form-input-base !pl-4 resize-none leading-relaxed"
+                    required
+                  />
                 </div>
               </div>
-              <input
-                ref="inputGambar"
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
-                class="hidden"
-                @change="handleFileChange"
-              />
-              <!-- Upload progress -->
-              <div v-if="sedangUpload" class="mt-2 flex items-center gap-2 text-xs text-knpi-400">
-                <LucideLoader :size="14" class="animate-spin" />
-                <span>Mengunggah gambar...</span>
+
+              <!-- Kolom Kanan: Pengaturan & Gambar (4 cols) -->
+              <div class="lg:col-span-4 flex flex-col gap-5">
+                <!-- Kategori Berita -->
+                <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col gap-3">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Pilih Kategori</span>
+                  <div class="flex flex-col gap-2">
+                    <label
+                      v-for="cat in [
+                        { val: 'kegiatan', label: 'Kegiatan Pemuda', desc: 'Acara & program kerja' },
+                        { val: 'pengumuman', label: 'Pengumuman Resmi', desc: 'Informasi DPD KNPI' },
+                        { val: 'artikel', label: 'Artikel & Opini', desc: 'Wawasan & ulasan' },
+                      ]"
+                      :key="cat.val"
+                      class="flex items-start gap-3 rounded-xl border p-3 cursor-pointer transition-all"
+                      :class="form.kategori === cat.val
+                        ? 'border-knpi-500/40 bg-knpi-600/15 text-knpi-300 shadow-sm'
+                        : 'border-white/5 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200'"
+                    >
+                      <input
+                        v-model="form.kategori"
+                        type="radio"
+                        :value="cat.val"
+                        class="mt-0.5 accent-knpi-500"
+                      >
+                      <div>
+                        <p class="text-xs font-bold leading-none text-slate-200">
+                          {{ cat.label }}
+                        </p>
+                        <p class="text-[10px] text-slate-500 mt-1">
+                          {{ cat.desc }}
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Status Publikasi -->
+                <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-4 flex flex-col gap-3">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Status Publikasi</span>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      class="flex items-center justify-center gap-1.5 rounded-xl border py-2.5 text-xs font-bold transition cursor-pointer"
+                      :class="form.status === 'draf'
+                        ? 'border-amber-500/40 bg-amber-500/20 text-amber-300 shadow-sm'
+                        : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'"
+                      @click="form.status = 'draf'"
+                    >
+                      <span class="h-2 w-2 rounded-full bg-amber-400" />
+                      Draf
+                    </button>
+                    <button
+                      type="button"
+                      class="flex items-center justify-center gap-1.5 rounded-xl border py-2.5 text-xs font-bold transition cursor-pointer"
+                      :class="form.status === 'terbit'
+                        ? 'border-emerald-500/40 bg-emerald-500/20 text-emerald-300 shadow-sm'
+                        : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'"
+                      @click="form.status = 'terbit'"
+                    >
+                      <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Terbit
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Featured Image Upload -->
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-semibold text-slate-300">Gambar Utama (Header)</label>
+
+                  <!-- Preview Gambar -->
+                  <div
+                    v-if="previewGambar || form.gambarUrl"
+                    class="relative rounded-2xl overflow-hidden border border-white/15 bg-slate-900 group"
+                  >
+                    <img
+                      :src="previewGambar || form.gambarUrl"
+                      alt="Preview Berita"
+                      class="w-full h-36 object-cover transition duration-300 group-hover:scale-105"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
+                    <span class="absolute bottom-2 left-3 rounded-full bg-black/60 px-2.5 py-0.5 text-[9px] font-bold text-slate-300 backdrop-blur-md border border-white/10">
+                      Gambar Sampul
+                    </span>
+                    <button
+                      type="button"
+                      class="absolute top-2 right-2 rounded-xl bg-black/70 p-2 text-slate-300 hover:bg-red-600 hover:text-white transition shadow-lg backdrop-blur-md cursor-pointer"
+                      title="Hapus Gambar"
+                      @click="hapusGambar"
+                    >
+                      <LucideTrash2 :size="14" />
+                    </button>
+                  </div>
+
+                  <!-- Upload Dropzone -->
+                  <div
+                    v-else
+                    class="relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.02] p-6 text-center transition hover:border-knpi-500/50 hover:bg-white/[0.05] cursor-pointer group"
+                    @click="($refs.inputGambar as HTMLInputElement)?.click()"
+                    @dragover.prevent
+                    @drop.prevent="handleDrop"
+                  >
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400 group-hover:text-knpi-400 group-hover:scale-110 transition">
+                      <LucideUploadCloud :size="20" />
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-slate-300">
+                        Unggah Sampul
+                      </p>
+                      <p class="text-[10px] text-slate-500 mt-0.5">
+                        JPG, PNG, WebP · Maks. 5MB
+                      </p>
+                    </div>
+                  </div>
+
+                  <input
+                    ref="inputGambar"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    class="hidden"
+                    @change="handleFileChange"
+                  >
+
+                  <div
+                    v-if="sedangUpload"
+                    class="mt-1 flex items-center gap-2 text-xs text-knpi-400"
+                  >
+                    <LucideLoader
+                      :size="14"
+                      class="animate-spin"
+                    />
+                    <span>Mengunggah gambar...</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Tombol Submit -->
-            <div class="mt-2 flex gap-3">
+            <!-- Modal Footer Buttons -->
+            <div class="flex items-center justify-end gap-3 border-t border-white/10 pt-5 mt-2">
               <button
                 type="button"
-                class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10"
+                class="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-xs font-bold text-slate-300 transition hover:bg-white/10 cursor-pointer"
                 @click="tampilForm = false"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                class="btn-primary !flex-1"
+                class="btn-primary !w-auto !py-3 !px-7 !text-xs shadow-lg shadow-knpi/25 disabled:opacity-60 cursor-pointer"
                 :disabled="sedangMenyimpan"
               >
                 <LucideLoader
                   v-if="sedangMenyimpan"
-                  :size="15"
+                  :size="16"
                   class="animate-spin"
                 />
-                {{ sedangMenyimpan ? 'Menyimpan...' : (modeEdit ? 'Simpan Perubahan' : 'Tambah Berita') }}
+                {{ sedangMenyimpan ? 'Menyimpan...' : (modeEdit ? 'Simpan Perubahan' : 'Terbitkan Berita') }}
               </button>
             </div>
           </form>
@@ -516,7 +613,9 @@ function tampilkanToast(pesan: string, tipe: 'sukses' | 'error' = 'sukses') {
   toast.pesan = pesan
   toast.tipe = tipe
   toast.tampil = true
-  setTimeout(() => { toast.tampil = false }, 3000)
+  setTimeout(() => {
+    toast.tampil = false
+  }, 3000)
 }
 
 // Helpers
@@ -607,16 +706,18 @@ async function uploadGambar(): Promise<string | null> {
   try {
     const formData = new FormData()
     formData.append('gambar', fileGambar.value)
-    const res = await $fetch<{ berhasil: boolean; url: string }>('/api/upload', {
+    const res = await $fetch<{ berhasil: boolean, url: string }>('/api/upload', {
       method: 'POST',
       headers: { Authorization: `Bearer ${authStore.token}` },
       body: formData,
     })
     return res.url
-  } catch {
+  }
+  catch {
     tampilkanToast('Gagal mengunggah gambar.', 'error')
     return null
-  } finally {
+  }
+  finally {
     sedangUpload.value = false
   }
 }

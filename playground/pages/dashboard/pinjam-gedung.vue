@@ -1,59 +1,161 @@
 <template>
-  <div>
+  <div class="flex flex-col gap-6">
+    <!-- Header Page Section -->
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h2 class="text-lg font-extrabold text-slate-100">Permohonan Pinjam Gedung</h2>
-        <p class="text-xs text-slate-500">Kelola permohonan pinjam pakai Graha Pemuda KNPI</p>
+        <h2 class="text-xl font-extrabold text-white tracking-tight">
+          Permohonan Pinjam Gedung
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          Kelola surat permohonan dan persetujuan pinjam pakai Graha Pemuda KNPI Kota Langsa
+        </p>
       </div>
     </div>
 
-    <!-- Filter -->
-    <div class="mt-5 flex gap-2 overflow-x-auto pb-2">
-      <button v-for="tab in tabFilter" :key="tab.value"
-        class="shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold transition-all"
-        :class="filterAktif === tab.value ? 'border-knpi-500/30 bg-knpi-600/20 text-knpi-400' : 'border-white/10 bg-white/5 text-slate-500 hover:bg-white/10 hover:text-slate-300'"
-        @click="filterAktif = tab.value">{{ tab.label }}</button>
+    <!-- Filter Pills & Search -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex gap-2 overflow-x-auto pb-1 max-w-full">
+        <button
+          v-for="tab in tabFilter"
+          :key="tab.value"
+          class="shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+          :class="filterAktif === tab.value
+            ? 'border-knpi-500/40 bg-knpi-600/25 text-knpi-300 shadow-sm'
+            : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200'"
+          @click="filterAktif = tab.value"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
     </div>
 
-    <div v-if="sedangMemuat" class="mt-8 flex items-center justify-center gap-2 text-sm text-slate-500">
-      <LucideLoader :size="18" class="animate-spin" /> Memuat data...
+    <!-- Loading State -->
+    <div
+      v-if="sedangMemuat"
+      class="py-16 flex items-center justify-center gap-2.5 text-xs text-slate-400"
+    >
+      <LucideLoader
+        :size="18"
+        class="animate-spin text-knpi-400"
+      />
+      <span>Memuat data permohonan...</span>
     </div>
 
-    <div v-else-if="dataFiltered.length === 0" class="mt-8 glass-card p-10 text-center">
-      <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-600"><LucideBuilding2 :size="28" /></div>
-      <p class="text-sm font-semibold text-slate-400">Belum ada permohonan</p>
+    <!-- Empty State -->
+    <div
+      v-else-if="dataFiltered.length === 0"
+      class="glass-card p-12 text-center"
+    >
+      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-slate-500">
+        <LucideBuilding2 :size="26" />
+      </div>
+      <h3 class="text-sm font-bold text-slate-300">
+        Belum ada permohonan pinjam gedung
+      </h3>
+      <p class="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+        Permohonan yang diajukan oleh masyarakat atau organisasi melalui portal publik akan tampil di sini.
+      </p>
     </div>
 
-    <!-- Table -->
-    <div v-else class="mt-5 glass-card overflow-hidden">
+    <!-- Table Container -->
+    <div
+      v-else
+      class="glass-card overflow-hidden"
+    >
+      <!-- Desktop Table -->
       <div class="hidden md:block overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead>
-            <tr class="border-b border-white/[0.07] text-[10px] font-bold uppercase tracking-widest text-slate-600">
-              <th class="px-5 py-3.5">No</th>
-              <th class="px-5 py-3.5">Pemohon</th>
-              <th class="px-5 py-3.5">Keperluan</th>
-              <th class="px-5 py-3.5">Tanggal</th>
-              <th class="px-5 py-3.5">Status</th>
-              <th class="px-5 py-3.5 text-right">Aksi</th>
+            <tr class="border-b border-white/[0.08] bg-white/[0.02] text-[10px] font-bold uppercase tracking-widest text-slate-400">
+              <th class="px-5 py-4">
+                No
+              </th>
+              <th class="px-5 py-4">
+                Pemohon & Organisasi
+              </th>
+              <th class="px-5 py-4">
+                Keperluan
+              </th>
+              <th class="px-5 py-4">
+                Jadwal Pinjam
+              </th>
+              <th class="px-5 py-4">
+                Status
+              </th>
+              <th class="px-5 py-4 text-right">
+                Aksi
+              </th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="(item, i) in dataFiltered" :key="item.id" class="border-b border-white/[0.04] transition-colors hover:bg-white/[0.03]">
-              <td class="px-5 py-3.5 text-slate-500">{{ i + 1 }}</td>
-              <td class="px-5 py-3.5">
-                <p class="font-semibold text-slate-200">{{ item.namaPemohon }}</p>
-                <p class="text-xs text-slate-500">{{ item.organisasi }} · {{ item.noHp }}</p>
+          <tbody class="divide-y divide-white/[0.04]">
+            <tr
+              v-for="(item, i) in dataFiltered"
+              :key="item.id"
+              class="transition-colors hover:bg-white/[0.03]"
+            >
+              <td class="px-5 py-4 text-xs font-medium text-slate-500">
+                {{ i + 1 }}
               </td>
-              <td class="px-5 py-3.5 max-w-[200px]"><p class="text-slate-300 truncate">{{ item.keperluan }}</p></td>
-              <td class="px-5 py-3.5 text-xs text-slate-500">{{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}</td>
-              <td class="px-5 py-3.5"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase" :class="kelasStatus(item.status)"><span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(item.status)" />{{ labelStatus(item.status) }}</span></td>
-              <td class="px-5 py-3.5">
+              <td class="px-5 py-4">
+                <p class="font-bold text-slate-200 text-xs sm:text-sm">
+                  {{ item.namaPemohon }}
+                </p>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  {{ item.organisasi }} · <span class="text-slate-500">{{ item.noHp }}</span>
+                </p>
+              </td>
+              <td class="px-5 py-4 max-w-[220px]">
+                <p class="text-xs text-slate-300 truncate">
+                  {{ item.keperluan }}
+                </p>
+              </td>
+              <td class="px-5 py-4 text-xs text-slate-400 font-medium whitespace-nowrap">
+                {{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}
+              </td>
+              <td class="px-5 py-4">
+                <span
+                  class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide"
+                  :class="kelasStatus(item.status)"
+                >
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    :class="dotStatus(item.status)"
+                  />
+                  {{ labelStatus(item.status) }}
+                </span>
+              </td>
+              <td class="px-5 py-4">
                 <div class="flex items-center justify-end gap-1.5">
-                  <button class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-knpi-600/20 hover:text-knpi-400" title="Detail" @click="bukaDetail(item)"><LucideEye :size="14" /></button>
-                  <button v-if="item.status === 'menunggu'" class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-emerald-500/20 hover:text-emerald-400" title="Setujui" @click="ubahStatus(item, 'disetujui')"><LucideCheck :size="14" /></button>
-                  <button v-if="item.status === 'menunggu'" class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-red-500/20 hover:text-red-400" title="Tolak" @click="ubahStatus(item, 'ditolak')"><LucideX :size="14" /></button>
-                  <button class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-red-500/20 hover:text-red-400" title="Hapus" @click="konfirmasiHapus(item)"><LucideTrash2 :size="14" /></button>
+                  <button
+                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-knpi-600/20 hover:text-knpi-300 hover:border-knpi-500/30"
+                    title="Lihat Detail"
+                    @click="bukaDetail(item)"
+                  >
+                    <LucideEye :size="15" />
+                  </button>
+                  <button
+                    v-if="item.status === 'menunggu'"
+                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/30"
+                    title="Setujui Permohonan"
+                    @click="ubahStatus(item, 'disetujui')"
+                  >
+                    <LucideCheck :size="15" />
+                  </button>
+                  <button
+                    v-if="item.status === 'menunggu'"
+                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/30"
+                    title="Tolak Permohonan"
+                    @click="ubahStatus(item, 'ditolak')"
+                  >
+                    <LucideX :size="15" />
+                  </button>
+                  <button
+                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/30"
+                    title="Hapus Permohonan"
+                    @click="konfirmasiHapus(item)"
+                  >
+                    <LucideTrash2 :size="15" />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -61,92 +163,258 @@
         </table>
       </div>
 
-      <!-- Mobile Cards -->
+      <!-- Mobile Cards Grid -->
       <div class="flex flex-col gap-3 p-4 md:hidden">
-        <div v-for="item in dataFiltered" :key="'m-'+item.id" class="rounded-xl border border-white/[0.07] bg-white/[0.03] p-4">
+        <div
+          v-for="item in dataFiltered"
+          :key="'m-'+item.id"
+          class="rounded-2xl border border-white/[0.08] bg-slate-900/40 p-4 flex flex-col gap-3"
+        >
           <div class="flex items-start justify-between gap-3">
-            <div class="min-w-0 flex-1">
-              <p class="font-semibold text-slate-200">{{ item.namaPemohon }}</p>
-              <p class="text-xs text-slate-500">{{ item.organisasi }}</p>
+            <div>
+              <p class="font-bold text-slate-200 text-sm">
+                {{ item.namaPemohon }}
+              </p>
+              <p class="text-xs text-slate-400">
+                {{ item.organisasi }}
+              </p>
             </div>
-            <span class="shrink-0 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" :class="kelasStatus(item.status)"><span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(item.status)" />{{ labelStatus(item.status) }}</span>
+            <span
+              class="shrink-0 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase"
+              :class="kelasStatus(item.status)"
+            >
+              <span
+                class="h-1.5 w-1.5 rounded-full"
+                :class="dotStatus(item.status)"
+              />
+              {{ labelStatus(item.status) }}
+            </span>
           </div>
-          <p class="mt-2 text-xs text-slate-400 line-clamp-2">{{ item.keperluan }}</p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="text-xs text-slate-500">{{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}</span>
+
+          <p class="text-xs text-slate-300 leading-relaxed line-clamp-2">
+            {{ item.keperluan }}
+          </p>
+
+          <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1">
+            <span class="text-[11px] text-slate-400 font-medium">
+              {{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}
+            </span>
             <div class="flex gap-1.5">
-              <button class="rounded-lg border border-white/10 p-1.5 text-slate-400" @click="bukaDetail(item)"><LucideEye :size="13" /></button>
-              <button v-if="item.status==='menunggu'" class="rounded-lg border border-white/10 p-1.5 text-emerald-400" @click="ubahStatus(item,'disetujui')"><LucideCheck :size="13" /></button>
-              <button v-if="item.status==='menunggu'" class="rounded-lg border border-white/10 p-1.5 text-red-400" @click="ubahStatus(item,'ditolak')"><LucideX :size="13" /></button>
-              <button class="rounded-lg border border-white/10 p-1.5 text-red-400" @click="konfirmasiHapus(item)"><LucideTrash2 :size="13" /></button>
+              <button
+                class="rounded-lg border border-white/10 p-1.5 text-slate-400"
+                @click="bukaDetail(item)"
+              >
+                <LucideEye :size="14" />
+              </button>
+              <button
+                v-if="item.status === 'menunggu'"
+                class="rounded-lg border border-white/10 p-1.5 text-emerald-400"
+                @click="ubahStatus(item, 'disetujui')"
+              >
+                <LucideCheck :size="14" />
+              </button>
+              <button
+                v-if="item.status === 'menunggu'"
+                class="rounded-lg border border-white/10 p-1.5 text-amber-400"
+                @click="ubahStatus(item, 'ditolak')"
+              >
+                <LucideX :size="14" />
+              </button>
+              <button
+                class="rounded-lg border border-white/10 p-1.5 text-red-400"
+                @click="konfirmasiHapus(item)"
+              >
+                <LucideTrash2 :size="14" />
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal Detail -->
-    <Transition enter-active-class="transition duration-200 ease-out" enter-from-class="opacity-0" leave-active-class="transition duration-150 ease-in" leave-to-class="opacity-0">
-      <div v-if="tampilDetail" class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4 pt-10 backdrop-blur-sm" @click.self="tampilDetail = false">
-        <div class="glass-card w-full max-w-lg p-6 shadow-2xl sm:p-8">
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-bold text-slate-100">Detail Permohonan</h3>
-            <button class="rounded-lg border border-white/10 p-1.5 text-slate-400 transition hover:bg-white/10" @click="tampilDetail = false"><LucideX :size="16" /></button>
-          </div>
-          <div v-if="detailItem" class="space-y-4">
-            <div v-for="field in detailFields" :key="field.label">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">{{ field.label }}</span>
-              <p class="mt-0.5 text-sm text-slate-300">{{ field.value || '—' }}</p>
-            </div>
+    <!-- Modal Detail Permohonan -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="tampilDetail"
+        class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-md"
+        @click.self="tampilDetail = false"
+      >
+        <div class="glass-card w-full max-w-lg p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">Status</span>
-              <div class="mt-1"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase" :class="kelasStatus(detailItem.status)"><span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(detailItem.status)" />{{ labelStatus(detailItem.status) }}</span></div>
+              <h3 class="text-base font-bold text-white">
+                Detail Permohonan Gedung
+              </h3>
+              <p class="text-xs text-slate-400">
+                Informasi permohonan pinjam pakai Graha Pemuda
+              </p>
             </div>
+            <button
+              class="rounded-xl border border-white/10 p-2 text-slate-400 hover:bg-white/10 hover:text-white transition"
+              @click="tampilDetail = false"
+            >
+              <LucideX :size="16" />
+            </button>
+          </div>
+
+          <div
+            v-if="detailItem"
+            class="space-y-4"
+          >
+            <div
+              v-for="field in detailFields"
+              :key="field.label"
+              class="border-b border-white/5 pb-2.5"
+            >
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{{ field.label }}</span>
+              <p class="mt-0.5 text-xs sm:text-sm font-medium text-slate-200">
+                {{ field.value || '—' }}
+              </p>
+            </div>
+
+            <div class="border-b border-white/5 pb-2.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Status Pengajuan</span>
+              <div class="mt-1">
+                <span
+                  class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase"
+                  :class="kelasStatus(detailItem.status)"
+                >
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    :class="dotStatus(detailItem.status)"
+                  />
+                  {{ labelStatus(detailItem.status) }}
+                </span>
+              </div>
+            </div>
+
             <!-- Catatan Admin -->
             <div v-if="detailItem.status !== 'menunggu'">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">Catatan Admin</span>
-              <p class="mt-0.5 text-sm text-slate-300">{{ detailItem.catatanAdmin || '—' }}</p>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Catatan Pengurus</span>
+              <p class="mt-0.5 text-xs text-slate-300 italic">
+                {{ detailItem.catatanAdmin || '—' }}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </Transition>
 
-    <!-- Modal Ubah Status -->
-    <Transition enter-active-class="transition duration-200 ease-out" enter-from-class="opacity-0" leave-active-class="transition duration-150 ease-in" leave-to-class="opacity-0">
-      <div v-if="tampilUbahStatus" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" @click.self="tampilUbahStatus = false">
-        <div class="glass-card w-full max-w-sm p-7 shadow-2xl">
-          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border" :class="statusBaru === 'disetujui' ? 'border-emerald-500/25 bg-emerald-500/10 text-emerald-400' : 'border-red-500/25 bg-red-500/10 text-red-400'">
-            <LucideCheck v-if="statusBaru === 'disetujui'" :size="28" />
-            <LucideX v-else :size="28" />
+    <!-- Modal Ubah Status (Setujui / Tolak) -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="tampilUbahStatus"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
+        @click.self="tampilUbahStatus = false"
+      >
+        <div class="glass-card w-full max-w-sm p-6 sm:p-7 shadow-2xl text-center">
+          <div
+            class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border shadow-lg"
+            :class="statusBaru === 'disetujui' ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-400' : 'border-amber-500/30 bg-amber-500/15 text-amber-400'"
+          >
+            <LucideCheck
+              v-if="statusBaru === 'disetujui'"
+              :size="30"
+            />
+            <LucideX
+              v-else
+              :size="30"
+            />
           </div>
-          <h3 class="text-base font-bold text-slate-100 text-center">{{ statusBaru === 'disetujui' ? 'Setujui Permohonan?' : 'Tolak Permohonan?' }}</h3>
-          <div class="mt-4">
-            <label class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-slate-500">Catatan (Opsional)</label>
-            <textarea v-model="catatanAdmin" rows="3" placeholder="Tambahkan catatan..." class="form-input-base !pl-4 resize-none" />
+
+          <h3 class="text-base font-bold text-white">
+            {{ statusBaru === 'disetujui' ? 'Setujui Permohonan?' : 'Tolak Permohonan?' }}
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            Ubah status permohonan dari {{ itemUbahStatus?.namaPemohon }}.
+          </p>
+
+          <div class="mt-4 text-left">
+            <label class="mb-1.5 block text-[11px] font-semibold text-slate-300">Catatan Pengurus (Opsional)</label>
+            <textarea
+              v-model="catatanAdmin"
+              rows="3"
+              placeholder="Catatan persetujuan atau alasan penolakan..."
+              class="form-input-base !pl-4 resize-none"
+            />
           </div>
-          <div class="mt-5 flex gap-3">
-            <button class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10" @click="tampilUbahStatus = false">Batal</button>
-            <button class="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-60" :class="statusBaru === 'disetujui' ? 'bg-gradient-to-r from-emerald-600 to-emerald-500' : 'bg-gradient-to-r from-red-600 to-red-500'" :disabled="sedangUpdate" @click="prosesUbahStatus">
-              <LucideLoader v-if="sedangUpdate" :size="15" class="animate-spin" />
-              {{ sedangUpdate ? 'Memproses...' : 'Ya, Konfirmasi' }}
+
+          <div class="mt-6 flex gap-3">
+            <button
+              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
+              @click="tampilUbahStatus = false"
+            >
+              Batal
+            </button>
+            <button
+              class="flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60"
+              :class="statusBaru === 'disetujui' ? 'bg-gradient-to-r from-emerald-600 to-emerald-500' : 'bg-gradient-to-r from-amber-600 to-amber-500'"
+              :disabled="sedangUpdate"
+              @click="prosesUbahStatus"
+            >
+              <LucideLoader
+                v-if="sedangUpdate"
+                :size="15"
+                class="animate-spin"
+              />
+              {{ sedangUpdate ? 'Memproses...' : 'Konfirmasi' }}
             </button>
           </div>
         </div>
       </div>
     </Transition>
 
-    <!-- Modal Hapus -->
-    <Transition enter-active-class="transition duration-200 ease-out" enter-from-class="opacity-0" leave-active-class="transition duration-150 ease-in" leave-to-class="opacity-0">
-      <div v-if="tampilHapus" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" @click.self="tampilHapus = false">
-        <div class="glass-card w-full max-w-sm p-7 text-center shadow-2xl">
-          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-red-500/25 bg-red-500/10 text-red-400"><LucideTrash2 :size="28" /></div>
-          <h3 class="text-base font-bold text-slate-100">Hapus Permohonan?</h3>
-          <p class="mt-2 text-sm text-slate-500">Data permohonan dari "<span class="font-semibold text-slate-300">{{ itemDihapus?.namaPemohon }}</span>" akan dihapus permanen.</p>
+    <!-- Modal Hapus Permohonan -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="tampilHapus"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
+        @click.self="tampilHapus = false"
+      >
+        <div class="glass-card w-full max-w-sm p-6 sm:p-7 text-center shadow-2xl">
+          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-lg">
+            <LucideTrash2 :size="30" />
+          </div>
+
+          <h3 class="text-base font-bold text-white">
+            Hapus Permohonan?
+          </h3>
+          <p class="mt-2 text-xs leading-relaxed text-slate-400">
+            Data permohonan dari "<span class="font-semibold text-slate-200">{{ itemDihapus?.namaPemohon }}</span>" akan dihapus secara permanen.
+          </p>
+
           <div class="mt-6 flex gap-3">
-            <button class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10" @click="tampilHapus = false">Batal</button>
-            <button class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-2.5 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-60" :disabled="sedangHapus" @click="prosesHapus">
-              <LucideLoader v-if="sedangHapus" :size="15" class="animate-spin" />
+            <button
+              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
+              @click="tampilHapus = false"
+            >
+              Batal
+            </button>
+            <button
+              class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60"
+              :disabled="sedangHapus"
+              @click="prosesHapus"
+            >
+              <LucideLoader
+                v-if="sedangHapus"
+                :size="15"
+                class="animate-spin"
+              />
               {{ sedangHapus ? 'Menghapus...' : 'Ya, Hapus' }}
             </button>
           </div>
@@ -154,11 +422,27 @@
       </div>
     </Transition>
 
-    <!-- Toast -->
-    <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 translate-y-4" leave-active-class="transition duration-200 ease-in" leave-to-class="opacity-0 translate-y-4">
-      <div v-if="toast.tampil" class="fixed bottom-6 right-6 z-[110] flex items-center gap-3 rounded-xl border px-5 py-3 shadow-xl backdrop-blur-xl" :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-400' : 'border-red-500/30 bg-red-500/15 text-red-400'">
-        <LucideCheckCircle v-if="toast.tipe === 'sukses'" :size="18" /><LucideXCircle v-else :size="18" />
-        <span class="text-sm font-semibold">{{ toast.pesan }}</span>
+    <!-- Toast Notification -->
+    <Transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="opacity-0 translate-y-4"
+      leave-active-class="transition duration-200 ease-in"
+      leave-to-class="opacity-0 translate-y-4"
+    >
+      <div
+        v-if="toast.tampil"
+        class="fixed bottom-6 right-6 z-[110] flex items-center gap-3 rounded-xl border px-5 py-3.5 shadow-2xl backdrop-blur-xl"
+        :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-300' : 'border-red-500/30 bg-red-500/15 text-red-300'"
+      >
+        <LucideCheckCircle
+          v-if="toast.tipe === 'sukses'"
+          :size="18"
+        />
+        <LucideXCircle
+          v-else
+          :size="18"
+        />
+        <span class="text-xs font-bold">{{ toast.pesan }}</span>
       </div>
     </Transition>
   </div>
@@ -168,9 +452,19 @@
 definePageMeta({ layout: 'dashboard' })
 
 interface PinjamItem {
-  id: number; namaPemohon: string; organisasi: string; noHp: string; email: string | null
-  keperluan: string; keterangan: string | null; tanggalMulai: string; tanggalSelesai: string
-  status: string; catatanAdmin: string | null; createdAt: string; updatedAt: string
+  id: number
+  namaPemohon: string
+  organisasi: string
+  noHp: string
+  email: string | null
+  keperluan: string
+  keterangan: string | null
+  tanggalMulai: string
+  tanggalSelesai: string
+  status: string
+  catatanAdmin: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 const authStore = useAuthStore()
@@ -224,30 +518,70 @@ const itemDihapus = ref<PinjamItem | null>(null)
 // Toast
 const toast = reactive({ tampil: false, pesan: '', tipe: 'sukses' as 'sukses' | 'error' })
 function tampilkanToast(pesan: string, tipe: 'sukses' | 'error' = 'sukses') {
-  toast.pesan = pesan; toast.tipe = tipe; toast.tampil = true
-  setTimeout(() => { toast.tampil = false }, 3000)
+  toast.pesan = pesan
+  toast.tipe = tipe
+  toast.tampil = true
+  setTimeout(() => {
+    toast.tampil = false
+  }, 3000)
 }
 
 function formatTanggal(tgl: string) {
-  return new Date(tgl).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+  try {
+    return new Date(tgl).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+  }
+  catch {
+    return tgl
+  }
 }
-function labelStatus(s: string) { return ({ menunggu: 'Menunggu', disetujui: 'Disetujui', ditolak: 'Ditolak' } as Record<string,string>)[s] || s }
-function kelasStatus(s: string) { return ({ menunggu: 'bg-amber-500/20 text-amber-400 border border-amber-500/30', disetujui: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30', ditolak: 'bg-red-500/20 text-red-400 border border-red-500/30' } as Record<string,string>)[s] || '' }
-function dotStatus(s: string) { return ({ menunggu: 'bg-amber-400', disetujui: 'bg-emerald-400', ditolak: 'bg-red-400' } as Record<string,string>)[s] || '' }
+
+function labelStatus(s: string) {
+  const map: Record<string, string> = { menunggu: 'Menunggu', disetujui: 'Disetujui', ditolak: 'Ditolak' }
+  return map[s] || s
+}
+
+function kelasStatus(s: string) {
+  const map: Record<string, string> = {
+    menunggu: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+    disetujui: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
+    ditolak: 'bg-red-500/20 text-red-300 border border-red-500/30',
+  }
+  return map[s] || ''
+}
+
+function dotStatus(s: string) {
+  const map: Record<string, string> = {
+    menunggu: 'bg-amber-400',
+    disetujui: 'bg-emerald-400',
+    ditolak: 'bg-red-400',
+  }
+  return map[s] || ''
+}
 
 async function muatData() {
   sedangMemuat.value = true
   try {
     const res = await $fetch<{ data: PinjamItem[] }>('/api/pinjam-gedung', { headers: { Authorization: `Bearer ${authStore.token}` } })
     daftarData.value = res.data
-  } catch { tampilkanToast('Gagal memuat data.', 'error') }
-  finally { sedangMemuat.value = false }
+  }
+  catch {
+    tampilkanToast('Gagal memuat data permohonan.', 'error')
+  }
+  finally {
+    sedangMemuat.value = false
+  }
 }
 
-function bukaDetail(item: PinjamItem) { detailItem.value = item; tampilDetail.value = true }
+function bukaDetail(item: PinjamItem) {
+  detailItem.value = item
+  tampilDetail.value = true
+}
 
 function ubahStatus(item: PinjamItem, status: string) {
-  itemUbahStatus.value = item; statusBaru.value = status; catatanAdmin.value = ''; tampilUbahStatus.value = true
+  itemUbahStatus.value = item
+  statusBaru.value = status
+  catatanAdmin.value = ''
+  tampilUbahStatus.value = true
 }
 
 async function prosesUbahStatus() {
@@ -255,29 +589,52 @@ async function prosesUbahStatus() {
   sedangUpdate.value = true
   try {
     await $fetch(`/api/pinjam-gedung/${itemUbahStatus.value.id}`, {
-      method: 'PUT', headers: { Authorization: `Bearer ${authStore.token}` },
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${authStore.token}` },
       body: { status: statusBaru.value, catatanAdmin: catatanAdmin.value },
     })
     tampilkanToast(`Permohonan berhasil ${statusBaru.value === 'disetujui' ? 'disetujui' : 'ditolak'}.`)
-    tampilUbahStatus.value = false; await muatData()
-  } catch { tampilkanToast('Gagal memperbarui status.', 'error') }
-  finally { sedangUpdate.value = false }
+    tampilUbahStatus.value = false
+    await muatData()
+  }
+  catch {
+    tampilkanToast('Gagal memperbarui status.', 'error')
+  }
+  finally {
+    sedangUpdate.value = false
+  }
 }
 
-function konfirmasiHapus(item: PinjamItem) { itemDihapus.value = item; tampilHapus.value = true }
+function konfirmasiHapus(item: PinjamItem) {
+  itemDihapus.value = item
+  tampilHapus.value = true
+}
 
 async function prosesHapus() {
   if (!itemDihapus.value) return
   sedangHapus.value = true
   try {
-    await $fetch(`/api/pinjam-gedung/${itemDihapus.value.id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${authStore.token}` } })
+    await $fetch(`/api/pinjam-gedung/${itemDihapus.value.id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${authStore.token}` },
+    })
     tampilkanToast('Permohonan berhasil dihapus.')
-    tampilHapus.value = false; itemDihapus.value = null; await muatData()
-  } catch { tampilkanToast('Gagal menghapus.', 'error') }
-  finally { sedangHapus.value = false }
+    tampilHapus.value = false
+    itemDihapus.value = null
+    await muatData()
+  }
+  catch {
+    tampilkanToast('Gagal menghapus permohonan.', 'error')
+  }
+  finally {
+    sedangHapus.value = false
+  }
 }
 
 onMounted(() => muatData())
 
-useSeoMeta({ title: 'Pinjam Pakai Gedung — KNPI Langsa', description: 'Kelola permohonan pinjam pakai gedung KNPI Kota Langsa.' })
+useSeoMeta({
+  title: 'Pinjam Pakai Gedung — KNPI Langsa',
+  description: 'Kelola permohonan pinjam pakai gedung KNPI Kota Langsa.',
+})
 </script>
