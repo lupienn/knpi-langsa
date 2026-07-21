@@ -1041,13 +1041,13 @@ async function uploadGambar(file: File) {
   try {
     const formData = new FormData()
     formData.append('gambar', file)
-    const res = await $fetch<{ berhasil: boolean, gambarUrl: string }>('/api/upload', {
+    const res = await $fetch<{ berhasil: boolean, url: string }>('/api/upload', {
       method: 'POST',
       headers: { Authorization: `Bearer ${authStore.token}` },
       body: formData,
     })
     if (res.berhasil) {
-      form.gambarUrl = res.gambarUrl
+      form.gambarUrl = res.url
       tampilkanToast('Gambar sampul berhasil diunggah.')
     }
   }

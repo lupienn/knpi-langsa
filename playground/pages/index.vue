@@ -121,84 +121,98 @@
         class="relative w-full h-[85vh] min-h-[600px] overflow-hidden"
         :class="isDarkMode ? 'bg-[#070a14]' : 'bg-slate-900 text-white'"
       >
+        <!-- Skeleton Loading Slider -->
         <div
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-          :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+          v-if="memuatSlider"
+          class="absolute inset-0 z-10 flex items-center justify-center bg-[#070a14]"
         >
-          <!-- Background Image + Dark Mask -->
-          <div class="absolute inset-0 overflow-hidden">
-            <img
-              :src="slide.gambarUrl"
-              :alt="slide.judul"
-              class="w-full h-full object-cover transition-all duration-1000 ease-out transform"
-              :class="[
-                currentSlide === index ? 'opacity-60' : 'opacity-0',
-                halamanSelesaiMuat ? 'scale-100' : 'scale-105',
-              ]"
-              onerror="this.src='/favicon.ico'; this.classList.add('object-contain', 'p-20')"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/40 to-transparent" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#090d16]/90 via-[#090d16]/40 to-transparent" />
+          <div class="flex flex-col items-center gap-4 animate-pulse">
+            <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full border-2 border-knpi-500/40 border-t-knpi-400 animate-spin" />
+            </div>
           </div>
+        </div>
 
-          <!-- Content inside Hero -->
-          <div class="absolute inset-0 flex items-center">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div
-                class="max-w-2xl transform transition-all duration-1000"
-                :class="currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+        <template v-else>
+          <div
+            v-for="(slide, index) in slides"
+            :key="index"
+            class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+          >
+            <!-- Background Image + Dark Mask -->
+            <div class="absolute inset-0 overflow-hidden">
+              <img
+                :src="slide.gambarUrl"
+                :alt="slide.judul"
+                class="w-full h-full object-cover transition-all duration-1000 ease-out transform"
+                :class="[
+                  currentSlide === index ? 'opacity-60' : 'opacity-0',
+                  halamanSelesaiMuat ? 'scale-100' : 'scale-105',
+                ]"
+                onerror="this.src='/favicon.ico'; this.classList.add('object-contain', 'p-20')"
               >
-                <!-- Badge Pill -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/40 to-transparent" />
+              <div class="absolute inset-0 bg-gradient-to-r from-[#090d16]/90 via-[#090d16]/40 to-transparent" />
+            </div>
+
+            <!-- Content inside Hero -->
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                  class="inline-flex items-center gap-2 rounded-full bg-knpi-600/20 border border-knpi-500/30 px-3.5 py-1.5 text-xs font-bold text-knpi-300 mb-6 backdrop-blur-md transition-all duration-700 delay-150 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 scale-95'"
+                  class="max-w-2xl transform transition-all duration-1000"
+                  :class="currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
                 >
-                  <span class="h-2 w-2 rounded-full bg-knpi-400 animate-pulse" />
-                  <span class="tracking-wide">DPD KNPI Kota Langsa</span>
-                </div>
-
-                <h1
-                  class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  {{ slide.judul }}
-                  <span class="block text-knpi-300 mt-2">
-                    {{ slide.subjudul }}
-                  </span>
-                </h1>
-
-                <p
-                  class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  {{ slide.deskripsi }}
-                </p>
-
-                <div
-                  class="mt-8 flex flex-wrap gap-4 items-center transition-all duration-700 delay-700 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  <a
-                    href="#berita"
-                    class="btn-primary !w-auto !py-3.5 !px-7 !text-xs"
+                  <!-- Badge Pill -->
+                  <div
+                    class="inline-flex items-center gap-2 rounded-full bg-knpi-600/20 border border-knpi-500/30 px-3.5 py-1.5 text-xs font-bold text-knpi-300 mb-6 backdrop-blur-md transition-all duration-700 delay-150 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 scale-95'"
                   >
-                    <span>Jelajahi Berita</span>
-                    <LucideArrowRight :size="16" />
-                  </a>
-                  <a
-                    href="#pinjam-gedung"
-                    class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                    <span class="h-2 w-2 rounded-full bg-knpi-400 animate-pulse" />
+                    <span class="tracking-wide">DPD KNPI Kota Langsa</span>
+                  </div>
+
+                  <h1
+                    class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
-                    <LucideBuilding2 :size="16" />
-                    <span>Pinjam Gedung</span>
-                  </a>
+                    {{ slide.judul }}
+                    <span class="block text-knpi-300 mt-2">
+                      {{ slide.subjudul }}
+                    </span>
+                  </h1>
+
+                  <p
+                    class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
+                  >
+                    {{ slide.deskripsi }}
+                  </p>
+
+                  <div
+                    class="mt-8 flex flex-wrap gap-4 items-center transition-all duration-700 delay-700 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
+                  >
+                    <a
+                      href="#berita"
+                      class="btn-primary !w-auto !py-3.5 !px-7 !text-xs"
+                    >
+                      <span>Jelajahi Berita</span>
+                      <LucideArrowRight :size="16" />
+                    </a>
+                    <a
+                      href="#pinjam-gedung"
+                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                    >
+                      <LucideBuilding2 :size="16" />
+                      <span>Pinjam Gedung</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
 
         <!-- Slider Navigation Controls -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
@@ -705,6 +719,7 @@ const slidesFallback: SlideItem[] = [
 ]
 
 const slidesDB = ref<SlideItem[]>([])
+const memuatSlider = ref(true)
 
 // Gunakan data dari DB, atau fallback jika DB kosong
 const slides = computed<SlideItem[]>(() =>
@@ -853,6 +868,9 @@ const ambilSliderBeranda = async () => {
   catch (err) {
     console.error('Gagal memuat slider:', err)
     // Fallback otomatis dari slidesFallback via computed
+  }
+  finally {
+    memuatSlider.value = false
   }
 }
 
