@@ -125,8 +125,8 @@
           <!-- Background Image + Dark Mask -->
           <div class="absolute inset-0 overflow-hidden">
             <img
-              :src="slide.image"
-              :alt="slide.title"
+              :src="slide.gambarUrl"
+              :alt="slide.judul"
               class="w-full h-full object-cover transition-all duration-1000 ease-out transform"
               :class="[
                 currentSlide === index ? 'opacity-60' : 'opacity-0',
@@ -158,9 +158,9 @@
                   class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
                   :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                 >
-                  {{ slide.title }}
+                  {{ slide.judul }}
                   <span class="block text-knpi-300 mt-2">
-                    {{ slide.subtitle }}
+                    {{ slide.subjudul }}
                   </span>
                 </h1>
 
@@ -168,7 +168,7 @@
                   class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
                   :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                 >
-                  {{ slide.description }}
+                  {{ slide.deskripsi }}
                 </p>
 
                 <div
@@ -655,7 +655,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 
 definePageMeta({ layout: false })
 
@@ -669,69 +669,42 @@ const handleScroll = () => {
   isScrolledDown.value = window.scrollY > 60
 }
 
-// Slider Logic
-const slides = [
+// ---- Slider: tipe & fallback ----
+interface SlideItem {
+  gambarUrl: string
+  judul: string
+  subjudul: string
+  deskripsi: string
+}
+
+// Fallback jika DB kosong — beranda tidak pernah blank
+const slidesFallback: SlideItem[] = [
   {
-    image: '/images/slider/1.jpeg',
-    title: 'Bakti Pada Negeri',
-    subtitle: 'Sinergi & Kolaborasi Pemuda',
-    description: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
+    gambarUrl: '/images/slider/1.jpeg',
+    judul: 'Bakti Pada Negeri',
+    subjudul: 'Sinergi & Kolaborasi Pemuda',
+    deskripsi: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
   },
   {
-    image: '/images/slider/2.jpeg',
-    title: 'Pemuda Hebat',
-    subtitle: 'Membangun Kota Langsa',
-    description: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.',
+    gambarUrl: '/images/slider/2.jpeg',
+    judul: 'Pemuda Hebat',
+    subjudul: 'Membangun Kota Langsa',
+    deskripsi: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.',
   },
   {
-    image: '/images/slider/3.jpeg',
-    title: 'Bersatu Kita Maju',
-    subtitle: 'Kemandirian & Aksi Nyata',
-    description: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.',
-  },
-  {
-    image: '/images/slider/4.jpeg',
-    title: 'Energi Pemuda',
-    subtitle: 'Menggerakkan Perubahan',
-    description: 'Setiap karya dan inovasi pemuda adalah langkah nyata menuju masa depan yang lebih baik dan gemilang.',
-  },
-  {
-    image: '/images/slider/5.jpeg',
-    title: 'Generasi Cerdas',
-    subtitle: 'Solusi Untuk Negeri',
-    description: 'Pemuda adalah kunci utama dalam menjawab berbagai tantangan zaman dengan kreativitas dan kecerdasan.',
-  },
-  {
-    image: '/images/slider/6.jpeg',
-    title: 'Semangat Kolaborasi',
-    subtitle: 'Merajut Asa, Mewujudkan Cita',
-    description: 'Bersama-sama membangun ekosistem yang suportif bagi tumbuh kembangnya potensi pemuda daerah.',
-  },
-  {
-    image: '/images/slider/7.jpeg',
-    title: 'Tangguh & Adaptif',
-    subtitle: 'Pemuda di Era Digital',
-    description: 'Siap menghadapi persaingan global dengan memperkuat literasi digital dan kemampuan wirausaha.',
-  },
-  {
-    image: '/images/slider/8.jpeg',
-    title: 'Aksi Nyata',
-    subtitle: 'Kepedulian Sosial & Lingkungan',
-    description: 'Wujud nyata kepedulian pemuda dalam menjaga kelestarian lingkungan dan membantu sesama.',
-  },
-  {
-    image: '/images/slider/9.jpeg',
-    title: 'Kreativitas Tanpa Batas',
-    subtitle: 'Wadah Inovasi & Seni',
-    description: 'Mengembangkan bakat dan minat pemuda dalam bidang seni, budaya, dan ekonomi kreatif.',
-  },
-  {
-    image: '/images/slider/10.jpeg',
-    title: 'Masa Depan Cerah',
-    subtitle: 'Pemuda Langsa Berjaya',
-    description: 'Menuju Indonesia Emas dengan mencetak generasi muda Kota Langsa yang unggul, berprestasi, dan berakhlak mulia.',
+    gambarUrl: '/images/slider/3.jpeg',
+    judul: 'Bersatu Kita Maju',
+    subjudul: 'Kemandirian & Aksi Nyata',
+    deskripsi: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.',
   },
 ]
+
+const slidesDB = ref<SlideItem[]>([])
+
+// Gunakan data dari DB, atau fallback jika DB kosong
+const slides = computed<SlideItem[]>(() =>
+  slidesDB.value.length > 0 ? slidesDB.value : slidesFallback
+)
 
 interface ItemBeritaPublik {
   id: number
@@ -746,17 +719,18 @@ const currentSlide = ref(0)
 let slideInterval: ReturnType<typeof setInterval> | null = null
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.length
+  currentSlide.value = (currentSlide.value + 1) % slides.value.length
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
+  currentSlide.value = (currentSlide.value - 1 + slides.value.length) % slides.value.length
 }
 
 // Auto-play slider + ambil berita dari API + Scroll listener
 onMounted(() => {
   slideInterval = setInterval(nextSlide, 5000)
   ambilBerita()
+  ambilSliderBeranda()
 
   window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -855,6 +829,25 @@ const ambilBerita = async () => {
     // Re-observe newly rendered .reveal elements after data loads
     await nextTick()
     observeNewRevealElements()
+  }
+}
+
+// Fetch slide dari database, fallback ke slidesFallback jika kosong/gagal
+const ambilSliderBeranda = async () => {
+  try {
+    const res = await $fetch<{ berhasil: boolean, data: any[] }>('/api/publik/slider')
+    if (res.berhasil && res.data.length > 0) {
+      slidesDB.value = res.data.map(s => ({
+        gambarUrl: s.gambarUrl || '',
+        judul: s.judul || '',
+        subjudul: s.subjudul || '',
+        deskripsi: s.deskripsi || '',
+      }))
+    }
+  }
+  catch (err) {
+    console.error('Gagal memuat slider:', err)
+    // Fallback otomatis dari slidesFallback via computed
   }
 }
 

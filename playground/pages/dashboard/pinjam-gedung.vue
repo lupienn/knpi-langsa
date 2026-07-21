@@ -1,230 +1,143 @@
 <template>
   <div class="flex flex-col gap-6">
-    <!-- Header Page Section -->
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <!-- ====== HEADER BANNER ====== -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-teal-900/60 to-knpi-950 p-6 sm:p-8 shadow-2xl border border-emerald-500/20">
+      <div class="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+      <div class="pointer-events-none absolute -bottom-10 left-20 h-40 w-40 rounded-full bg-teal-400/20 blur-2xl" />
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-xs font-semibold text-emerald-300 mb-3">
+            <LucideBuilding2 :size="14" />
+            <span>Layanan Graha Pemuda</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+            Permohonan Pinjam Gedung
+          </h2>
+          <p class="mt-1 text-sm text-slate-300/80">
+            Kelola pengajuan, verifikasi jadwal, dan persetujuan sewa pakai Graha Pemuda KNPI Kota Langsa.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FILTER TABS ====== -->
+    <div class="flex gap-2 overflow-x-auto pb-1">
+      <button
+        v-for="tab in tabFilter"
+        :key="tab.value"
+        class="shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+        :class="filterAktif === tab.value
+          ? 'border-emerald-500/40 bg-emerald-600/25 text-emerald-300 shadow-sm'
+          : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200'"
+        @click="filterAktif = tab.value"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- ====== LOADING STATE ====== -->
+    <div v-if="sedangMemuat" class="flex items-center justify-center py-20">
+      <div class="flex flex-col items-center gap-4">
+        <div class="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+        <span class="text-slate-400 text-sm">Memuat data permohonan...</span>
+      </div>
+    </div>
+
+    <!-- ====== EMPTY STATE ====== -->
+    <div
+      v-else-if="dataFiltered.length === 0"
+      class="glass-card flex flex-col items-center justify-center py-20 gap-4 text-center"
+    >
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <LucideBuilding2 :size="32" />
+      </div>
       <div>
-        <h2 class="text-xl font-extrabold text-white tracking-tight">
-          Permohonan Pinjam Gedung
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          Kelola surat permohonan dan persetujuan pinjam pakai Graha Pemuda KNPI Kota Langsa
+        <h3 class="text-white font-bold text-lg">Belum Ada Permohonan</h3>
+        <p class="text-slate-400 text-sm mt-1 max-w-md">
+          Permohonan pinjam gedung yang diajukan oleh organisasi atau publik akan tampil di sini.
         </p>
       </div>
     </div>
 
-    <!-- Filter Pills & Search -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="flex gap-2 overflow-x-auto pb-1 max-w-full">
-        <button
-          v-for="tab in tabFilter"
-          :key="tab.value"
-          class="shrink-0 rounded-full border px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer"
-          :class="filterAktif === tab.value
-            ? 'border-knpi-500/40 bg-knpi-600/25 text-knpi-300 shadow-sm'
-            : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200'"
-          @click="filterAktif = tab.value"
-        >
-          {{ tab.label }}
-        </button>
-      </div>
-    </div>
-
-    <!-- Loading State -->
-    <div
-      v-if="sedangMemuat"
-      class="py-16 flex items-center justify-center gap-2.5 text-xs text-slate-400"
-    >
-      <LucideLoader
-        :size="18"
-        class="animate-spin text-knpi-400"
-      />
-      <span>Memuat data permohonan...</span>
-    </div>
-
-    <!-- Empty State -->
-    <div
-      v-else-if="dataFiltered.length === 0"
-      class="glass-card p-12 text-center"
-    >
-      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-slate-500">
-        <LucideBuilding2 :size="26" />
-      </div>
-      <h3 class="text-sm font-bold text-slate-300">
-        Belum ada permohonan pinjam gedung
-      </h3>
-      <p class="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
-        Permohonan yang diajukan oleh masyarakat atau organisasi melalui portal publik akan tampil di sini.
-      </p>
-    </div>
-
-    <!-- Table Container -->
-    <div
-      v-else
-      class="glass-card overflow-hidden"
-    >
-      <!-- Desktop Table -->
-      <div class="hidden md:block overflow-x-auto">
-        <table class="w-full text-left text-sm">
-          <thead>
-            <tr class="border-b border-white/[0.08] bg-white/[0.02] text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              <th class="px-5 py-4">
-                No
-              </th>
-              <th class="px-5 py-4">
-                Pemohon & Organisasi
-              </th>
-              <th class="px-5 py-4">
-                Keperluan
-              </th>
-              <th class="px-5 py-4">
-                Jadwal Pinjam
-              </th>
-              <th class="px-5 py-4">
-                Status
-              </th>
-              <th class="px-5 py-4 text-right">
-                Aksi
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/[0.04]">
-            <tr
-              v-for="(item, i) in dataFiltered"
-              :key="item.id"
-              class="transition-colors hover:bg-white/[0.03]"
-            >
-              <td class="px-5 py-4 text-xs font-medium text-slate-500">
-                {{ i + 1 }}
-              </td>
-              <td class="px-5 py-4">
-                <p class="font-bold text-slate-200 text-xs sm:text-sm">
-                  {{ item.namaPemohon }}
-                </p>
-                <p class="text-xs text-slate-400 mt-0.5">
-                  {{ item.organisasi }} · <span class="text-slate-500">{{ item.noHp }}</span>
-                </p>
-              </td>
-              <td class="px-5 py-4 max-w-[220px]">
-                <p class="text-xs text-slate-300 truncate">
-                  {{ item.keperluan }}
-                </p>
-              </td>
-              <td class="px-5 py-4 text-xs text-slate-400 font-medium whitespace-nowrap">
-                {{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}
-              </td>
-              <td class="px-5 py-4">
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide"
-                  :class="kelasStatus(item.status)"
-                >
-                  <span
-                    class="h-1.5 w-1.5 rounded-full"
-                    :class="dotStatus(item.status)"
-                  />
-                  {{ labelStatus(item.status) }}
-                </span>
-              </td>
-              <td class="px-5 py-4">
-                <div class="flex items-center justify-end gap-1.5">
-                  <button
-                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-knpi-600/20 hover:text-knpi-300 hover:border-knpi-500/30"
-                    title="Lihat Detail"
-                    @click="bukaDetail(item)"
-                  >
-                    <LucideEye :size="15" />
-                  </button>
-                  <button
-                    v-if="item.status === 'menunggu'"
-                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/30"
-                    title="Setujui Permohonan"
-                    @click="ubahStatus(item, 'disetujui')"
-                  >
-                    <LucideCheck :size="15" />
-                  </button>
-                  <button
-                    v-if="item.status === 'menunggu'"
-                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/30"
-                    title="Tolak Permohonan"
-                    @click="ubahStatus(item, 'ditolak')"
-                  >
-                    <LucideX :size="15" />
-                  </button>
-                  <button
-                    class="rounded-lg border border-white/10 p-2 text-slate-400 transition hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/30"
-                    title="Hapus Permohonan"
-                    @click="konfirmasiHapus(item)"
-                  >
-                    <LucideTrash2 :size="15" />
-                  </button>
+    <!-- ====== DAFTAR PERMOHONAN ====== -->
+    <div v-else class="flex flex-col gap-4">
+      <div
+        v-for="item in dataFiltered"
+        :key="item.id"
+        class="glass-card flex flex-col sm:flex-row gap-4 p-4 sm:p-5 hover:border-emerald-500/30 transition-colors"
+      >
+        <!-- Icon & Pemohon Info -->
+        <div class="flex-1 min-w-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-bold text-white text-base truncate">{{ item.namaPemohon }}</h4>
+                  <span class="text-xs text-slate-400 font-normal">({{ item.organisasi }})</span>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <p class="text-xs text-emerald-400 font-medium mt-1">
+                  📞 {{ item.noHp }} <span v-if="item.email" class="text-slate-400">· ✉️ {{ item.email }}</span>
+                </p>
+              </div>
 
-      <!-- Mobile Cards Grid -->
-      <div class="flex flex-col gap-3 p-4 md:hidden">
-        <div
-          v-for="item in dataFiltered"
-          :key="'m-'+item.id"
-          class="rounded-2xl border border-white/[0.08] bg-slate-900/40 p-4 flex flex-col gap-3"
-        >
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="font-bold text-slate-200 text-sm">
-                {{ item.namaPemohon }}
-              </p>
-              <p class="text-xs text-slate-400">
-                {{ item.organisasi }}
+              <!-- Status Pill -->
+              <span
+                class="shrink-0 inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full border"
+                :class="kelasStatus(item.status)"
+              >
+                <span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(item.status)" />
+                {{ labelStatus(item.status) }}
+              </span>
+            </div>
+
+            <div class="mt-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+              <p class="text-xs text-slate-300 font-medium"><span class="text-slate-400">Keperluan:</span> {{ item.keperluan }}</p>
+              <p v-if="item.keterangan" class="text-xs text-slate-400 mt-1"><span class="text-slate-500">Keterangan:</span> {{ item.keterangan }}</p>
+              <p v-if="item.catatanAdmin" class="text-xs text-amber-300 mt-2 font-medium bg-amber-500/10 p-2 rounded-lg border border-amber-500/20">
+                Catatan Admin: {{ item.catatanAdmin }}
               </p>
             </div>
-            <span
-              class="shrink-0 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase"
-              :class="kelasStatus(item.status)"
-            >
-              <span
-                class="h-1.5 w-1.5 rounded-full"
-                :class="dotStatus(item.status)"
-              />
-              {{ labelStatus(item.status) }}
-            </span>
           </div>
 
-          <p class="text-xs text-slate-300 leading-relaxed line-clamp-2">
-            {{ item.keperluan }}
-          </p>
-
-          <div class="flex items-center justify-between border-t border-white/5 pt-3 mt-1">
-            <span class="text-[11px] text-slate-400 font-medium">
-              {{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}
+          <!-- Bottom Meta & Actions -->
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-white/5 pt-3">
+            <span class="text-xs text-slate-400 font-medium">
+              📅 Jadwal: <strong class="text-slate-200">{{ formatTanggal(item.tanggalMulai) }}</strong> s/d <strong class="text-slate-200">{{ formatTanggal(item.tanggalSelesai) }}</strong>
             </span>
-            <div class="flex gap-1.5">
+
+            <div class="flex items-center gap-2">
               <button
-                class="rounded-lg border border-white/10 p-1.5 text-slate-400"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 transition"
+                title="Lihat Detail"
                 @click="bukaDetail(item)"
               >
-                <LucideEye :size="14" />
+                <LucideEye :size="14" /> Detail
               </button>
+
               <button
                 v-if="item.status === 'menunggu'"
-                class="rounded-lg border border-white/10 p-1.5 text-emerald-400"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition"
+                title="Setujui Permohonan"
                 @click="ubahStatus(item, 'disetujui')"
               >
-                <LucideCheck :size="14" />
+                <LucideCheck :size="14" /> Setujui
               </button>
+
               <button
                 v-if="item.status === 'menunggu'"
-                class="rounded-lg border border-white/10 p-1.5 text-amber-400"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition"
+                title="Tolak Permohonan"
                 @click="ubahStatus(item, 'ditolak')"
               >
-                <LucideX :size="14" />
+                <LucideX :size="14" /> Tolak
               </button>
+
               <button
-                class="rounded-lg border border-white/10 p-1.5 text-red-400"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition"
+                title="Hapus Permohonan"
                 @click="konfirmasiHapus(item)"
               >
-                <LucideTrash2 :size="14" />
+                <LucideTrash2 :size="14" /> Hapus
               </button>
             </div>
           </div>
@@ -232,7 +145,7 @@
       </div>
     </div>
 
-    <!-- Modal Detail Permohonan -->
+    <!-- ====== MODAL DETAIL PERMOHONAN ====== -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0"
@@ -241,71 +154,53 @@
     >
       <div
         v-if="tampilDetail"
-        class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-md"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
         @click.self="tampilDetail = false"
       >
-        <div class="glass-card w-full max-w-lg p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
-            <div>
-              <h3 class="text-base font-bold text-white">
-                Detail Permohonan Gedung
+        <div class="glass-card w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
+          <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/60 to-transparent" />
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <LucideBuilding2 :size="20" class="text-emerald-400" />
+                Detail Permohonan Pinjam Gedung
               </h3>
-              <p class="text-xs text-slate-400">
-                Informasi permohonan pinjam pakai Graha Pemuda
-              </p>
-            </div>
-            <button
-              class="rounded-xl border border-white/10 p-2 text-slate-400 hover:bg-white/10 hover:text-white transition"
-              @click="tampilDetail = false"
-            >
-              <LucideX :size="16" />
-            </button>
-          </div>
-
-          <div
-            v-if="detailItem"
-            class="space-y-4"
-          >
-            <div
-              v-for="field in detailFields"
-              :key="field.label"
-              class="border-b border-white/5 pb-2.5"
-            >
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{{ field.label }}</span>
-              <p class="mt-0.5 text-xs sm:text-sm font-medium text-slate-200">
-                {{ field.value || '—' }}
-              </p>
+              <button class="text-slate-400 hover:text-white transition" @click="tampilDetail = false">
+                <LucideX :size="20" />
+              </button>
             </div>
 
-            <div class="border-b border-white/5 pb-2.5">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Status Pengajuan</span>
-              <div class="mt-1">
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase"
-                  :class="kelasStatus(detailItem.status)"
-                >
-                  <span
-                    class="h-1.5 w-1.5 rounded-full"
-                    :class="dotStatus(detailItem.status)"
-                  />
-                  {{ labelStatus(detailItem.status) }}
-                </span>
+            <div class="flex flex-col gap-3">
+              <div
+                v-for="field in detailFields"
+                :key="field.label"
+                class="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 text-xs gap-1"
+              >
+                <span class="text-slate-400 font-medium">{{ field.label }}</span>
+                <span class="text-white font-semibold text-right">{{ field.value || '—' }}</span>
+              </div>
+
+              <div v-if="detailItem?.catatanAdmin" class="mt-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
+                <span class="font-bold text-amber-300 block mb-1">Catatan Admin:</span>
+                <span class="text-slate-300">{{ detailItem.catatanAdmin }}</span>
               </div>
             </div>
 
-            <!-- Catatan Admin -->
-            <div v-if="detailItem.status !== 'menunggu'">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Catatan Pengurus</span>
-              <p class="mt-0.5 text-xs text-slate-300 italic">
-                {{ detailItem.catatanAdmin || '—' }}
-              </p>
+            <div class="mt-6 flex justify-end">
+              <button
+                class="rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-semibold text-slate-300 hover:bg-white/10 transition"
+                @click="tampilDetail = false"
+              >
+                Tutup
+              </button>
             </div>
           </div>
         </div>
       </div>
     </Transition>
 
-    <!-- Modal Ubah Status (Setujui / Tolak) -->
+    <!-- ====== MODAL UBAH STATUS (SETUJUI / TOLAK) ====== -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0"
@@ -317,64 +212,51 @@
         class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
         @click.self="tampilUbahStatus = false"
       >
-        <div class="glass-card w-full max-w-sm p-6 sm:p-7 shadow-2xl text-center">
-          <div
-            class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border shadow-lg"
-            :class="statusBaru === 'disetujui' ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-400' : 'border-amber-500/30 bg-amber-500/15 text-amber-400'"
-          >
-            <LucideCheck
-              v-if="statusBaru === 'disetujui'"
-              :size="30"
-            />
-            <LucideX
-              v-else
-              :size="30"
-            />
-          </div>
+        <div class="glass-card w-full max-w-md p-6 relative">
+          <div class="absolute inset-x-0 top-0 h-[1px]" :class="statusBaru === 'disetujui' ? 'bg-emerald-500' : 'bg-amber-500'" />
 
-          <h3 class="text-base font-bold text-white">
-            {{ statusBaru === 'disetujui' ? 'Setujui Permohonan?' : 'Tolak Permohonan?' }}
+          <h3 class="text-lg font-bold text-white mb-2">
+            {{ statusBaru === 'disetujui' ? 'Setujui Permohonan' : 'Tolak Permohonan' }}
           </h3>
-          <p class="text-xs text-slate-400 mt-1">
-            Ubah status permohonan dari {{ itemUbahStatus?.namaPemohon }}.
+          <p class="text-xs text-slate-400 mb-4">
+            Pemohon: <span class="text-white font-semibold">{{ itemUbahStatus?.namaPemohon }}</span> ({{ itemUbahStatus?.organisasi }})
           </p>
 
-          <div class="mt-4 text-left">
-            <label class="mb-1.5 block text-[11px] font-semibold text-slate-300">Catatan Pengurus (Opsional)</label>
-            <textarea
-              v-model="catatanAdmin"
-              rows="3"
-              placeholder="Catatan persetujuan atau alasan penolakan..."
-              class="form-input-base !pl-4 resize-none"
-            />
-          </div>
-
-          <div class="mt-6 flex gap-3">
-            <button
-              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
-              @click="tampilUbahStatus = false"
-            >
-              Batal
-            </button>
-            <button
-              class="flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60"
-              :class="statusBaru === 'disetujui' ? 'bg-gradient-to-r from-emerald-600 to-emerald-500' : 'bg-gradient-to-r from-amber-600 to-amber-500'"
-              :disabled="sedangUpdate"
-              @click="prosesUbahStatus"
-            >
-              <LucideLoader
-                v-if="sedangUpdate"
-                :size="15"
-                class="animate-spin"
+          <form @submit.prevent="prosesUbahStatus">
+            <div class="mb-4">
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Catatan Admin (Opsional)</label>
+              <textarea
+                v-model="catatanAdmin"
+                rows="3"
+                placeholder="Berikan catatan alasan persetujuan atau penolakan..."
+                class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/40 resize-none"
               />
-              {{ sedangUpdate ? 'Memproses...' : 'Konfirmasi' }}
-            </button>
-          </div>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                type="button"
+                class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold text-slate-300 hover:bg-white/10 transition"
+                @click="tampilUbahStatus = false"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                :disabled="sedangUpdate"
+                class="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-bold text-white shadow-lg transition"
+                :class="statusBaru === 'disetujui' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-amber-600 hover:bg-amber-500'"
+              >
+                <LucideLoader v-if="sedangUpdate" :size="16" class="animate-spin" />
+                {{ sedangUpdate ? 'Memproses...' : 'Konfirmasi' }}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </Transition>
 
-    <!-- Modal Hapus Permohonan -->
+    <!-- ====== MODAL KONFIRMASI HAPUS ====== -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0"
@@ -383,38 +265,31 @@
     >
       <div
         v-if="tampilHapus"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
+        class="fixed inset-0 z-[110] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
         @click.self="tampilHapus = false"
       >
-        <div class="glass-card w-full max-w-sm p-6 sm:p-7 text-center shadow-2xl">
-          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-lg">
-            <LucideTrash2 :size="30" />
+        <div class="glass-card w-full max-w-sm p-7 text-center relative overflow-hidden">
+          <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400">
+            <LucideTrash2 :size="28" />
           </div>
-
-          <h3 class="text-base font-bold text-white">
-            Hapus Permohonan?
-          </h3>
+          <h3 class="text-lg font-bold text-white">Hapus Permohonan Ini?</h3>
           <p class="mt-2 text-xs leading-relaxed text-slate-400">
-            Data permohonan dari "<span class="font-semibold text-slate-200">{{ itemDihapus?.namaPemohon }}</span>" akan dihapus secara permanen.
+            Permohonan dari <span class="text-white font-semibold">"{{ itemDihapus?.namaPemohon }}"</span> akan dihapus permanen.
           </p>
-
           <div class="mt-6 flex gap-3">
             <button
-              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
+              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 hover:bg-white/10 transition"
               @click="tampilHapus = false"
             >
               Batal
             </button>
             <button
-              class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60"
+              class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 text-xs font-bold text-white hover:brightness-110 disabled:opacity-60 transition"
               :disabled="sedangHapus"
               @click="prosesHapus"
             >
-              <LucideLoader
-                v-if="sedangHapus"
-                :size="15"
-                class="animate-spin"
-              />
+              <LucideLoader v-if="sedangHapus" :size="14" class="animate-spin" />
               {{ sedangHapus ? 'Menghapus...' : 'Ya, Hapus' }}
             </button>
           </div>
@@ -422,27 +297,21 @@
       </div>
     </Transition>
 
-    <!-- Toast Notification -->
+    <!-- ====== TOAST NOTIFIKASI ====== -->
     <Transition
       enter-active-class="transition duration-300 ease-out"
       enter-from-class="opacity-0 translate-y-4"
       leave-active-class="transition duration-200 ease-in"
-      leave-to-class="opacity-0 translate-y-4"
+      leave-to-class="opacity-0 translate-y-2"
     >
       <div
         v-if="toast.tampil"
-        class="fixed bottom-6 right-6 z-[110] flex items-center gap-3 rounded-xl border px-5 py-3.5 shadow-2xl backdrop-blur-xl"
-        :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-300' : 'border-red-500/30 bg-red-500/15 text-red-300'"
+        class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-5 py-3.5 shadow-2xl backdrop-blur-xl"
+        :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-950/80 text-emerald-300' : 'border-red-500/30 bg-red-950/80 text-red-300'"
       >
-        <LucideCheckCircle
-          v-if="toast.tipe === 'sukses'"
-          :size="18"
-        />
-        <LucideXCircle
-          v-else
-          :size="18"
-        />
-        <span class="text-xs font-bold">{{ toast.pesan }}</span>
+        <LucideCheckCircle v-if="toast.tipe === 'sukses'" :size="18" />
+        <LucideXCircle v-else :size="18" />
+        <span class="text-sm font-semibold">{{ toast.pesan }}</span>
       </div>
     </Transition>
   </div>

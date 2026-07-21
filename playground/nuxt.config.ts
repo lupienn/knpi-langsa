@@ -32,4 +32,9 @@ export default defineNuxtConfig({
     configPath: '~/tailwind.config.ts',
     exposeConfig: false,
   },
+
+  // Pastikan semua path /api/** diarahkan ke Nitro server, bukan Vue Router
+  routeRules: {
+    '/api/**': { ssr: false },
+  },
 })
