@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware((to) => {
   // Halaman yang tidak perlu autentikasi
   const halamanPublik = ['/', '/login']
   const isBeritaPath = to.path.startsWith('/berita/')
-  
+
   if (halamanPublik.includes(to.path) || isBeritaPath) {
     // Jika sudah login dan coba akses halaman login, redirect ke dashboard
     if (authStore.terautentikasi && to.path === '/login') {

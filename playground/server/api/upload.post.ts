@@ -1,6 +1,6 @@
-import { randomUUID } from 'crypto'
-import { writeFile, mkdir } from 'fs/promises'
-import { join, extname } from 'path'
+import { randomUUID } from 'node:crypto'
+import { writeFile, mkdir } from 'node:fs/promises'
+import { join, extname } from 'node:path'
 
 /**
  * Endpoint untuk mengunggah file gambar.
