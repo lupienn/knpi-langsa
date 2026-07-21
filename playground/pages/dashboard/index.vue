@@ -55,7 +55,7 @@
         </h3>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <!-- Card 1: Total Berita -->
         <NuxtLink
           to="/dashboard/berita"
@@ -99,23 +99,6 @@
             </div>
           </div>
         </NuxtLink>
-
-        <!-- Card 3: Pengurus Aktif -->
-        <div class="glass-card p-5 flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-400">Pengurus DPD</span>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-indigo-500 shadow-lg text-white">
-              <LucideUserCheck :size="20" />
-            </div>
-          </div>
-          <div class="mt-4">
-            <span class="text-3xl font-black text-white tracking-tight">36</span>
-            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-purple-300 font-medium">
-              <LucideUsers :size="13" />
-              <span>Pengurus terdaftar</span>
-            </div>
-          </div>
-        </div>
 
         <!-- Card 4: Status Sistem -->
         <div class="glass-card p-5 flex flex-col justify-between">

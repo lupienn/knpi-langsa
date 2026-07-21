@@ -190,7 +190,7 @@
       </header>
 
       <!-- Main Slot Content -->
-      <main class="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 flex-1">
+      <main class="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 flex-1 animate-fade-in-up">
         <slot />
       </main>
 
