@@ -173,9 +173,9 @@
                 </div>
                 <div>
                   <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
-                    Pinjam Gedung
+                    Pinjam Pakai Gedung
                   </h4>
-                  <span class="text-[11px] text-slate-400">Permohonan & Jadwal</span>
+                  <span class="text-[11px] text-slate-400">Permohonan &amp; Jadwal</span>
                 </div>
               </div>
               <p class="mt-4 text-xs text-slate-400 leading-relaxed">
@@ -183,6 +183,33 @@
               </p>
             </div>
             <div class="mt-5 flex items-center gap-2 text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
+              <span>Buka Halaman</span>
+              <LucideArrowRight :size="15" />
+            </div>
+          </NuxtLink>
+
+          <!-- Tile Kelola Slider -->
+          <NuxtLink
+            to="/dashboard/slider"
+            class="glass-card-hover p-6 flex flex-col justify-between group sm:col-span-2"
+          >
+            <div>
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  <LucideImages :size="22" />
+                </div>
+                <div>
+                  <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                    Kelola Slider Beranda
+                  </h4>
+                  <span class="text-[11px] text-slate-400">Foto &amp; Deskripsi Slider</span>
+                </div>
+              </div>
+              <p class="mt-4 text-xs text-slate-400 leading-relaxed">
+                Tambah, edit, atau hapus foto dan teks yang tampil di slider halaman utama website KNPI Kota Langsa.
+              </p>
+            </div>
+            <div class="mt-5 flex items-center gap-2 text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
               <span>Buka Halaman</span>
               <LucideArrowRight :size="15" />
             </div>
@@ -322,9 +349,11 @@ const ikonWaktu = computed(() => {
 // Ambil data statistik dari API backend
 onMounted(async () => {
   try {
+    const token = authStore.token
+    const headers = token ? { Authorization: `Bearer ${token}` } : undefined
     const [resBerita, resPermohonan] = await Promise.allSettled([
-      $fetch<unknown[]>('/api/berita'),
-      $fetch<unknown[]>('/api/pinjam-gedung'),
+      $fetch<unknown[]>('/api/berita', { headers }),
+      $fetch<unknown[]>('/api/pinjam-gedung', { headers }),
     ])
 
     if (resBerita.status === 'fulfilled' && Array.isArray(resBerita.value)) {

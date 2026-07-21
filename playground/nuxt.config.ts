@@ -24,6 +24,11 @@ export default defineNuxtConfig({
       appUrl: process.env.NUXT_PUBLIC_APP_URL || 'http://localhost:3000',
     },
   },
+
+  // Pastikan semua path /api/** diarahkan ke Nitro server, bukan Vue Router
+  routeRules: {
+    '/api/**': { ssr: false },
+  },
   compatibilityDate: 'latest',
 
   myModule: {},

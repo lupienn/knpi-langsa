@@ -72,6 +72,11 @@
             :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
             class="transition-colors"
           >Berita</a>
+          <a
+            href="#pinjam-gedung"
+            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
+            class="transition-colors"
+          >Pinjam Gedung</a>
         </nav>
 
         <!-- Right Controls: Theme Toggle & Login Button -->
@@ -116,84 +121,98 @@
         class="relative w-full h-[85vh] min-h-[600px] overflow-hidden"
         :class="isDarkMode ? 'bg-[#070a14]' : 'bg-slate-900 text-white'"
       >
+        <!-- Skeleton Loading Slider -->
         <div
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-          :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+          v-if="memuatSlider"
+          class="absolute inset-0 z-10 flex items-center justify-center bg-[#070a14]"
         >
-          <!-- Background Image + Dark Mask -->
-          <div class="absolute inset-0 overflow-hidden">
-            <img
-              :src="slide.image"
-              :alt="slide.title"
-              class="w-full h-full object-cover transition-all duration-1000 ease-out transform"
-              :class="[
-                currentSlide === index ? 'opacity-60' : 'opacity-0',
-                halamanSelesaiMuat ? 'scale-100' : 'scale-105',
-              ]"
-              onerror="this.src='/favicon.ico'; this.classList.add('object-contain', 'p-20')"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/40 to-transparent" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#090d16]/90 via-[#090d16]/40 to-transparent" />
+          <div class="flex flex-col items-center gap-4 animate-pulse">
+            <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full border-2 border-knpi-500/40 border-t-knpi-400 animate-spin" />
+            </div>
           </div>
+        </div>
 
-          <!-- Content inside Hero -->
-          <div class="absolute inset-0 flex items-center">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div
-                class="max-w-2xl transform transition-all duration-1000"
-                :class="currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+        <template v-else>
+          <div
+            v-for="(slide, index) in slides"
+            :key="index"
+            class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+          >
+            <!-- Background Image + Dark Mask -->
+            <div class="absolute inset-0 overflow-hidden">
+              <img
+                :src="slide.gambarUrl"
+                :alt="slide.judul"
+                class="w-full h-full object-cover transition-all duration-1000 ease-out transform"
+                :class="[
+                  currentSlide === index ? 'opacity-60' : 'opacity-0',
+                  halamanSelesaiMuat ? 'scale-100' : 'scale-105',
+                ]"
+                onerror="this.src='/favicon.ico'; this.classList.add('object-contain', 'p-20')"
               >
-                <!-- Badge Pill -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/40 to-transparent" />
+              <div class="absolute inset-0 bg-gradient-to-r from-[#090d16]/90 via-[#090d16]/40 to-transparent" />
+            </div>
+
+            <!-- Content inside Hero -->
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                  class="inline-flex items-center gap-2 rounded-full bg-knpi-600/20 border border-knpi-500/30 px-3.5 py-1.5 text-xs font-bold text-knpi-300 mb-6 backdrop-blur-md transition-all duration-700 delay-150 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 scale-95'"
+                  class="max-w-2xl transform transition-all duration-1000"
+                  :class="currentSlide === index ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
                 >
-                  <span class="h-2 w-2 rounded-full bg-knpi-400 animate-pulse" />
-                  <span class="tracking-wide">DPD KNPI Kota Langsa</span>
-                </div>
-
-                <h1
-                  class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  {{ slide.title }}
-                  <span class="block text-knpi-300 mt-2">
-                    {{ slide.subtitle }}
-                  </span>
-                </h1>
-
-                <p
-                  class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  {{ slide.description }}
-                </p>
-
-                <div
-                  class="mt-8 flex flex-wrap gap-4 items-center transition-all duration-700 delay-700 transform"
-                  :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
-                >
-                  <a
-                    href="#berita"
-                    class="btn-primary !w-auto !py-3.5 !px-7 !text-xs"
+                  <!-- Badge Pill -->
+                  <div
+                    class="inline-flex items-center gap-2 rounded-full bg-knpi-600/20 border border-knpi-500/30 px-3.5 py-1.5 text-xs font-bold text-knpi-300 mb-6 backdrop-blur-md transition-all duration-700 delay-150 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 scale-95'"
                   >
-                    <span>Jelajahi Berita</span>
-                    <LucideArrowRight :size="16" />
-                  </a>
-                  <a
-                    href="#pinjam-gedung"
-                    class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                    <span class="h-2 w-2 rounded-full bg-knpi-400 animate-pulse" />
+                    <span class="tracking-wide">DPD KNPI Kota Langsa</span>
+                  </div>
+
+                  <h1
+                    class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
-                    <LucideBuilding2 :size="16" />
-                    <span>Pinjam Gedung</span>
-                  </a>
+                    {{ slide.judul }}
+                    <span class="block text-knpi-300 mt-2">
+                      {{ slide.subjudul }}
+                    </span>
+                  </h1>
+
+                  <p
+                    class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
+                  >
+                    {{ slide.deskripsi }}
+                  </p>
+
+                  <div
+                    class="mt-8 flex flex-wrap gap-4 items-center transition-all duration-700 delay-700 transform"
+                    :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
+                  >
+                    <a
+                      href="#berita"
+                      class="btn-primary !w-auto !py-3.5 !px-7 !text-xs"
+                    >
+                      <span>Jelajahi Berita</span>
+                      <LucideArrowRight :size="16" />
+                    </a>
+                    <a
+                      href="#pinjam-gedung"
+                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                    >
+                      <LucideBuilding2 :size="16" />
+                      <span>Pinjam Gedung</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
 
         <!-- Slider Navigation Controls -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
@@ -655,7 +674,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
 
 definePageMeta({ layout: false })
 
@@ -669,69 +688,43 @@ const handleScroll = () => {
   isScrolledDown.value = window.scrollY > 60
 }
 
-// Slider Logic
-const slides = [
+// ---- Slider: tipe & fallback ----
+interface SlideItem {
+  gambarUrl: string
+  judul: string
+  subjudul: string
+  deskripsi: string
+}
+
+// Fallback jika DB kosong — beranda tidak pernah blank
+const slidesFallback: SlideItem[] = [
   {
-    image: '/images/slider/1.jpeg',
-    title: 'Bakti Pada Negeri',
-    subtitle: 'Sinergi & Kolaborasi Pemuda',
-    description: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
+    gambarUrl: '/images/slider/1.jpeg',
+    judul: 'Bakti Pada Negeri',
+    subjudul: 'Sinergi & Kolaborasi Pemuda',
+    deskripsi: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
   },
   {
-    image: '/images/slider/2.jpeg',
-    title: 'Pemuda Hebat',
-    subtitle: 'Membangun Kota Langsa',
-    description: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.',
+    gambarUrl: '/images/slider/2.jpeg',
+    judul: 'Pemuda Hebat',
+    subjudul: 'Membangun Kota Langsa',
+    deskripsi: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.',
   },
   {
-    image: '/images/slider/3.jpeg',
-    title: 'Bersatu Kita Maju',
-    subtitle: 'Kemandirian & Aksi Nyata',
-    description: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.',
-  },
-  {
-    image: '/images/slider/4.jpeg',
-    title: 'Energi Pemuda',
-    subtitle: 'Menggerakkan Perubahan',
-    description: 'Setiap karya dan inovasi pemuda adalah langkah nyata menuju masa depan yang lebih baik dan gemilang.',
-  },
-  {
-    image: '/images/slider/5.jpeg',
-    title: 'Generasi Cerdas',
-    subtitle: 'Solusi Untuk Negeri',
-    description: 'Pemuda adalah kunci utama dalam menjawab berbagai tantangan zaman dengan kreativitas dan kecerdasan.',
-  },
-  {
-    image: '/images/slider/6.jpeg',
-    title: 'Semangat Kolaborasi',
-    subtitle: 'Merajut Asa, Mewujudkan Cita',
-    description: 'Bersama-sama membangun ekosistem yang suportif bagi tumbuh kembangnya potensi pemuda daerah.',
-  },
-  {
-    image: '/images/slider/7.jpeg',
-    title: 'Tangguh & Adaptif',
-    subtitle: 'Pemuda di Era Digital',
-    description: 'Siap menghadapi persaingan global dengan memperkuat literasi digital dan kemampuan wirausaha.',
-  },
-  {
-    image: '/images/slider/8.jpeg',
-    title: 'Aksi Nyata',
-    subtitle: 'Kepedulian Sosial & Lingkungan',
-    description: 'Wujud nyata kepedulian pemuda dalam menjaga kelestarian lingkungan dan membantu sesama.',
-  },
-  {
-    image: '/images/slider/9.jpeg',
-    title: 'Kreativitas Tanpa Batas',
-    subtitle: 'Wadah Inovasi & Seni',
-    description: 'Mengembangkan bakat dan minat pemuda dalam bidang seni, budaya, dan ekonomi kreatif.',
-  },
-  {
-    image: '/images/slider/10.jpeg',
-    title: 'Masa Depan Cerah',
-    subtitle: 'Pemuda Langsa Berjaya',
-    description: 'Menuju Indonesia Emas dengan mencetak generasi muda Kota Langsa yang unggul, berprestasi, dan berakhlak mulia.',
+    gambarUrl: '/images/slider/3.jpeg',
+    judul: 'Bersatu Kita Maju',
+    subjudul: 'Kemandirian & Aksi Nyata',
+    deskripsi: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.',
   },
 ]
+
+const slidesDB = ref<SlideItem[]>([])
+const memuatSlider = ref(true)
+
+// Gunakan data dari DB, atau fallback jika DB kosong
+const slides = computed<SlideItem[]>(() =>
+  slidesDB.value.length > 0 ? slidesDB.value : slidesFallback,
+)
 
 interface ItemBeritaPublik {
   id: number
@@ -746,17 +739,18 @@ const currentSlide = ref(0)
 let slideInterval: ReturnType<typeof setInterval> | null = null
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.length
+  currentSlide.value = (currentSlide.value + 1) % slides.value.length
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
+  currentSlide.value = (currentSlide.value - 1 + slides.value.length) % slides.value.length
 }
 
 // Auto-play slider + ambil berita dari API + Scroll listener
 onMounted(() => {
   slideInterval = setInterval(nextSlide, 5000)
   ambilBerita()
+  ambilSliderBeranda()
 
   window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -855,6 +849,35 @@ const ambilBerita = async () => {
     // Re-observe newly rendered .reveal elements after data loads
     await nextTick()
     observeNewRevealElements()
+  }
+}
+
+// Fetch slide dari database, fallback ke slidesFallback jika kosong/gagal
+interface SlideApiItem {
+  gambarUrl?: string
+  judul?: string
+  subjudul?: string
+  deskripsi?: string
+}
+
+const ambilSliderBeranda = async () => {
+  try {
+    const res = await $fetch<{ berhasil: boolean, data: SlideApiItem[] }>('/api/publik/slider')
+    if (res.berhasil && res.data.length > 0) {
+      slidesDB.value = res.data.map(s => ({
+        gambarUrl: s.gambarUrl || '',
+        judul: s.judul || '',
+        subjudul: s.subjudul || '',
+        deskripsi: s.deskripsi || '',
+      }))
+    }
+  }
+  catch (err) {
+    console.error('Gagal memuat slider:', err)
+    // Fallback otomatis dari slidesFallback via computed
+  }
+  finally {
+    memuatSlider.value = false
   }
 }
 

@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, int, timestamp, mysqlEnum, text, date } from 'drizzle-orm/mysql-core'
+import { mysqlTable, varchar, int, timestamp, mysqlEnum, text, date, tinyint } from 'drizzle-orm/mysql-core'
 
 // Tabel pengguna
 export const pengguna = mysqlTable('pengguna', {
@@ -50,3 +50,19 @@ export const pinjamGedung = mysqlTable('pinjam_gedung', {
 
 export type PinjamGedung = typeof pinjamGedung.$inferSelect
 export type PinjamGedungBaru = typeof pinjamGedung.$inferInsert
+
+// Tabel slider beranda
+export const slider = mysqlTable('slider', {
+  id: int('id').primaryKey().autoincrement(),
+  judul: varchar('judul', { length: 255 }).notNull(),
+  subjudul: varchar('subjudul', { length: 255 }).notNull().default(''),
+  deskripsi: text('deskripsi'),
+  gambarUrl: varchar('gambar_url', { length: 500 }).notNull(),
+  urutan: int('urutan').notNull().default(0),
+  aktif: tinyint('aktif').notNull().default(1),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+})
+
+export type Slider = typeof slider.$inferSelect
+export type SliderBaru = typeof slider.$inferInsert
