@@ -173,7 +173,7 @@
                 </div>
                 <div>
                   <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
-                    Pinjam Gedung
+                    Pinjam Pakai Gedung
                   </h4>
                   <span class="text-[11px] text-slate-400">Permohonan &amp; Jadwal</span>
                 </div>

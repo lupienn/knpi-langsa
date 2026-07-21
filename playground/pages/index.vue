@@ -72,6 +72,11 @@
             :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
             class="transition-colors"
           >Berita</a>
+          <a
+            href="#pinjam-gedung"
+            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
+            class="transition-colors"
+          >Pinjam Gedung</a>
         </nav>
 
         <!-- Right Controls: Theme Toggle & Login Button -->

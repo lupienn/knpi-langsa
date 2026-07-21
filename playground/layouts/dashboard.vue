@@ -70,7 +70,7 @@
             :size="18"
             class="shrink-0"
           />
-          <span class="flex-1">Berita Pemuda</span>
+          <span class="flex-1">Kelola Berita</span>
           <LucideChevronRight
             v-if="route.path.startsWith('/dashboard/berita')"
             :size="14"
@@ -87,7 +87,7 @@
             :size="18"
             class="shrink-0"
           />
-          <span class="flex-1">Pinjam Gedung</span>
+          <span class="flex-1">Pinjam Pakai Gedung</span>
           <LucideChevronRight
             v-if="route.path.startsWith('/dashboard/pinjam-gedung')"
             :size="14"
@@ -104,7 +104,7 @@
             :size="18"
             class="shrink-0"
           />
-          <span class="flex-1">Kelola Slider</span>
+          <span class="flex-1">Slider Beranda</span>
           <LucideChevronRight
             v-if="route.path.startsWith('/dashboard/slider')"
             :size="14"
