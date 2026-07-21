@@ -220,13 +220,12 @@
               "{{ berita.ringkasan }}"
             </div>
 
-            <!-- Main Body Content Text -->
+            <!-- Main Body Content Text (Render Rich Text HTML) -->
             <div
-              class="text-sm sm:text-base leading-relaxed space-y-5 whitespace-pre-line font-normal"
+              class="text-sm sm:text-base leading-relaxed space-y-5 whitespace-pre-line font-normal prose prose-invert max-w-none text-slate-200"
               :class="isDarkMode ? 'text-slate-200' : 'text-slate-800'"
-            >
-              {{ berita.konten }}
-            </div>
+              v-html="berita.konten"
+            />
 
             <!-- Social Sharing & Print Toolbar -->
             <div
