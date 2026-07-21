@@ -36,8 +36,12 @@
           <LucideImages :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Slide</p>
-          <p class="text-xl font-extrabold text-white mt-0.5">{{ daftarSlider.length }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Total Slide
+          </p>
+          <p class="text-xl font-extrabold text-white mt-0.5">
+            {{ daftarSlider.length }}
+          </p>
         </div>
       </div>
 
@@ -47,8 +51,12 @@
           <LucideCheckCircle2 :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Slide Aktif</p>
-          <p class="text-xl font-extrabold text-emerald-400 mt-0.5">{{ totalAktif }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Slide Aktif
+          </p>
+          <p class="text-xl font-extrabold text-emerald-400 mt-0.5">
+            {{ totalAktif }}
+          </p>
         </div>
       </div>
 
@@ -58,8 +66,12 @@
           <LucideEyeOff :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Slide Nonaktif</p>
-          <p class="text-xl font-extrabold text-slate-300 mt-0.5">{{ totalNonaktif }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Slide Nonaktif
+          </p>
+          <p class="text-xl font-extrabold text-slate-300 mt-0.5">
+            {{ totalNonaktif }}
+          </p>
         </div>
       </div>
 
@@ -69,8 +81,12 @@
           <LucideSparkles :size="20" />
         </div>
         <div class="min-w-0">
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Slide Utamakan #1</p>
-          <p class="text-xs font-bold text-amber-300 mt-0.5 truncate">{{ daftarSlider[0]?.judul || 'Belum Ada' }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Slide Utamakan #1
+          </p>
+          <p class="text-xs font-bold text-amber-300 mt-0.5 truncate">
+            {{ daftarSlider[0]?.judul || 'Belum Ada' }}
+          </p>
         </div>
       </div>
     </div>
@@ -79,13 +95,16 @@
     <div class="glass-card p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
       <!-- Search Input -->
       <div class="relative flex-1 min-w-0">
-        <LucideSearch :size="16" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+        <LucideSearch
+          :size="16"
+          class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+        />
         <input
           v-model="kataKunciCari"
           type="text"
           placeholder="Cari judul slide, subjudul, atau deskripsi..."
           class="w-full rounded-xl border border-white/10 bg-slate-900/80 pl-10 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
-        />
+        >
         <button
           v-if="kataKunciCari"
           class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
@@ -140,8 +159,15 @@
     </div>
 
     <!-- ====== SKELETON LOADING STATE ====== -->
-    <div v-if="memuat" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="i in 3" :key="'skel-' + i" class="glass-card p-4 flex flex-col gap-3 animate-pulse">
+    <div
+      v-if="memuat"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <div
+        v-for="i in 3"
+        :key="'skel-' + i"
+        class="glass-card p-4 flex flex-col gap-3 animate-pulse"
+      >
         <div class="w-full aspect-[16/10] rounded-xl bg-slate-800/80" />
         <div class="space-y-2 py-1">
           <div class="h-4 bg-slate-800/80 rounded w-3/4" />
@@ -163,7 +189,9 @@
         <LucideImageOff :size="32" />
       </div>
       <div>
-        <h3 class="text-white font-bold text-lg">Tidak Ada Slide Ditemukan</h3>
+        <h3 class="text-white font-bold text-lg">
+          Tidak Ada Slide Ditemukan
+        </h3>
         <p class="text-slate-400 text-sm mt-1 max-w-md">
           {{ kataKunciCari ? `Tidak ada slide yang cocok dengan kata kunci "${kataKunciCari}".` : 'Klik tombol di bawah untuk menambahkan foto hero slide pertama.' }}
         </p>
@@ -172,14 +200,23 @@
         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 text-amber-950 font-bold text-xs shadow-lg hover:bg-amber-400 transition cursor-pointer"
         @click="kataKunciCari ? (kataKunciCari = '') : bukaFormTambah()"
       >
-        <LucideRotateCcw v-if="kataKunciCari" :size="15" />
-        <LucidePlus v-else :size="15" />
+        <LucideRotateCcw
+          v-if="kataKunciCari"
+          :size="15"
+        />
+        <LucidePlus
+          v-else
+          :size="15"
+        />
         <span>{{ kataKunciCari ? 'Reset Pencarian' : 'Tambah Slide Pertama' }}</span>
       </button>
     </div>
 
     <!-- ====== TAMPILAN GRID CARDS ====== -->
-    <div v-else-if="tampilanMode === 'grid'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+    <div
+      v-else-if="tampilanMode === 'grid'"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+    >
       <div
         v-for="(slide, index) in sliderFiltered"
         :key="slide.id"
@@ -194,8 +231,11 @@
               :alt="slide.judul"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               onerror="this.src='/favicon.ico'; this.classList.add('object-contain','p-8')"
-            />
-            <div v-else class="absolute inset-0 flex flex-col items-center justify-center text-slate-600 bg-slate-900/90">
+            >
+            <div
+              v-else
+              class="absolute inset-0 flex flex-col items-center justify-center text-slate-600 bg-slate-900/90"
+            >
               <LucideImage :size="36" />
               <span class="text-[10px] text-slate-500 font-medium mt-1">Tanpa Gambar</span>
             </div>
@@ -213,7 +253,10 @@
                   ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30'
                   : 'bg-slate-950/80 text-slate-400 border-slate-500/30'"
               >
-                <span class="h-1.5 w-1.5 rounded-full" :class="slide.aktif ? 'bg-emerald-400' : 'bg-slate-500'" />
+                <span
+                  class="h-1.5 w-1.5 rounded-full"
+                  :class="slide.aktif ? 'bg-emerald-400' : 'bg-slate-500'"
+                />
                 {{ slide.aktif ? 'Aktif' : 'Nonaktif' }}
               </span>
             </div>
@@ -236,7 +279,10 @@
             <h3 class="font-bold text-white text-base truncate group-hover:text-amber-300 transition-colors">
               {{ slide.judul }}
             </h3>
-            <p v-if="slide.subjudul" class="text-xs text-amber-400 font-semibold truncate mt-0.5">
+            <p
+              v-if="slide.subjudul"
+              class="text-xs text-amber-400 font-semibold truncate mt-0.5"
+            >
               {{ slide.subjudul }}
             </p>
             <p class="text-xs text-slate-300/80 mt-2 line-clamp-2 leading-relaxed">
@@ -278,8 +324,14 @@
               :title="slide.aktif ? 'Sembunyikan Slide' : 'Aktifkan Slide'"
               @click="toggleAktif(slide)"
             >
-              <LucideEyeOff v-if="slide.aktif" :size="14" />
-              <LucideEye v-else :size="14" />
+              <LucideEyeOff
+                v-if="slide.aktif"
+                :size="14"
+              />
+              <LucideEye
+                v-else
+                :size="14"
+              />
             </button>
 
             <button
@@ -304,16 +356,29 @@
     </div>
 
     <!-- ====== TAMPILAN TABEL DATA ====== -->
-    <div v-else-if="tampilanMode === 'tabel'" class="glass-card overflow-hidden">
+    <div
+      v-else-if="tampilanMode === 'tabel'"
+      class="glass-card overflow-hidden"
+    >
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="border-b border-white/[0.08] bg-white/[0.02] text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              <th class="px-5 py-3.5">Urutan</th>
-              <th class="px-5 py-3.5">Foto &amp; Judul</th>
-              <th class="px-5 py-3.5">Subjudul &amp; Deskripsi</th>
-              <th class="px-5 py-3.5">Status</th>
-              <th class="px-5 py-3.5 text-right">Aksi</th>
+              <th class="px-5 py-3.5">
+                Urutan
+              </th>
+              <th class="px-5 py-3.5">
+                Foto &amp; Judul
+              </th>
+              <th class="px-5 py-3.5">
+                Subjudul &amp; Deskripsi
+              </th>
+              <th class="px-5 py-3.5">
+                Status
+              </th>
+              <th class="px-5 py-3.5 text-right">
+                Aksi
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-white/[0.04]">
@@ -329,40 +394,81 @@
               </td>
               <td class="px-5 py-4">
                 <div class="flex items-center gap-3 min-w-[240px]">
-                  <div class="w-14 h-10 rounded-lg overflow-hidden bg-slate-800 shrink-0 border border-white/10 cursor-pointer" @click="previewFoto = slide.gambarUrl">
-                    <img v-if="slide.gambarUrl" :src="slide.gambarUrl" :alt="slide.judul" class="w-full h-full object-cover" />
-                    <div v-else class="w-full h-full flex items-center justify-center text-slate-600">
+                  <div
+                    class="w-14 h-10 rounded-lg overflow-hidden bg-slate-800 shrink-0 border border-white/10 cursor-pointer"
+                    @click="previewFoto = slide.gambarUrl"
+                  >
+                    <img
+                      v-if="slide.gambarUrl"
+                      :src="slide.gambarUrl"
+                      :alt="slide.judul"
+                      class="w-full h-full object-cover"
+                    >
+                    <div
+                      v-else
+                      class="w-full h-full flex items-center justify-center text-slate-600"
+                    >
                       <LucideImage :size="16" />
                     </div>
                   </div>
-                  <h4 class="font-bold text-white text-xs sm:text-sm truncate">{{ slide.judul }}</h4>
+                  <h4 class="font-bold text-white text-xs sm:text-sm truncate">
+                    {{ slide.judul }}
+                  </h4>
                 </div>
               </td>
               <td class="px-5 py-4 max-w-xs">
-                <p v-if="slide.subjudul" class="text-xs text-amber-400 font-semibold truncate">{{ slide.subjudul }}</p>
-                <p class="text-xs text-slate-400 truncate mt-0.5">{{ slide.deskripsi || '—' }}</p>
+                <p
+                  v-if="slide.subjudul"
+                  class="text-xs text-amber-400 font-semibold truncate"
+                >
+                  {{ slide.subjudul }}
+                </p>
+                <p class="text-xs text-slate-400 truncate mt-0.5">
+                  {{ slide.deskripsi || '—' }}
+                </p>
               </td>
               <td class="px-5 py-4 whitespace-nowrap">
                 <span
                   class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border"
                   :class="slide.aktif ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25' : 'bg-slate-500/10 text-slate-400 border-slate-500/25'"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full" :class="slide.aktif ? 'bg-emerald-400' : 'bg-slate-500'" />
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    :class="slide.aktif ? 'bg-emerald-400' : 'bg-slate-500'"
+                  />
                   {{ slide.aktif ? 'Aktif' : 'Nonaktif' }}
                 </span>
               </td>
               <td class="px-5 py-4 text-right whitespace-nowrap">
                 <div class="flex items-center justify-end gap-1.5">
-                  <button :disabled="index === 0" class="p-1.5 rounded-lg border border-white/10 text-slate-300 hover:bg-white/10 disabled:opacity-30 transition cursor-pointer" title="Naik" @click="pindahUrutan(index, 'naik')">
+                  <button
+                    :disabled="index === 0"
+                    class="p-1.5 rounded-lg border border-white/10 text-slate-300 hover:bg-white/10 disabled:opacity-30 transition cursor-pointer"
+                    title="Naik"
+                    @click="pindahUrutan(index, 'naik')"
+                  >
                     <LucideArrowUp :size="14" />
                   </button>
-                  <button :disabled="index === sliderFiltered.length - 1" class="p-1.5 rounded-lg border border-white/10 text-slate-300 hover:bg-white/10 disabled:opacity-30 transition cursor-pointer" title="Turun" @click="pindahUrutan(index, 'turun')">
+                  <button
+                    :disabled="index === sliderFiltered.length - 1"
+                    class="p-1.5 rounded-lg border border-white/10 text-slate-300 hover:bg-white/10 disabled:opacity-30 transition cursor-pointer"
+                    title="Turun"
+                    @click="pindahUrutan(index, 'turun')"
+                  >
                     <LucideArrowDown :size="14" />
                   </button>
-                  <button class="p-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition cursor-pointer" title="Edit" @click="bukaFormEdit(slide)">
+                  <button
+                    class="p-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition cursor-pointer"
+                    title="Edit"
+                    @click="bukaFormEdit(slide)"
+                  >
                     <LucidePencil :size="14" />
                   </button>
-                  <button class="p-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition cursor-pointer" title="Hapus" @click="konfirmasiHapus(slide)">
+                  <button
+                    class="p-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition cursor-pointer"
+                    title="Hapus"
+                    @click="konfirmasiHapus(slide)"
+                  >
                     <LucideTrash2 :size="14" />
                   </button>
                 </div>
@@ -392,7 +498,11 @@
           >
             <LucideX :size="20" />
           </button>
-          <img :src="previewFoto" alt="Preview Foto Slide" class="w-full max-h-[80vh] object-contain bg-black/50" />
+          <img
+            :src="previewFoto"
+            alt="Preview Foto Slide"
+            class="w-full max-h-[80vh] object-contain bg-black/50"
+          >
         </div>
       </div>
     </Transition>
@@ -420,16 +530,24 @@
                 <h3 class="text-base font-bold text-white">
                   {{ modeForm === 'tambah' ? 'Tambah Slide Baru' : 'Edit Slide' }}
                 </h3>
-                <p class="text-[11px] text-slate-400">Atur judul, deskripsi, dan foto utama hero slider</p>
+                <p class="text-[11px] text-slate-400">
+                  Atur judul, deskripsi, dan foto utama hero slider
+                </p>
               </div>
             </div>
-            <button class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer" @click="tutupModal">
+            <button
+              class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer"
+              @click="tutupModal"
+            >
               <LucideX :size="18" />
             </button>
           </div>
 
           <!-- Body Form -->
-          <form class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" @submit.prevent="simpanSlide">
+          <form
+            class="flex-1 overflow-y-auto p-6 flex flex-col gap-4"
+            @submit.prevent="simpanSlide"
+          >
             <!-- Judul -->
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -441,7 +559,7 @@
                 placeholder="Masukkan judul utama slide"
                 class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
                 required
-              />
+              >
             </div>
 
             <!-- Subjudul -->
@@ -452,7 +570,7 @@
                 type="text"
                 placeholder="Masukkan subjudul slide"
                 class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
-              />
+              >
             </div>
 
             <!-- Deskripsi -->
@@ -473,8 +591,15 @@
               </label>
 
               <!-- Preview Foto -->
-              <div v-if="form.gambarUrl" class="mb-3 relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-900 border border-white/15 shadow-inner group">
-                <img :src="form.gambarUrl" alt="Preview Foto Slide" class="w-full h-full object-cover" />
+              <div
+                v-if="form.gambarUrl"
+                class="mb-3 relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-900 border border-white/15 shadow-inner group"
+              >
+                <img
+                  :src="form.gambarUrl"
+                  alt="Preview Foto Slide"
+                  class="w-full h-full object-cover"
+                >
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button
                     type="button"
@@ -498,20 +623,30 @@
                 <div class="p-3 rounded-full bg-amber-500/10 text-amber-400 mb-2 border border-amber-500/20">
                   <LucideUploadCloud :size="24" />
                 </div>
-                <p class="text-xs font-bold text-slate-200">Klik atau seret foto ke sini</p>
-                <p class="text-[11px] text-slate-500 mt-0.5">Format JPG, PNG, atau WebP (Maksimal 5MB)</p>
+                <p class="text-xs font-bold text-slate-200">
+                  Klik atau seret foto ke sini
+                </p>
+                <p class="text-[11px] text-slate-500 mt-0.5">
+                  Format JPG, PNG, atau WebP (Maksimal 5MB)
+                </p>
                 <input
                   ref="inputFoto"
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
                   class="hidden"
                   @change="handlePilihFile"
-                />
+                >
               </div>
 
               <!-- Loading Upload -->
-              <div v-if="sedangUpload" class="mt-2.5 flex items-center gap-2 text-xs font-semibold text-amber-400">
-                <LucideLoader :size="15" class="animate-spin" />
+              <div
+                v-if="sedangUpload"
+                class="mt-2.5 flex items-center gap-2 text-xs font-semibold text-amber-400"
+              >
+                <LucideLoader
+                  :size="15"
+                  class="animate-spin"
+                />
                 <span>Mengunggah foto slide...</span>
               </div>
             </div>
@@ -519,8 +654,12 @@
             <!-- Toggle Status Aktif -->
             <div class="flex items-center justify-between py-2 border-t border-white/5 mt-1">
               <div>
-                <p class="text-xs font-bold text-slate-200">Status Publikasi Slide</p>
-                <p class="text-[11px] text-slate-400">Tampilkan slide ini di beranda utama</p>
+                <p class="text-xs font-bold text-slate-200">
+                  Status Publikasi Slide
+                </p>
+                <p class="text-[11px] text-slate-400">
+                  Tampilkan slide ini di beranda utama
+                </p>
               </div>
               <button
                 type="button"
@@ -536,7 +675,10 @@
             </div>
 
             <!-- Error Banner -->
-            <div v-if="pesanError" class="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-xs text-red-300">
+            <div
+              v-if="pesanError"
+              class="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-xs text-red-300"
+            >
               {{ pesanError }}
             </div>
 
@@ -555,8 +697,15 @@
                 :disabled="sedangProses || sedangUpload || !form.gambarUrl"
                 class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 py-2.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
               >
-                <LucideLoader v-if="sedangProses" :size="15" class="animate-spin" />
-                <LucideCheck v-else :size="15" />
+                <LucideLoader
+                  v-if="sedangProses"
+                  :size="15"
+                  class="animate-spin"
+                />
+                <LucideCheck
+                  v-else
+                  :size="15"
+                />
                 <span>{{ sedangProses ? 'Menyimpan...' : (modeForm === 'tambah' ? 'Tambah Slide' : 'Simpan Perubahan') }}</span>
               </button>
             </div>
@@ -581,7 +730,9 @@
           <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-inner">
             <LucideTrash2 :size="26" />
           </div>
-          <h3 class="text-base font-bold text-white">Hapus Slide Ini?</h3>
+          <h3 class="text-base font-bold text-white">
+            Hapus Slide Ini?
+          </h3>
           <p class="mt-1.5 text-xs leading-relaxed text-slate-400">
             Slide <span class="text-white font-semibold">"{{ slideYangDihapus?.judul }}"</span> akan dihapus secara permanen.
           </p>
@@ -598,7 +749,11 @@
               :disabled="sedangProses"
               @click="hapusSlide"
             >
-              <LucideLoader v-if="sedangProses" :size="14" class="animate-spin" />
+              <LucideLoader
+                v-if="sedangProses"
+                :size="14"
+                class="animate-spin"
+              />
               <span>{{ sedangProses ? 'Menghapus...' : 'Ya, Hapus' }}</span>
             </button>
           </div>
@@ -618,8 +773,14 @@
         class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl"
         :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-950/90 text-emerald-300' : 'border-red-500/30 bg-red-950/90 text-red-300'"
       >
-        <LucideCheckCircle2 v-if="toast.tipe === 'sukses'" :size="18" />
-        <LucideXCircle v-else :size="18" />
+        <LucideCheckCircle2
+          v-if="toast.tipe === 'sukses'"
+          :size="18"
+        />
+        <LucideXCircle
+          v-else
+          :size="18"
+        />
         <span class="text-xs font-semibold">{{ toast.pesan }}</span>
       </div>
     </Transition>
@@ -681,7 +842,9 @@ function tampilkanToast(pesan: string, tipe: 'sukses' | 'error' = 'sukses') {
   toast.pesan = pesan
   toast.tipe = tipe
   toast.tampil = true
-  toastTimeout = setTimeout(() => { toast.tampil = false }, 3500)
+  toastTimeout = setTimeout(() => {
+    toast.tampil = false
+  }, 3500)
 }
 
 // Metrics computed
@@ -693,9 +856,9 @@ function hitungFilter(val: string) {
   if (kataKunciCari.value.trim()) {
     const q = kataKunciCari.value.toLowerCase()
     list = list.filter(s =>
-      s.judul.toLowerCase().includes(q) ||
-      (s.subjudul && s.subjudul.toLowerCase().includes(q)) ||
-      (s.deskripsi && s.deskripsi.toLowerCase().includes(q))
+      s.judul.toLowerCase().includes(q)
+      || (s.subjudul && s.subjudul.toLowerCase().includes(q))
+      || (s.deskripsi && s.deskripsi.toLowerCase().includes(q)),
     )
   }
   if (val === 'semua') return list.length
@@ -709,9 +872,9 @@ const sliderFiltered = computed(() => {
   if (kataKunciCari.value.trim()) {
     const q = kataKunciCari.value.toLowerCase()
     list = list.filter(s =>
-      s.judul.toLowerCase().includes(q) ||
-      (s.subjudul && s.subjudul.toLowerCase().includes(q)) ||
-      (s.deskripsi && s.deskripsi.toLowerCase().includes(q))
+      s.judul.toLowerCase().includes(q)
+      || (s.subjudul && s.subjudul.toLowerCase().includes(q))
+      || (s.deskripsi && s.deskripsi.toLowerCase().includes(q)),
     )
   }
 
@@ -724,7 +887,7 @@ const sliderFiltered = computed(() => {
 async function ambilSlider() {
   memuat.value = true
   try {
-    const res = await $fetch<{ berhasil: boolean; data: any[] }>('/api/slider', {
+    const res = await $fetch<{ berhasil: boolean, data: (Omit<SlideItem, 'aktif'> & { aktif: number | boolean })[] }>('/api/slider', {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (res.berhasil) {
@@ -782,7 +945,7 @@ async function uploadFoto(file: File) {
   try {
     const formData = new FormData()
     formData.append('gambar', file)
-    const res = await $fetch<{ berhasil: boolean; url: string }>('/api/upload', {
+    const res = await $fetch<{ berhasil: boolean, url: string }>('/api/upload', {
       method: 'POST',
       body: formData,
       headers: { Authorization: `Bearer ${authStore.token}` },
@@ -849,8 +1012,9 @@ async function simpanSlide() {
     tutupModal()
     await ambilSlider()
   }
-  catch (err: any) {
-    pesanError.value = err?.data?.statusMessage || 'Gagal menyimpan slide.'
+  catch (err: unknown) {
+    const e = err as { data?: { statusMessage?: string } }
+    pesanError.value = e?.data?.statusMessage || 'Gagal menyimpan slide.'
   }
   finally {
     sedangProses.value = false
@@ -946,7 +1110,9 @@ async function hapusSlide() {
   }
 }
 
-onMounted(() => { ambilSlider() })
+onMounted(() => {
+  ambilSlider()
+})
 
 useSeoMeta({
   title: 'Slider Beranda — KNPI Langsa',

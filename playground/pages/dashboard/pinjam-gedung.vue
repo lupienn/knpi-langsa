@@ -28,8 +28,12 @@
           <LucideBuilding2 :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Pengajuan</p>
-          <p class="text-xl font-extrabold text-white mt-0.5">{{ daftarData.length }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Total Pengajuan
+          </p>
+          <p class="text-xl font-extrabold text-white mt-0.5">
+            {{ daftarData.length }}
+          </p>
         </div>
       </div>
 
@@ -39,8 +43,12 @@
           <LucideClock :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Menunggu Verifikasi</p>
-          <p class="text-xl font-extrabold text-amber-400 mt-0.5">{{ totalMenunggu }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Menunggu Verifikasi
+          </p>
+          <p class="text-xl font-extrabold text-amber-400 mt-0.5">
+            {{ totalMenunggu }}
+          </p>
         </div>
       </div>
 
@@ -50,8 +58,12 @@
           <LucideCheckCircle2 :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Disetujui</p>
-          <p class="text-xl font-extrabold text-emerald-400 mt-0.5">{{ totalDisetujui }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Disetujui
+          </p>
+          <p class="text-xl font-extrabold text-emerald-400 mt-0.5">
+            {{ totalDisetujui }}
+          </p>
         </div>
       </div>
 
@@ -61,8 +73,12 @@
           <LucideXCircle :size="20" />
         </div>
         <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Ditolak</p>
-          <p class="text-xl font-extrabold text-red-400 mt-0.5">{{ totalDitolak }}</p>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Ditolak
+          </p>
+          <p class="text-xl font-extrabold text-red-400 mt-0.5">
+            {{ totalDitolak }}
+          </p>
         </div>
       </div>
     </div>
@@ -71,13 +87,16 @@
     <div class="glass-card p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
       <!-- Search Input -->
       <div class="relative flex-1 min-w-0">
-        <LucideSearch :size="16" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+        <LucideSearch
+          :size="16"
+          class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+        />
         <input
           v-model="kataKunciCari"
           type="text"
           placeholder="Cari nama pemohon, organisasi, atau keperluan..."
           class="w-full rounded-xl border border-white/10 bg-slate-900/80 pl-10 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
-        />
+        >
         <button
           v-if="kataKunciCari"
           class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
@@ -132,8 +151,15 @@
     </div>
 
     <!-- ====== SKELETON LOADING STATE ====== -->
-    <div v-if="sedangMemuat" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="i in 4" :key="'skel-' + i" class="glass-card p-5 flex flex-col space-y-4 animate-pulse">
+    <div
+      v-if="sedangMemuat"
+      class="grid grid-cols-1 md:grid-cols-2 gap-4"
+    >
+      <div
+        v-for="i in 4"
+        :key="'skel-' + i"
+        class="glass-card p-5 flex flex-col space-y-4 animate-pulse"
+      >
         <div class="flex justify-between items-center">
           <div class="h-4 bg-slate-800/80 rounded w-1/3" />
           <div class="h-5 bg-slate-800/60 rounded-full w-20" />
@@ -155,7 +181,9 @@
         <LucideBuilding2 :size="32" />
       </div>
       <div>
-        <h3 class="text-white font-bold text-lg">Tidak Ada Permohonan Ditemukan</h3>
+        <h3 class="text-white font-bold text-lg">
+          Tidak Ada Permohonan Ditemukan
+        </h3>
         <p class="text-slate-400 text-sm mt-1 max-w-md">
           {{ kataKunciCari ? `Tidak ada pengajuan pinjam gedung yang cocok dengan pencarian "${kataKunciCari}".` : 'Permohonan pinjam gedung yang diajukan masyarakat atau organisasi akan tampil di sini.' }}
         </p>
@@ -170,7 +198,10 @@
     </div>
 
     <!-- ====== TAMPILAN GRID CARDS ====== -->
-    <div v-else-if="tampilanMode === 'grid'" class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+    <div
+      v-else-if="tampilanMode === 'grid'"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5"
+    >
       <div
         v-for="item in dataFiltered"
         :key="item.id"
@@ -181,13 +212,18 @@
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0 flex-1">
               <div class="flex items-center gap-2 flex-wrap">
-                <h4 class="font-bold text-white text-base truncate">{{ item.namaPemohon }}</h4>
+                <h4 class="font-bold text-white text-base truncate">
+                  {{ item.namaPemohon }}
+                </h4>
                 <span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[11px] font-semibold text-slate-300">
                   {{ item.organisasi }}
                 </span>
               </div>
               <p class="text-xs text-emerald-400 font-medium mt-1">
-                📞 {{ item.noHp }} <span v-if="item.email" class="text-slate-400 font-normal">· ✉️ {{ item.email }}</span>
+                📞 {{ item.noHp }} <span
+                  v-if="item.email"
+                  class="text-slate-400 font-normal"
+                >· ✉️ {{ item.email }}</span>
               </p>
             </div>
 
@@ -196,7 +232,10 @@
               class="shrink-0 inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full border shadow-sm"
               :class="kelasStatus(item.status)"
             >
-              <span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(item.status)" />
+              <span
+                class="h-1.5 w-1.5 rounded-full"
+                :class="dotStatus(item.status)"
+              />
               {{ labelStatus(item.status) }}
             </span>
           </div>
@@ -206,10 +245,16 @@
             <p class="text-xs text-slate-200 font-medium leading-relaxed">
               <span class="text-slate-400 font-normal">Keperluan:</span> {{ item.keperluan }}
             </p>
-            <p v-if="item.keterangan" class="text-xs text-slate-400 leading-relaxed">
+            <p
+              v-if="item.keterangan"
+              class="text-xs text-slate-400 leading-relaxed"
+            >
               <span class="text-slate-500">Keterangan:</span> {{ item.keterangan }}
             </p>
-            <div v-if="item.catatanAdmin" class="mt-2 p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 font-medium">
+            <div
+              v-if="item.catatanAdmin"
+              class="mt-2 p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 font-medium"
+            >
               Catatan Admin: {{ item.catatanAdmin }}
             </div>
           </div>
@@ -218,7 +263,10 @@
         <!-- Footer Meta & Actions -->
         <div class="mt-4 pt-3 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-1.5 text-xs text-slate-300 font-medium">
-            <LucideCalendar :size="14" class="text-emerald-400" />
+            <LucideCalendar
+              :size="14"
+              class="text-emerald-400"
+            />
             <span>{{ formatTanggal(item.tanggalMulai) }}</span>
             <span class="text-slate-500">s/d</span>
             <span>{{ formatTanggal(item.tanggalSelesai) }}</span>
@@ -268,16 +316,29 @@
     </div>
 
     <!-- ====== TAMPILAN TABEL DATA ====== -->
-    <div v-else-if="tampilanMode === 'tabel'" class="glass-card overflow-hidden">
+    <div
+      v-else-if="tampilanMode === 'tabel'"
+      class="glass-card overflow-hidden"
+    >
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="border-b border-white/[0.08] bg-white/[0.02] text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              <th class="px-5 py-3.5">Pemohon &amp; Organisasi</th>
-              <th class="px-5 py-3.5">Keperluan</th>
-              <th class="px-5 py-3.5">Jadwal Pinjam</th>
-              <th class="px-5 py-3.5">Status</th>
-              <th class="px-5 py-3.5 text-right">Aksi</th>
+              <th class="px-5 py-3.5">
+                Pemohon &amp; Organisasi
+              </th>
+              <th class="px-5 py-3.5">
+                Keperluan
+              </th>
+              <th class="px-5 py-3.5">
+                Jadwal Pinjam
+              </th>
+              <th class="px-5 py-3.5">
+                Status
+              </th>
+              <th class="px-5 py-3.5 text-right">
+                Aksi
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-white/[0.04]">
@@ -287,33 +348,63 @@
               class="transition-colors hover:bg-white/[0.02]"
             >
               <td class="px-5 py-4">
-                <p class="font-bold text-white text-xs sm:text-sm">{{ item.namaPemohon }}</p>
-                <p class="text-xs text-emerald-400 mt-0.5 font-medium">{{ item.organisasi }} · <span class="text-slate-400 font-normal">{{ item.noHp }}</span></p>
+                <p class="font-bold text-white text-xs sm:text-sm">
+                  {{ item.namaPemohon }}
+                </p>
+                <p class="text-xs text-emerald-400 mt-0.5 font-medium">
+                  {{ item.organisasi }} · <span class="text-slate-400 font-normal">{{ item.noHp }}</span>
+                </p>
               </td>
               <td class="px-5 py-4 max-w-xs">
-                <p class="text-xs text-slate-300 truncate">{{ item.keperluan }}</p>
+                <p class="text-xs text-slate-300 truncate">
+                  {{ item.keperluan }}
+                </p>
               </td>
               <td class="px-5 py-4 text-xs text-slate-300 whitespace-nowrap">
                 {{ formatTanggal(item.tanggalMulai) }} — {{ formatTanggal(item.tanggalSelesai) }}
               </td>
               <td class="px-5 py-4 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border" :class="kelasStatus(item.status)">
-                  <span class="h-1.5 w-1.5 rounded-full" :class="dotStatus(item.status)" />
+                <span
+                  class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border"
+                  :class="kelasStatus(item.status)"
+                >
+                  <span
+                    class="h-1.5 w-1.5 rounded-full"
+                    :class="dotStatus(item.status)"
+                  />
                   {{ labelStatus(item.status) }}
                 </span>
               </td>
               <td class="px-5 py-4 text-right whitespace-nowrap">
                 <div class="flex items-center justify-end gap-1.5">
-                  <button class="p-1.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer" title="Detail" @click="bukaDetail(item)">
+                  <button
+                    class="p-1.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
+                    title="Detail"
+                    @click="bukaDetail(item)"
+                  >
                     <LucideEye :size="14" />
                   </button>
-                  <button v-if="item.status === 'menunggu'" class="p-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition cursor-pointer" title="Setujui" @click="ubahStatus(item, 'disetujui')">
+                  <button
+                    v-if="item.status === 'menunggu'"
+                    class="p-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition cursor-pointer"
+                    title="Setujui"
+                    @click="ubahStatus(item, 'disetujui')"
+                  >
                     <LucideCheck :size="14" />
                   </button>
-                  <button v-if="item.status === 'menunggu'" class="p-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition cursor-pointer" title="Tolak" @click="ubahStatus(item, 'ditolak')">
+                  <button
+                    v-if="item.status === 'menunggu'"
+                    class="p-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition cursor-pointer"
+                    title="Tolak"
+                    @click="ubahStatus(item, 'ditolak')"
+                  >
                     <LucideX :size="14" />
                   </button>
-                  <button class="p-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition cursor-pointer" title="Hapus" @click="konfirmasiHapus(item)">
+                  <button
+                    class="p-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition cursor-pointer"
+                    title="Hapus"
+                    @click="konfirmasiHapus(item)"
+                  >
                     <LucideTrash2 :size="14" />
                   </button>
                 </div>
@@ -343,11 +434,18 @@
                 <LucideBuilding2 :size="18" />
               </span>
               <div>
-                <h3 class="text-base font-bold text-white">Detail Permohonan Pinjam Gedung</h3>
-                <p class="text-[11px] text-slate-400">Informasi lengkap pengajuan pemakaian Graha Pemuda</p>
+                <h3 class="text-base font-bold text-white">
+                  Detail Permohonan Pinjam Gedung
+                </h3>
+                <p class="text-[11px] text-slate-400">
+                  Informasi lengkap pengajuan pemakaian Graha Pemuda
+                </p>
               </div>
             </div>
-            <button class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer" @click="tampilDetail = false">
+            <button
+              class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer"
+              @click="tampilDetail = false"
+            >
               <LucideX :size="18" />
             </button>
           </div>
@@ -362,7 +460,10 @@
               <span class="text-white font-semibold text-right">{{ field.value || '—' }}</span>
             </div>
 
-            <div v-if="detailItem?.catatanAdmin" class="mt-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
+            <div
+              v-if="detailItem?.catatanAdmin"
+              class="mt-2 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs"
+            >
               <span class="font-bold text-amber-300 block mb-1">Catatan Admin:</span>
               <span class="text-slate-300">{{ detailItem.catatanAdmin }}</span>
             </div>
@@ -393,7 +494,10 @@
         @click.self="tampilUbahStatus = false"
       >
         <div class="glass-card w-full max-w-md p-6 relative shadow-2xl">
-          <div class="absolute inset-x-0 top-0 h-[1px]" :class="statusBaru === 'disetujui' ? 'bg-emerald-500' : 'bg-amber-500'" />
+          <div
+            class="absolute inset-x-0 top-0 h-[1px]"
+            :class="statusBaru === 'disetujui' ? 'bg-emerald-500' : 'bg-amber-500'"
+          />
 
           <h3 class="text-base font-bold text-white mb-1">
             {{ statusBaru === 'disetujui' ? 'Setujui Permohonan' : 'Tolak Permohonan' }}
@@ -402,7 +506,10 @@
             Pemohon: <span class="text-white font-semibold">{{ itemUbahStatus?.namaPemohon }}</span> ({{ itemUbahStatus?.organisasi }})
           </p>
 
-          <form @submit.prevent="prosesUbahStatus" class="space-y-4">
+          <form
+            class="space-y-4"
+            @submit.prevent="prosesUbahStatus"
+          >
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1.5">Catatan Admin (Opsional)</label>
               <textarea
@@ -427,7 +534,11 @@
                 class="flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold text-white shadow-lg transition cursor-pointer"
                 :class="statusBaru === 'disetujui' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/20' : 'bg-amber-600 hover:bg-amber-500 shadow-amber-600/20'"
               >
-                <LucideLoader v-if="sedangUpdate" :size="15" class="animate-spin" />
+                <LucideLoader
+                  v-if="sedangUpdate"
+                  :size="15"
+                  class="animate-spin"
+                />
                 <span>{{ sedangUpdate ? 'Memproses...' : 'Konfirmasi' }}</span>
               </button>
             </div>
@@ -452,7 +563,9 @@
           <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-inner">
             <LucideTrash2 :size="26" />
           </div>
-          <h3 class="text-base font-bold text-white">Hapus Permohonan Ini?</h3>
+          <h3 class="text-base font-bold text-white">
+            Hapus Permohonan Ini?
+          </h3>
           <p class="mt-1.5 text-xs leading-relaxed text-slate-400">
             Permohonan dari <span class="text-white font-semibold">"{{ itemDihapus?.namaPemohon }}"</span> akan dihapus permanen.
           </p>
@@ -468,7 +581,11 @@
               :disabled="sedangHapus"
               @click="prosesHapus"
             >
-              <LucideLoader v-if="sedangHapus" :size="14" class="animate-spin" />
+              <LucideLoader
+                v-if="sedangHapus"
+                :size="14"
+                class="animate-spin"
+              />
               <span>{{ sedangHapus ? 'Menghapus...' : 'Ya, Hapus' }}</span>
             </button>
           </div>
@@ -488,8 +605,14 @@
         class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl"
         :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-950/90 text-emerald-300' : 'border-red-500/30 bg-red-950/90 text-red-300'"
       >
-        <LucideCheckCircle v-if="toast.tipe === 'sukses'" :size="18" />
-        <LucideXCircle v-else :size="18" />
+        <LucideCheckCircle
+          v-if="toast.tipe === 'sukses'"
+          :size="18"
+        />
+        <LucideXCircle
+          v-else
+          :size="18"
+        />
         <span class="text-xs font-semibold">{{ toast.pesan }}</span>
       </div>
     </Transition>
@@ -539,9 +662,9 @@ function hitungFilter(val: string) {
   if (kataKunciCari.value.trim()) {
     const q = kataKunciCari.value.toLowerCase()
     list = list.filter(d =>
-      d.namaPemohon.toLowerCase().includes(q) ||
-      d.organisasi.toLowerCase().includes(q) ||
-      d.keperluan.toLowerCase().includes(q)
+      d.namaPemohon.toLowerCase().includes(q)
+      || d.organisasi.toLowerCase().includes(q)
+      || d.keperluan.toLowerCase().includes(q),
     )
   }
   if (val === 'semua') return list.length
@@ -554,9 +677,9 @@ const dataFiltered = computed(() => {
   if (kataKunciCari.value.trim()) {
     const q = kataKunciCari.value.toLowerCase()
     list = list.filter(d =>
-      d.namaPemohon.toLowerCase().includes(q) ||
-      d.organisasi.toLowerCase().includes(q) ||
-      d.keperluan.toLowerCase().includes(q)
+      d.namaPemohon.toLowerCase().includes(q)
+      || d.organisasi.toLowerCase().includes(q)
+      || d.keperluan.toLowerCase().includes(q),
     )
   }
 

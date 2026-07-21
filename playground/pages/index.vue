@@ -723,7 +723,7 @@ const memuatSlider = ref(true)
 
 // Gunakan data dari DB, atau fallback jika DB kosong
 const slides = computed<SlideItem[]>(() =>
-  slidesDB.value.length > 0 ? slidesDB.value : slidesFallback
+  slidesDB.value.length > 0 ? slidesDB.value : slidesFallback,
 )
 
 interface ItemBeritaPublik {
@@ -853,9 +853,16 @@ const ambilBerita = async () => {
 }
 
 // Fetch slide dari database, fallback ke slidesFallback jika kosong/gagal
+interface SlideApiItem {
+  gambarUrl?: string
+  judul?: string
+  subjudul?: string
+  deskripsi?: string
+}
+
 const ambilSliderBeranda = async () => {
   try {
-    const res = await $fetch<{ berhasil: boolean, data: any[] }>('/api/publik/slider')
+    const res = await $fetch<{ berhasil: boolean, data: SlideApiItem[] }>('/api/publik/slider')
     if (res.berhasil && res.data.length > 0) {
       slidesDB.value = res.data.map(s => ({
         gambarUrl: s.gambarUrl || '',

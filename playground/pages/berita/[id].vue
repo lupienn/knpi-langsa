@@ -22,12 +22,15 @@
     >
       <div class="container mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8 max-w-6xl">
         <!-- Logo Brand -->
-        <NuxtLink to="/" class="flex items-center gap-3.5 group shrink-0">
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-3.5 group shrink-0"
+        >
           <img
             src="~/assets/logo-knpi.png"
             alt="Logo KNPI Langsa"
             class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-          />
+          >
           <div>
             <span
               class="block text-base font-extrabold tracking-tight transition-colors"
@@ -50,12 +53,30 @@
             isDarkMode ? 'text-slate-400' : 'text-slate-600',
           ]"
         >
-          <NuxtLink to="/#beranda" class="hover:text-knpi-400 transition-colors">Beranda</NuxtLink>
-          <NuxtLink to="/#pengurus" class="hover:text-knpi-400 transition-colors">Pengurus</NuxtLink>
-          <NuxtLink to="/#visi-misi" class="hover:text-knpi-400 transition-colors">Visi &amp; Misi</NuxtLink>
-          <NuxtLink to="/#program-kerja" class="hover:text-knpi-400 transition-colors">Program</NuxtLink>
-          <NuxtLink to="/#berita" class="text-knpi-400 font-bold">Berita</NuxtLink>
-          <NuxtLink to="/#pinjam-gedung" class="hover:text-knpi-400 transition-colors">Pinjam Gedung</NuxtLink>
+          <NuxtLink
+            to="/#beranda"
+            class="hover:text-knpi-400 transition-colors"
+          >Beranda</NuxtLink>
+          <NuxtLink
+            to="/#pengurus"
+            class="hover:text-knpi-400 transition-colors"
+          >Pengurus</NuxtLink>
+          <NuxtLink
+            to="/#visi-misi"
+            class="hover:text-knpi-400 transition-colors"
+          >Visi &amp; Misi</NuxtLink>
+          <NuxtLink
+            to="/#program-kerja"
+            class="hover:text-knpi-400 transition-colors"
+          >Program</NuxtLink>
+          <NuxtLink
+            to="/#berita"
+            class="text-knpi-400 font-bold"
+          >Berita</NuxtLink>
+          <NuxtLink
+            to="/#pinjam-gedung"
+            class="hover:text-knpi-400 transition-colors"
+          >Pinjam Gedung</NuxtLink>
         </nav>
 
         <!-- Controls: Theme Toggle & Back Button -->
@@ -70,8 +91,14 @@
             :title="isDarkMode ? 'Ubah ke Mode Terang' : 'Ubah ke Mode Gelap'"
             @click="isDarkMode = !isDarkMode"
           >
-            <LucideSun v-if="isDarkMode" :size="18" />
-            <LucideMoon v-else :size="18" />
+            <LucideSun
+              v-if="isDarkMode"
+              :size="18"
+            />
+            <LucideMoon
+              v-else
+              :size="18"
+            />
           </button>
 
           <!-- Back Button -->
@@ -90,20 +117,31 @@
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col">
       <!-- Loading State -->
-      <div v-if="memuat" class="container mx-auto px-4 py-24 flex flex-col items-center justify-center min-h-[60vh]">
+      <div
+        v-if="memuat"
+        class="container mx-auto px-4 py-24 flex flex-col items-center justify-center min-h-[60vh]"
+      >
         <div class="w-12 h-12 border-4 border-knpi-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p class="text-sm font-semibold" :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'">
+        <p
+          class="text-sm font-semibold"
+          :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'"
+        >
           Memuat artikel berita...
         </p>
       </div>
 
       <!-- Error State -->
-      <div v-else-if="error" class="container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center min-h-[60vh]">
+      <div
+        v-else-if="error"
+        class="container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center min-h-[60vh]"
+      >
         <div class="glass-card max-w-md p-8 sm:p-10 flex flex-col items-center gap-4 text-center rounded-3xl shadow-xl">
           <div class="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
             <LucideAlertCircle :size="32" />
           </div>
-          <h2 class="text-xl font-bold text-white">Berita Tidak Ditemukan</h2>
+          <h2 class="text-xl font-bold text-white">
+            Berita Tidak Ditemukan
+          </h2>
           <p class="text-xs text-slate-400 leading-relaxed">
             Artikel yang Anda cari mungkin telah dihapus, dipindahkan, atau tautan URL tidak valid.
           </p>
@@ -118,7 +156,10 @@
       </div>
 
       <!-- Article Reader Content -->
-      <article v-else-if="berita" class="flex-1 flex flex-col">
+      <article
+        v-else-if="berita"
+        class="flex-1 flex flex-col"
+      >
         <!-- 1. Breadcrumb & Headline Banner -->
         <div
           class="w-full border-b py-10 sm:py-12 relative overflow-hidden"
@@ -130,24 +171,48 @@
 
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl relative z-10">
             <!-- Breadcrumb Navigation -->
-            <nav class="flex items-center gap-2 text-xs font-semibold mb-6 flex-wrap" :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'">
-              <NuxtLink to="/" class="hover:text-knpi-400 transition-colors">Beranda</NuxtLink>
-              <LucideChevronRight :size="13" class="opacity-50" />
-              <NuxtLink to="/#berita" class="hover:text-knpi-400 transition-colors">Berita</NuxtLink>
-              <LucideChevronRight :size="13" class="opacity-50" />
-              <span class="truncate max-w-[200px] sm:max-w-xs font-normal" :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'">
+            <nav
+              class="flex items-center gap-2 text-xs font-semibold mb-6 flex-wrap"
+              :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'"
+            >
+              <NuxtLink
+                to="/"
+                class="hover:text-knpi-400 transition-colors"
+              >Beranda</NuxtLink>
+              <LucideChevronRight
+                :size="13"
+                class="opacity-50"
+              />
+              <NuxtLink
+                to="/#berita"
+                class="hover:text-knpi-400 transition-colors"
+              >Berita</NuxtLink>
+              <LucideChevronRight
+                :size="13"
+                class="opacity-50"
+              />
+              <span
+                class="truncate max-w-[200px] sm:max-w-xs font-normal"
+                :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'"
+              >
                 {{ berita.judul }}
               </span>
             </nav>
 
             <!-- Category Pill & Reading Time -->
             <div class="flex items-center gap-3 mb-4 flex-wrap">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm" :class="kelasKategori(berita.kategori)">
+              <div
+                class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm"
+                :class="kelasKategori(berita.kategori)"
+              >
                 <LucideTag :size="13" />
                 <span>{{ labelKategori(berita.kategori) }}</span>
               </div>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-slate-400">
-                <LucideClock :size="13" class="text-knpi-400" />
+                <LucideClock
+                  :size="13"
+                  class="text-knpi-400"
+                />
                 <span>{{ estimasiWaktuBaca }} mnt baca</span>
               </span>
             </div>
@@ -161,15 +226,24 @@
             </h1>
 
             <!-- Meta Info Bar with Author Avatar -->
-            <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium pt-4 border-t" :class="isDarkMode ? 'border-white/10 text-slate-400' : 'border-slate-200 text-slate-500'">
-              <div v-if="berita.penulis" class="flex items-center gap-2.5">
+            <div
+              class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium pt-4 border-t"
+              :class="isDarkMode ? 'border-white/10 text-slate-400' : 'border-slate-200 text-slate-500'"
+            >
+              <div
+                v-if="berita.penulis"
+                class="flex items-center gap-2.5"
+              >
                 <div class="w-8 h-8 rounded-full bg-gradient-to-br from-knpi-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
                   {{ inisialPenulis }}
                 </div>
                 <span>Oleh <strong :class="isDarkMode ? 'text-slate-200' : 'text-slate-800'">{{ berita.penulis }}</strong></span>
               </div>
               <div class="flex items-center gap-2">
-                <LucideCalendar :size="16" class="text-knpi-400" />
+                <LucideCalendar
+                  :size="16"
+                  class="text-knpi-400"
+                />
                 <span>Publikasi: {{ formatTanggal(berita.createdAt) }}</span>
               </div>
             </div>
@@ -187,7 +261,7 @@
               :src="berita.gambarUrl"
               :alt="berita.judul"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+            >
             <!-- Lightbox Zoom Trigger -->
             <button
               type="button"
@@ -203,8 +277,14 @@
           </div>
 
           <!-- Photo Caption Credit -->
-          <div v-if="berita.gambarUrl" class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mt-2.5 px-1">
-            <LucideCamera :size="13" class="text-knpi-400" />
+          <div
+            v-if="berita.gambarUrl"
+            class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mt-2.5 px-1"
+          >
+            <LucideCamera
+              :size="13"
+              class="text-knpi-400"
+            />
             <span>Dokumentasi Resmi DPD KNPI Kota Langsa</span>
           </div>
         </div>
@@ -232,8 +312,14 @@
               class="mt-8 p-5 sm:p-6 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm"
               :class="isDarkMode ? 'border-white/10 bg-[#0c1322]/80' : 'border-slate-200 bg-white'"
             >
-              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider" :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'">
-                <LucideShare2 :size="16" class="text-knpi-400" />
+              <div
+                class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
+                :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'"
+              >
+                <LucideShare2
+                  :size="16"
+                  class="text-knpi-400"
+                />
                 <span>Bagikan Artikel Ini</span>
               </div>
 
@@ -279,30 +365,55 @@
         </div>
 
         <!-- 4. Bottom Widgets (Berita Terkait Grid & Graha Pemuda CTA Banner) -->
-        <div class="w-full border-t py-12 sm:py-16 mt-6" :class="isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/40' : 'border-slate-200/80 bg-slate-100/60'">
+        <div
+          class="w-full border-t py-12 sm:py-16 mt-6"
+          :class="isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/40' : 'border-slate-200/80 bg-slate-100/60'"
+        >
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex flex-col gap-10">
             <!-- Section Berita Terkait -->
             <div class="flex flex-col gap-6">
-              <div class="flex items-center justify-between pb-3 border-b" :class="isDarkMode ? 'border-white/10' : 'border-slate-200'">
-                <h3 class="font-bold text-lg sm:text-xl flex items-center gap-2" :class="isDarkMode ? 'text-white' : 'text-slate-900'">
-                  <LucideNewspaper :size="20" class="text-knpi-400" />
+              <div
+                class="flex items-center justify-between pb-3 border-b"
+                :class="isDarkMode ? 'border-white/10' : 'border-slate-200'"
+              >
+                <h3
+                  class="font-bold text-lg sm:text-xl flex items-center gap-2"
+                  :class="isDarkMode ? 'text-white' : 'text-slate-900'"
+                >
+                  <LucideNewspaper
+                    :size="20"
+                    class="text-knpi-400"
+                  />
                   <span>Berita Terkait Lainnya</span>
                 </h3>
-                <NuxtLink to="/#berita" class="text-xs font-bold text-knpi-400 hover:underline">
+                <NuxtLink
+                  to="/#berita"
+                  class="text-xs font-bold text-knpi-400 hover:underline"
+                >
                   Lihat Semua Berita →
                 </NuxtLink>
               </div>
 
               <!-- Skeleton Loading -->
-              <div v-if="sedangMemuatLainnya" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div v-for="i in 3" :key="'skel-' + i" class="glass-card p-4 flex flex-col gap-3 animate-pulse">
+              <div
+                v-if="sedangMemuatLainnya"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+              >
+                <div
+                  v-for="i in 3"
+                  :key="'skel-' + i"
+                  class="glass-card p-4 flex flex-col gap-3 animate-pulse"
+                >
                   <div class="w-full aspect-[16/10] rounded-xl bg-slate-800/80" />
                   <div class="h-4 bg-slate-800/80 rounded w-3/4" />
                 </div>
               </div>
 
               <!-- Related News 3-Column Cards Grid -->
-              <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div
+                v-else
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+              >
                 <NuxtLink
                   v-for="item in beritaLainnya"
                   :key="item.id"
@@ -318,12 +429,18 @@
                         :alt="item.judul"
                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         onerror="this.src='/favicon.ico'; this.classList.add('object-contain','p-6')"
-                      />
-                      <div v-else class="w-full h-full flex items-center justify-center text-slate-600">
+                      >
+                      <div
+                        v-else
+                        class="w-full h-full flex items-center justify-center text-slate-600"
+                      >
                         <LucideImage :size="28" />
                       </div>
                       <div class="absolute top-2.5 left-2.5">
-                        <span class="inline-block rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider border shadow-sm" :class="kelasKategori(item.kategori)">
+                        <span
+                          class="inline-block rounded-md px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider border shadow-sm"
+                          :class="kelasKategori(item.kategori)"
+                        >
                           {{ labelKategori(item.kategori) }}
                         </span>
                       </div>
@@ -331,7 +448,10 @@
 
                     <!-- Details -->
                     <div class="p-4">
-                      <h4 class="font-bold text-sm line-clamp-2 leading-snug group-hover:text-knpi-300 transition-colors" :class="isDarkMode ? 'text-white' : 'text-slate-900'">
+                      <h4
+                        class="font-bold text-sm line-clamp-2 leading-snug group-hover:text-knpi-300 transition-colors"
+                        :class="isDarkMode ? 'text-white' : 'text-slate-900'"
+                      >
                         {{ item.judul }}
                       </h4>
                       <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
@@ -356,7 +476,9 @@
                   <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-xs font-bold text-emerald-300 uppercase tracking-wider">
                     <LucideBuilding2 :size="14" /> Layanan Graha Pemuda KNPI
                   </span>
-                  <h4 class="text-xl sm:text-2xl font-extrabold leading-tight">Butuh Lokasi Acara atau Kegiatan Organisasi?</h4>
+                  <h4 class="text-xl sm:text-2xl font-extrabold leading-tight">
+                    Butuh Lokasi Acara atau Kegiatan Organisasi?
+                  </h4>
                   <p class="text-xs sm:text-sm text-slate-300/90 leading-relaxed">
                     Gedung Graha Pemuda DPD KNPI Kota Langsa siap digunakan untuk berbagai kegiatan kepemudaan, rapat, dan seminar organisasi.
                   </p>
@@ -384,7 +506,11 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <!-- Brand Info -->
           <div class="flex items-center gap-3">
-            <img src="~/assets/logo-knpi.png" alt="Logo KNPI" class="h-9 w-auto object-contain" />
+            <img
+              src="~/assets/logo-knpi.png"
+              alt="Logo KNPI"
+              class="h-9 w-auto object-contain"
+            >
             <div>
               <span class="block text-sm font-bold text-white">DPD KNPI Kota Langsa</span>
               <span class="block text-xs text-slate-400">Komite Nasional Pemuda Indonesia</span>
@@ -393,11 +519,26 @@
 
           <!-- Links -->
           <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold text-slate-300">
-            <NuxtLink to="/#beranda" class="hover:text-knpi-300 transition-colors">Beranda</NuxtLink>
-            <NuxtLink to="/#visi-misi" class="hover:text-knpi-300 transition-colors">Visi &amp; Misi</NuxtLink>
-            <NuxtLink to="/#berita" class="hover:text-knpi-300 transition-colors">Berita</NuxtLink>
-            <NuxtLink to="/#pinjam-gedung" class="hover:text-knpi-300 transition-colors">Pinjam Gedung</NuxtLink>
-            <NuxtLink to="/login" class="hover:text-knpi-300 transition-colors">Masuk Panel</NuxtLink>
+            <NuxtLink
+              to="/#beranda"
+              class="hover:text-knpi-300 transition-colors"
+            >Beranda</NuxtLink>
+            <NuxtLink
+              to="/#visi-misi"
+              class="hover:text-knpi-300 transition-colors"
+            >Visi &amp; Misi</NuxtLink>
+            <NuxtLink
+              to="/#berita"
+              class="hover:text-knpi-300 transition-colors"
+            >Berita</NuxtLink>
+            <NuxtLink
+              to="/#pinjam-gedung"
+              class="hover:text-knpi-300 transition-colors"
+            >Pinjam Gedung</NuxtLink>
+            <NuxtLink
+              to="/login"
+              class="hover:text-knpi-300 transition-colors"
+            >Masuk Panel</NuxtLink>
           </div>
 
           <!-- Copyright -->
@@ -427,7 +568,11 @@
           >
             <LucideX :size="20" />
           </button>
-          <img :src="previewFoto" alt="Preview Sampul Berita" class="w-full max-h-[80vh] object-contain bg-black/50" />
+          <img
+            :src="previewFoto"
+            alt="Preview Sampul Berita"
+            class="w-full max-h-[80vh] object-contain bg-black/50"
+          >
         </div>
       </div>
     </Transition>
