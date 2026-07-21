@@ -51,8 +51,9 @@ export const useAuthStore = defineStore('auth', {
         })
         tokenCookie.value = this.token
       }
-      catch (err: any) {
-        throw new Error(err?.data?.statusMessage || 'Login gagal.')
+      catch (err) {
+        const error = err as { data?: { statusMessage?: string } }
+        throw new Error(error?.data?.statusMessage || 'Login gagal.')
       }
     },
 
