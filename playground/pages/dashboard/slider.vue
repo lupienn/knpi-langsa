@@ -484,286 +484,292 @@
     </div>
 
     <!-- ====== MODAL PREVIEW FOTO (LIGHTBOX) ====== -->
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="previewFoto"
-        class="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
-        @click.self="previewFoto = ''"
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0 scale-95"
       >
-        <div class="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/15 bg-slate-900 shadow-2xl">
-          <button
-            class="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/60 text-white hover:bg-white/20 transition cursor-pointer backdrop-blur-md"
-            @click="previewFoto = ''"
-          >
-            <LucideX :size="20" />
-          </button>
-          <img
-            :src="previewFoto"
-            alt="Preview Foto Slide"
-            class="w-full max-h-[80vh] object-contain bg-black/50"
-          >
+        <div
+          v-if="previewFoto"
+          class="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+          @click.self="previewFoto = ''"
+        >
+          <div class="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/15 bg-slate-900 shadow-2xl">
+            <button
+              class="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/60 text-white hover:bg-white/20 transition cursor-pointer backdrop-blur-md"
+              @click="previewFoto = ''"
+            >
+              <LucideX :size="20" />
+            </button>
+            <img
+              :src="previewFoto"
+              alt="Preview Foto Slide"
+              class="w-full max-h-[80vh] object-contain bg-black/50"
+            >
+          </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
 
     <!-- ====== MODAL FORM TAMBAH / EDIT SLIDE ====== -->
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="modalForm"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-3 sm:p-4 backdrop-blur-md"
-        @click.self="tutupModal"
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0 scale-95"
       >
-        <div class="glass-card w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden shadow-2xl relative">
-          <!-- Header -->
-          <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/[0.08] bg-slate-900/60">
-            <div class="flex items-center gap-2.5">
-              <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                <LucideImages :size="18" />
-              </span>
-              <div>
-                <h3 class="text-base font-bold text-white">
-                  {{ modeForm === 'tambah' ? 'Tambah Slide Baru' : 'Edit Slide' }}
-                </h3>
-                <p class="text-[11px] text-slate-400">
-                  Atur judul, deskripsi, dan foto utama hero slider
-                </p>
-              </div>
-            </div>
-            <button
-              class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer"
-              @click="tutupModal"
-            >
-              <LucideX :size="18" />
-            </button>
-          </div>
-
-          <!-- Body Form -->
-          <form
-            class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4"
-            @submit.prevent="simpanSlide"
-          >
-            <!-- Judul -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">
-                Judul Slide <span class="text-red-400">*</span>
-              </label>
-              <input
-                v-model="form.judul"
-                type="text"
-                placeholder="Masukkan judul utama slide"
-                class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
-                required
-              >
-            </div>
-
-            <!-- Subjudul -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Subjudul Header</label>
-              <input
-                v-model="form.subjudul"
-                type="text"
-                placeholder="Masukkan subjudul slide"
-                class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
-              >
-            </div>
-
-            <!-- Deskripsi -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi Singkat</label>
-              <textarea
-                v-model="form.deskripsi"
-                rows="3"
-                placeholder="Masukkan deskripsi penjelas slide"
-                class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 resize-none transition-all"
-              />
-            </div>
-
-            <!-- Upload Foto -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">
-                Foto Slide Hero <span class="text-red-400">*</span>
-              </label>
-
-              <!-- Preview Foto -->
-              <div
-                v-if="form.gambarUrl"
-                class="mb-3 relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-900 border border-white/15 shadow-inner group"
-              >
-                <img
-                  :src="form.gambarUrl"
-                  alt="Preview Foto Slide"
-                  class="w-full h-full object-cover"
-                >
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button
-                    type="button"
-                    class="p-2 rounded-xl bg-red-500/80 text-white hover:bg-red-600 transition shadow-lg cursor-pointer"
-                    title="Ganti Foto Slide"
-                    @click="form.gambarUrl = ''"
-                  >
-                    <LucideTrash2 :size="16" />
-                  </button>
+        <div
+          v-if="modalForm"
+          class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-3 sm:p-4 backdrop-blur-md overflow-y-auto"
+          @click.self="tutupModal"
+        >
+          <div class="glass-card w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden shadow-2xl relative my-auto">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/[0.08] bg-slate-900/60 shrink-0">
+              <div class="flex items-center gap-2.5">
+                <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <LucideImages :size="18" />
+                </span>
+                <div>
+                  <h3 class="text-base font-bold text-white">
+                    {{ modeForm === 'tambah' ? 'Tambah Slide Baru' : 'Edit Slide' }}
+                  </h3>
+                  <p class="text-[11px] text-slate-400">
+                    Atur judul, deskripsi, dan foto utama hero slider
+                  </p>
                 </div>
-              </div>
-
-              <!-- Dropzone Upload -->
-              <div
-                v-if="!form.gambarUrl"
-                class="relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-white/15 bg-slate-900/50 py-7 px-4 text-center hover:border-amber-500/50 hover:bg-amber-500/[0.02] transition-all cursor-pointer"
-                @click="($refs.inputFoto as HTMLInputElement)?.click()"
-                @dragover.prevent
-                @drop.prevent="handleDrop"
-              >
-                <div class="p-3 rounded-full bg-amber-500/10 text-amber-400 mb-2 border border-amber-500/20">
-                  <LucideUploadCloud :size="24" />
-                </div>
-                <p class="text-xs font-bold text-slate-200">
-                  Klik atau seret foto ke sini
-                </p>
-                <p class="text-[11px] text-slate-500 mt-0.5">
-                  Format JPG, PNG, atau WebP (Maksimal 5MB)
-                </p>
-                <input
-                  ref="inputFoto"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  class="hidden"
-                  @change="handlePilihFile"
-                >
-              </div>
-
-              <!-- Loading Upload -->
-              <div
-                v-if="sedangUpload"
-                class="mt-2.5 flex items-center gap-2 text-xs font-semibold text-amber-400"
-              >
-                <LucideLoader
-                  :size="15"
-                  class="animate-spin"
-                />
-                <span>Mengunggah foto slide...</span>
-              </div>
-            </div>
-
-            <!-- Toggle Status Aktif -->
-            <div class="flex items-center justify-between py-2 border-t border-white/5 mt-1">
-              <div>
-                <p class="text-xs font-bold text-slate-200">
-                  Status Publikasi Slide
-                </p>
-                <p class="text-[11px] text-slate-400">
-                  Tampilkan slide ini di beranda utama
-                </p>
               </div>
               <button
-                type="button"
-                class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer"
-                :class="form.aktif ? 'bg-emerald-500' : 'bg-slate-700'"
-                @click="form.aktif = !form.aktif"
+                class="p-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer"
+                @click="tutupModal"
               >
-                <span
-                  class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
-                  :class="form.aktif ? 'translate-x-6' : 'translate-x-1'"
-                />
+                <LucideX :size="18" />
               </button>
             </div>
 
-            <!-- Error Banner -->
-            <div
-              v-if="pesanError"
-              class="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-xs text-red-300"
+            <!-- Body Form -->
+            <form
+              class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4"
+              @submit.prevent="simpanSlide"
             >
-              {{ pesanError }}
-            </div>
+              <!-- Judul -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Judul Slide <span class="text-red-400">*</span>
+                </label>
+                <input
+                  v-model="form.judul"
+                  type="text"
+                  placeholder="Masukkan judul utama slide"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
+                  required
+                >
+              </div>
 
-            <!-- Footer Buttons -->
-            <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-2">
+              <!-- Subjudul -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Subjudul Header</label>
+                <input
+                  v-model="form.subjudul"
+                  type="text"
+                  placeholder="Masukkan subjudul slide"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
+                >
+              </div>
+
+              <!-- Deskripsi -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Deskripsi Singkat</label>
+                <textarea
+                  v-model="form.deskripsi"
+                  rows="3"
+                  placeholder="Masukkan deskripsi penjelas slide"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 resize-none transition-all"
+                />
+              </div>
+
+              <!-- Upload Foto -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Foto Slide Hero <span class="text-red-400">*</span>
+                </label>
+
+                <!-- Preview Foto -->
+                <div
+                  v-if="form.gambarUrl"
+                  class="mb-3 relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-900 border border-white/15 shadow-inner group"
+                >
+                  <img
+                    :src="form.gambarUrl"
+                    alt="Preview Foto Slide"
+                    class="w-full h-full object-cover"
+                  >
+                  <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button
+                      type="button"
+                      class="p-2 rounded-xl bg-red-500/80 text-white hover:bg-red-600 transition shadow-lg cursor-pointer"
+                      title="Ganti Foto Slide"
+                      @click="form.gambarUrl = ''"
+                    >
+                      <LucideTrash2 :size="16" />
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Dropzone Upload -->
+                <div
+                  v-if="!form.gambarUrl"
+                  class="relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-white/15 bg-slate-900/50 py-7 px-4 text-center hover:border-amber-500/50 hover:bg-amber-500/[0.02] transition-all cursor-pointer"
+                  @click="($refs.inputFoto as HTMLInputElement)?.click()"
+                  @dragover.prevent
+                  @drop.prevent="handleDrop"
+                >
+                  <div class="p-3 rounded-full bg-amber-500/10 text-amber-400 mb-2 border border-amber-500/20">
+                    <LucideUploadCloud :size="24" />
+                  </div>
+                  <p class="text-xs font-bold text-slate-200">
+                    Klik atau seret foto ke sini
+                  </p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">
+                    Format JPG, PNG, atau WebP (Maksimal 5MB)
+                  </p>
+                  <input
+                    ref="inputFoto"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    class="hidden"
+                    @change="handlePilihFile"
+                  >
+                </div>
+
+                <!-- Loading Upload -->
+                <div
+                  v-if="sedangUpload"
+                  class="mt-2.5 flex items-center gap-2 text-xs font-semibold text-amber-400"
+                >
+                  <LucideLoader
+                    :size="15"
+                    class="animate-spin"
+                  />
+                  <span>Mengunggah foto slide...</span>
+                </div>
+              </div>
+
+              <!-- Toggle Status Aktif -->
+              <div class="flex items-center justify-between py-2 border-t border-white/5 mt-1">
+                <div>
+                  <p class="text-xs font-bold text-slate-200">
+                    Status Publikasi Slide
+                  </p>
+                  <p class="text-[11px] text-slate-400">
+                    Tampilkan slide ini di beranda utama
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer"
+                  :class="form.aktif ? 'bg-emerald-500' : 'bg-slate-700'"
+                  @click="form.aktif = !form.aktif"
+                >
+                  <span
+                    class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform"
+                    :class="form.aktif ? 'translate-x-6' : 'translate-x-1'"
+                  />
+                </button>
+              </div>
+
+              <!-- Error Banner -->
+              <div
+                v-if="pesanError"
+                class="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-xs text-red-300"
+              >
+                {{ pesanError }}
+              </div>
+
+              <!-- Footer Buttons -->
+              <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-2">
+                <button
+                  type="button"
+                  class="w-full sm:w-auto px-6 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer text-center"
+                  @click="tutupModal"
+                >
+                  Batal
+                </button>
+                <button
+                  id="btn-simpan-slide"
+                  type="submit"
+                  :disabled="sedangProses || sedangUpload || !form.gambarUrl"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 py-2.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                >
+                  <LucideLoader
+                    v-if="sedangProses"
+                    :size="15"
+                    class="animate-spin"
+                  />
+                  <LucideCheck
+                    v-else
+                    :size="15"
+                  />
+                  <span>{{ sedangProses ? 'Menyimpan...' : (modeForm === 'tambah' ? 'Tambah Slide' : 'Simpan Perubahan') }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- ====== MODAL KONFIRMASI HAPUS ====== -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0 scale-95"
+      >
+        <div
+          v-if="modalHapus"
+          class="fixed inset-0 z-[110] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+          @click.self="modalHapus = false"
+        >
+          <div class="glass-card w-full max-w-sm p-6 text-center relative overflow-hidden shadow-2xl">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-inner">
+              <LucideTrash2 :size="26" />
+            </div>
+            <h3 class="text-base font-bold text-white">
+              Hapus Slide Ini?
+            </h3>
+            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">
+              Slide <span class="text-white font-semibold">"{{ slideYangDihapus?.judul }}"</span> akan dihapus secara permanen.
+            </p>
+            <div class="mt-6 flex gap-3">
               <button
-                type="button"
-                class="w-full sm:w-auto px-6 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer text-center"
-                @click="tutupModal"
+                class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer"
+                @click="modalHapus = false"
               >
                 Batal
               </button>
               <button
-                id="btn-simpan-slide"
-                type="submit"
-                :disabled="sedangProses || sedangUpload || !form.gambarUrl"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 py-2.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                id="btn-konfirmasi-hapus"
+                class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-2.5 text-xs font-bold text-white shadow-lg hover:brightness-110 disabled:opacity-60 transition cursor-pointer"
+                :disabled="sedangProses"
+                @click="hapusSlide"
               >
                 <LucideLoader
                   v-if="sedangProses"
-                  :size="15"
+                  :size="14"
                   class="animate-spin"
                 />
-                <LucideCheck
-                  v-else
-                  :size="15"
-                />
-                <span>{{ sedangProses ? 'Menyimpan...' : (modeForm === 'tambah' ? 'Tambah Slide' : 'Simpan Perubahan') }}</span>
+                <span>{{ sedangProses ? 'Menghapus...' : 'Ya, Hapus' }}</span>
               </button>
             </div>
-          </form>
-        </div>
-      </div>
-    </Transition>
-
-    <!-- ====== MODAL KONFIRMASI HAPUS ====== -->
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="modalHapus"
-        class="fixed inset-0 z-[110] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
-        @click.self="modalHapus = false"
-      >
-        <div class="glass-card w-full max-w-sm p-6 text-center relative overflow-hidden shadow-2xl">
-          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-inner">
-            <LucideTrash2 :size="26" />
-          </div>
-          <h3 class="text-base font-bold text-white">
-            Hapus Slide Ini?
-          </h3>
-          <p class="mt-1.5 text-xs leading-relaxed text-slate-400">
-            Slide <span class="text-white font-semibold">"{{ slideYangDihapus?.judul }}"</span> akan dihapus secara permanen.
-          </p>
-          <div class="mt-6 flex gap-3">
-            <button
-              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer"
-              @click="modalHapus = false"
-            >
-              Batal
-            </button>
-            <button
-              id="btn-konfirmasi-hapus"
-              class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-2.5 text-xs font-bold text-white shadow-lg hover:brightness-110 disabled:opacity-60 transition cursor-pointer"
-              :disabled="sedangProses"
-              @click="hapusSlide"
-            >
-              <LucideLoader
-                v-if="sedangProses"
-                :size="14"
-                class="animate-spin"
-              />
-              <span>{{ sedangProses ? 'Menghapus...' : 'Ya, Hapus' }}</span>
-            </button>
           </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
 
     <!-- ====== TOAST NOTIFIKASI ====== -->
     <Transition
@@ -1119,8 +1125,20 @@ async function hapusSlide() {
   }
 }
 
+watch([modalForm, modalHapus, previewFoto], ([mf, mh, pf]) => {
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = (mf || mh || Boolean(pf)) ? 'hidden' : ''
+  }
+})
+
 onMounted(() => {
   ambilSlider()
+})
+
+onUnmounted(() => {
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = ''
+  }
 })
 
 useSeoMeta({

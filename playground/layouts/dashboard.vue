@@ -208,7 +208,7 @@
       </header>
 
       <!-- Main Slot Content -->
-      <main class="flex flex-col gap-5 sm:gap-6 p-3.5 sm:p-6 lg:p-8 flex-1 animate-fade-in-up">
+      <main class="flex flex-col gap-5 sm:gap-6 p-3.5 sm:p-6 lg:p-8 flex-1">
         <slot />
       </main>
 
@@ -219,53 +219,55 @@
     </div>
 
     <!-- ============ MODAL LOGOUT ============ -->
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0"
-      leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="modalLogout"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
-        @click.self="modalLogout = false"
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0"
       >
-        <div class="glass-card w-full max-w-sm p-7 text-center shadow-2xl relative overflow-hidden">
-          <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+        <div
+          v-if="modalLogout"
+          class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
+          @click.self="modalLogout = false"
+        >
+          <div class="glass-card w-full max-w-sm p-7 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
 
-          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-lg">
-            <LucideLogOut :size="30" />
-          </div>
-          <h3 class="text-lg font-bold text-white">
-            Keluar dari Sistem?
-          </h3>
-          <p class="mt-2 text-xs leading-relaxed text-slate-400">
-            Anda akan mengakhiri sesi saat ini. Pastikan seluruh perubahan telah tersimpan.
-          </p>
-          <div class="mt-6 flex gap-3">
-            <button
-              class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
-              @click="modalLogout = false"
-            >
-              Batal
-            </button>
-            <button
-              id="btn-konfirmasi-logout"
-              class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60"
-              :disabled="sedangLogout"
-              @click="handleLogout"
-            >
-              <LucideLoader
-                v-if="sedangLogout"
-                :size="16"
-                class="animate-spin"
-              />
-              {{ sedangLogout ? 'Mengeluarkan...' : 'Ya, Keluar' }}
-            </button>
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/15 text-red-400 shadow-lg">
+              <LucideLogOut :size="30" />
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Keluar dari Sistem?
+            </h3>
+            <p class="mt-2 text-xs leading-relaxed text-slate-400">
+              Anda akan mengakhiri sesi saat ini. Pastikan seluruh perubahan telah tersimpan.
+            </p>
+            <div class="mt-6 flex gap-3">
+              <button
+                class="flex-1 rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-slate-300 transition hover:bg-white/10 cursor-pointer"
+                @click="modalLogout = false"
+              >
+                Batal
+              </button>
+              <button
+                id="btn-konfirmasi-logout"
+                class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 text-xs font-bold text-white shadow-lg transition hover:brightness-110 disabled:opacity-60 cursor-pointer"
+                :disabled="sedangLogout"
+                @click="handleLogout"
+              >
+                <LucideLoader
+                  v-if="sedangLogout"
+                  :size="16"
+                  class="animate-spin"
+                />
+                {{ sedangLogout ? 'Mengeluarkan...' : 'Ya, Keluar' }}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 

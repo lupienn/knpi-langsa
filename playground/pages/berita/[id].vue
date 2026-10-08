@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="min-h-screen font-sans flex flex-col transition-colors duration-500 selection:bg-knpi-500/30 selection:text-knpi-200 relative"
-    :class="isDarkMode ? 'bg-[#090d16] text-slate-100' : 'bg-slate-50 text-slate-800'"
-  >
+  <div class="min-h-screen font-sans flex flex-col bg-[#090d16] text-slate-100 selection:bg-knpi-500/30 selection:text-knpi-200 relative">
     <!-- Reading Progress Indicator Bar -->
     <div
       class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-knpi-500 via-emerald-400 to-amber-400 z-[60] transition-all duration-150"
@@ -11,9 +8,8 @@
 
     <!-- Navbar Header -->
     <header
-      class="sticky top-0 z-50 w-full border-b backdrop-blur-2xl transition-all duration-700 ease-out transform"
+      class="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#0c1322]/85 text-white backdrop-blur-2xl transition-all duration-700 ease-out transform"
       :class="[
-        isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/85 text-white' : 'border-slate-200/80 bg-white/90 text-slate-900 shadow-sm',
         isScrolledDown && !isHeaderHovered ? 'h-14 py-2' : 'h-20 py-4',
         halamanSelesaiMuat ? 'translate-y-0 opacity-100' : '-translate-y-6 opacity-0',
       ]"
@@ -32,25 +28,18 @@
             class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           >
           <div>
-            <span
-              class="block text-base font-extrabold tracking-tight transition-colors"
-              :class="isDarkMode ? 'text-white group-hover:text-knpi-300' : 'text-slate-900 group-hover:text-knpi-600'"
-            >
+            <span class="block text-base font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
               KNPI Langsa
             </span>
-            <span
-              class="block text-[10px] font-medium"
-              :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'"
-            >Kota Langsa</span>
+            <span class="block text-[10px] font-medium text-slate-400">Kota Langsa</span>
           </div>
         </NuxtLink>
 
         <!-- Desktop Navigation Links (Sembunyi saat scroll kebawah) -->
         <nav
-          class="hidden md:flex items-center gap-7 text-sm font-semibold transition-all duration-300 transform"
+          class="hidden md:flex items-center gap-7 text-sm font-semibold transition-all duration-300 transform text-slate-400"
           :class="[
             isScrolledDown && !isHeaderHovered ? 'opacity-0 -translate-y-2 pointer-events-none w-0 h-0 overflow-hidden' : 'opacity-100 translate-y-0',
-            isDarkMode ? 'text-slate-400' : 'text-slate-600',
           ]"
         >
           <NuxtLink
@@ -75,33 +64,12 @@
           >Berita</NuxtLink>
         </nav>
 
-        <!-- Controls: Theme Toggle & Back Button -->
+        <!-- Controls: Back Button -->
         <div class="flex items-center gap-3">
-          <!-- Toggle Light / Dark Mode -->
-          <button
-            type="button"
-            class="flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 cursor-pointer"
-            :class="isDarkMode
-              ? 'border-white/10 bg-white/5 text-amber-300 hover:bg-white/15'
-              : 'border-slate-200 bg-slate-100 text-amber-600 hover:bg-slate-200 shadow-sm'"
-            :title="isDarkMode ? 'Ubah ke Mode Terang' : 'Ubah ke Mode Gelap'"
-            @click="isDarkMode = !isDarkMode"
-          >
-            <LucideSun
-              v-if="isDarkMode"
-              :size="18"
-            />
-            <LucideMoon
-              v-else
-              :size="18"
-            />
-          </button>
-
           <!-- Back Button -->
           <NuxtLink
             to="/#berita"
-            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all border shadow-sm"
-            :class="isDarkMode ? 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/10' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100'"
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all border shadow-sm border-white/10 bg-white/5 text-slate-200 hover:bg-white/10"
           >
             <LucideArrowLeft :size="15" />
             <span>Kembali</span>
@@ -118,10 +86,7 @@
         class="container mx-auto px-4 py-24 flex flex-col items-center justify-center min-h-[60vh]"
       >
         <div class="w-12 h-12 border-4 border-knpi-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p
-          class="text-sm font-semibold"
-          :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'"
-        >
+        <p class="text-sm font-semibold text-slate-400">
           Memuat artikel berita...
         </p>
       </div>
@@ -157,20 +122,14 @@
         class="flex-1 flex flex-col"
       >
         <!-- 1. Breadcrumb & Headline Banner -->
-        <div
-          class="w-full border-b py-10 sm:py-12 relative overflow-hidden"
-          :class="isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/60' : 'border-slate-200/80 bg-white/80'"
-        >
+        <div class="w-full border-b py-10 sm:py-12 relative overflow-hidden border-white/[0.08] bg-[#0c1322]/60">
           <!-- Background Ambient Glow -->
           <div class="pointer-events-none absolute -top-20 right-1/4 h-72 w-72 rounded-full bg-knpi-600/10 blur-3xl" />
           <div class="pointer-events-none absolute bottom-0 left-10 h-60 w-60 rounded-full bg-blue-600/5 blur-3xl" />
 
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl relative z-10">
             <!-- Breadcrumb Navigation -->
-            <nav
-              class="flex items-center gap-2 text-xs font-semibold mb-6 flex-wrap"
-              :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'"
-            >
+            <nav class="flex items-center gap-2 text-xs font-semibold mb-6 flex-wrap text-slate-400">
               <NuxtLink
                 to="/"
                 class="hover:text-knpi-400 transition-colors"
@@ -187,10 +146,7 @@
                 :size="13"
                 class="opacity-50"
               />
-              <span
-                class="truncate max-w-[200px] sm:max-w-xs font-normal"
-                :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'"
-              >
+              <span class="truncate max-w-[200px] sm:max-w-xs font-normal text-slate-300">
                 {{ berita.judul }}
               </span>
             </nav>
@@ -214,18 +170,12 @@
             </div>
 
             <!-- Main Headline -->
-            <h1
-              class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-snug sm:leading-tight mb-6"
-              :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-            >
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-snug sm:leading-tight mb-6 text-white">
               {{ berita.judul }}
             </h1>
 
             <!-- Meta Info Bar with Author Avatar -->
-            <div
-              class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium pt-4 border-t"
-              :class="isDarkMode ? 'border-white/10 text-slate-400' : 'border-slate-200 text-slate-500'"
-            >
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium pt-4 border-t border-white/10 text-slate-400">
               <div
                 v-if="berita.penulis"
                 class="flex items-center gap-2.5"
@@ -233,7 +183,7 @@
                 <div class="w-8 h-8 rounded-full bg-gradient-to-br from-knpi-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
                   {{ inisialPenulis }}
                 </div>
-                <span>Oleh <strong :class="isDarkMode ? 'text-slate-200' : 'text-slate-800'">{{ berita.penulis }}</strong></span>
+                <span>Oleh <strong class="text-slate-200">{{ berita.penulis }}</strong></span>
               </div>
               <div class="flex items-center gap-2">
                 <LucideCalendar
@@ -250,8 +200,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl pt-8 sm:pt-10">
           <div
             v-if="berita.gambarUrl"
-            class="relative rounded-3xl overflow-hidden aspect-[16/9] w-full bg-slate-900 border shadow-2xl group"
-            :class="isDarkMode ? 'border-white/10' : 'border-slate-200'"
+            class="relative rounded-3xl overflow-hidden aspect-[16/9] w-full bg-slate-900 border shadow-2xl group border-white/10"
           >
             <img
               :src="berita.gambarUrl"
@@ -289,10 +238,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-8 sm:py-10">
           <div class="flex flex-col gap-6">
             <!-- Excerpt Summary Lead Blockquote -->
-            <div
-              class="p-5 sm:p-6 rounded-2xl border text-sm sm:text-base font-medium italic leading-relaxed shadow-sm relative overflow-hidden flex items-start gap-3.5"
-              :class="isDarkMode ? 'bg-knpi-500/10 text-slate-200 border-knpi-500/30' : 'bg-knpi-50/80 text-slate-700 border-knpi-200'"
-            >
+            <div class="p-5 sm:p-6 rounded-2xl border text-sm sm:text-base font-medium italic leading-relaxed shadow-sm relative overflow-hidden flex items-start gap-3.5 bg-knpi-500/10 text-slate-200 border-knpi-500/30">
               <LucideQuote
                 :size="20"
                 class="text-knpi-400 shrink-0 mt-0.5"
@@ -303,19 +249,12 @@
             <!-- Main Body Content Text (Render Rich Text HTML) -->
             <div
               class="text-sm sm:text-base leading-relaxed space-y-5 whitespace-pre-line font-normal prose prose-invert max-w-none text-slate-200"
-              :class="isDarkMode ? 'text-slate-200' : 'text-slate-800'"
               v-html="berita.konten"
             />
 
             <!-- Social Sharing & Print Toolbar -->
-            <div
-              class="mt-8 p-5 sm:p-6 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm"
-              :class="isDarkMode ? 'border-white/10 bg-[#0c1322]/80' : 'border-slate-200 bg-white'"
-            >
-              <div
-                class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
-                :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'"
-              >
+            <div class="mt-8 p-5 sm:p-6 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border-white/10 bg-[#0c1322]/80">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-300">
                 <LucideShare2
                   :size="16"
                   class="text-knpi-400"
@@ -365,21 +304,12 @@
         </div>
 
         <!-- 4. Bottom Widgets (Berita Terkait Grid & Graha Pemuda CTA Banner) -->
-        <div
-          class="w-full border-t py-12 sm:py-16 mt-6"
-          :class="isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/40' : 'border-slate-200/80 bg-slate-100/60'"
-        >
+        <div class="w-full border-t py-12 sm:py-16 mt-6 border-white/[0.08] bg-[#0c1322]/40">
           <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex flex-col gap-10">
             <!-- Section Berita Terkait -->
             <div class="flex flex-col gap-6">
-              <div
-                class="flex items-center justify-between pb-3 border-b"
-                :class="isDarkMode ? 'border-white/10' : 'border-slate-200'"
-              >
-                <h3
-                  class="font-bold text-lg sm:text-xl flex items-center gap-2"
-                  :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-                >
+              <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                <h3 class="font-bold text-lg sm:text-xl flex items-center gap-2 text-white">
                   <LucideNewspaper
                     :size="20"
                     class="text-knpi-400"
@@ -448,10 +378,7 @@
 
                     <!-- Details -->
                     <div class="p-4">
-                      <h4
-                        class="font-bold text-sm line-clamp-2 leading-snug group-hover:text-knpi-300 transition-colors"
-                        :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-                      >
+                      <h4 class="font-bold text-sm line-clamp-2 leading-snug group-hover:text-knpi-300 transition-colors text-white">
                         {{ item.judul }}
                       </h4>
                       <p class="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
@@ -498,10 +425,7 @@
     </main>
 
     <!-- Public Footer -->
-    <footer
-      class="border-t py-12 transition-colors"
-      :class="isDarkMode ? 'border-white/[0.08] bg-[#070a14] text-slate-400' : 'border-slate-200 bg-slate-900 text-slate-400'"
-    >
+    <footer class="border-t py-12 border-white/[0.08] bg-[#070a14] text-slate-400">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <!-- Brand Info -->
@@ -546,32 +470,34 @@
     </footer>
 
     <!-- ====== LIGHTBOX PREVIEW FOTO ====== -->
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      leave-active-class="transition duration-150 ease-in"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="previewFoto"
-        class="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
-        @click.self="previewFoto = ''"
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0 scale-95"
       >
-        <div class="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/15 bg-slate-900 shadow-2xl">
-          <button
-            class="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/60 text-white hover:bg-white/20 transition cursor-pointer backdrop-blur-md"
-            @click="previewFoto = ''"
-          >
-            <LucideX :size="20" />
-          </button>
-          <img
-            :src="previewFoto"
-            alt="Preview Sampul Berita"
-            class="w-full max-h-[80vh] object-contain bg-black/50"
-          >
+        <div
+          v-if="previewFoto"
+          class="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md overflow-y-auto"
+          @click.self="previewFoto = ''"
+        >
+          <div class="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/15 bg-slate-900 shadow-2xl my-auto">
+            <button
+              class="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/60 text-white hover:bg-white/20 transition cursor-pointer backdrop-blur-md"
+              @click="previewFoto = ''"
+            >
+              <LucideX :size="20" />
+            </button>
+            <img
+              :src="previewFoto"
+              alt="Preview Sampul Berita"
+              class="w-full max-h-[80vh] object-contain bg-black/50"
+            >
+          </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
 
     <!-- ====== TOAST NOTIFIKASI ====== -->
     <Transition
@@ -606,7 +532,6 @@ interface BeritaDetail {
 }
 
 const route = useRoute()
-const isDarkMode = ref(true)
 const memuat = ref(true)
 const error = ref(false)
 const berita = ref<BeritaDetail | null>(null)

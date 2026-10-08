@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="min-h-screen font-sans transition-colors duration-500 selection:bg-knpi-500/30 selection:text-knpi-200"
-    :class="isDarkMode ? 'bg-[#090d16] text-slate-100' : 'bg-slate-50 text-slate-800'"
-  >
+  <div class="min-h-screen font-sans bg-[#090d16] text-slate-100 selection:bg-knpi-500/30 selection:text-knpi-200">
     <!-- Navbar Header -->
     <header
-      class="sticky top-0 z-50 w-full border-b backdrop-blur-2xl transition-all duration-700 ease-out transform"
+      class="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#0c1322]/85 text-white backdrop-blur-2xl transition-all duration-700 ease-out transform"
       :class="[
-        isDarkMode ? 'border-white/[0.08] bg-[#0c1322]/85 text-white' : 'border-slate-200/80 bg-white/90 text-slate-900 shadow-sm',
         isScrolledDown && !isHeaderHovered ? 'h-14 py-2' : 'h-20 py-4',
         halamanSelesaiMuat ? 'translate-y-0 opacity-100' : '-translate-y-6 opacity-0',
       ]"
@@ -26,76 +22,44 @@
             class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           >
           <div>
-            <span
-              class="block text-base font-extrabold tracking-tight transition-colors"
-              :class="isDarkMode ? 'text-white group-hover:text-knpi-300' : 'text-slate-900 group-hover:text-knpi-600'"
-            >
+            <span class="block text-base font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
               KNPI Langsa
             </span>
-            <span
-              class="block text-[10px] font-medium"
-              :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'"
-            >Kota Langsa</span>
+            <span class="block text-[10px] font-medium text-slate-400">Kota Langsa</span>
           </div>
         </NuxtLink>
 
         <!-- Desktop Navigation Menu (Sembunyi saat scroll kebawah) -->
         <nav
-          class="hidden md:flex items-center gap-8 text-sm font-semibold transition-all duration-300 transform"
+          class="hidden md:flex items-center gap-8 text-sm font-semibold transition-all duration-300 transform text-slate-400"
           :class="[
             isScrolledDown && !isHeaderHovered ? 'opacity-0 -translate-y-2 pointer-events-none w-0 h-0 overflow-hidden' : 'opacity-100 translate-y-0',
-            isDarkMode ? 'text-slate-400' : 'text-slate-600',
           ]"
         >
           <a
             href="#beranda"
-            :class="isDarkMode ? 'text-knpi-300 hover:text-white' : 'text-knpi-600 hover:text-knpi-800'"
-            class="transition-colors"
+            class="transition-colors text-knpi-300 hover:text-white"
           >Beranda</a>
           <a
             href="#pengurus"
-            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
-            class="transition-colors"
+            class="transition-colors hover:text-white"
           >Pengurus</a>
           <a
             href="#visi-misi"
-            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
-            class="transition-colors"
+            class="transition-colors hover:text-white"
           >Visi & Misi</a>
           <a
             href="#program-kerja"
-            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
-            class="transition-colors"
+            class="transition-colors hover:text-white"
           >Program</a>
           <a
             href="#berita"
-            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
-            class="transition-colors"
+            class="transition-colors hover:text-white"
           >Berita</a>
         </nav>
 
-        <!-- Right Controls: Theme Toggle & Login Button -->
+        <!-- Right Controls: Login Button & Mobile Toggle -->
         <div class="flex items-center gap-2.5 sm:gap-3">
-          <!-- Toggle Light / Dark Mode -->
-          <button
-            type="button"
-            class="flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 cursor-pointer"
-            :class="isDarkMode
-              ? 'border-white/10 bg-white/5 text-amber-300 hover:bg-white/15'
-              : 'border-slate-200 bg-slate-100 text-amber-600 hover:bg-slate-200 shadow-sm'"
-            :title="isDarkMode ? 'Ubah ke Mode Terang' : 'Ubah ke Mode Gelap'"
-            @click="isDarkMode = !isDarkMode"
-          >
-            <LucideSun
-              v-if="isDarkMode"
-              :size="18"
-            />
-            <LucideMoon
-              v-else
-              :size="18"
-            />
-          </button>
-
           <!-- Login Button (Sembunyi saat scroll kebawah jika tidak di-hover di layar besar) -->
           <NuxtLink
             to="/login"
@@ -109,10 +73,7 @@
           <!-- Mobile Hamburger Toggle -->
           <button
             type="button"
-            class="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 cursor-pointer"
-            :class="isDarkMode
-              ? 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/15'
-              : 'border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-sm'"
+            class="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/15 transition-all duration-300 cursor-pointer"
             aria-label="Toggle navigasi mobile"
             @click="menuMobileTerbuka = !menuMobileTerbuka"
           >
@@ -138,38 +99,32 @@
     >
       <div
         v-if="menuMobileTerbuka"
-        class="fixed inset-x-0 top-14 sm:top-20 z-40 md:hidden border-b p-5 backdrop-blur-2xl transition-colors shadow-2xl"
-        :class="isDarkMode ? 'bg-[#0c1322]/95 border-white/10 text-white' : 'bg-white/95 border-slate-200 text-slate-800'"
+        class="fixed inset-x-0 top-14 sm:top-20 z-40 md:hidden border-b p-5 backdrop-blur-2xl transition-colors shadow-2xl bg-[#0c1322]/95 border-white/10 text-white"
       >
         <nav class="flex flex-col gap-2 font-semibold text-sm">
           <a
             href="#beranda"
-            class="px-3.5 py-2.5 rounded-xl transition"
-            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Beranda</a>
           <a
             href="#pengurus"
-            class="px-3.5 py-2.5 rounded-xl transition"
-            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Pengurus</a>
           <a
             href="#visi-misi"
-            class="px-3.5 py-2.5 rounded-xl transition"
-            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Visi &amp; Misi</a>
           <a
             href="#program-kerja"
-            class="px-3.5 py-2.5 rounded-xl transition"
-            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Program Kerja</a>
           <a
             href="#berita"
-            class="px-3.5 py-2.5 rounded-xl transition"
-            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Berita</a>
           <div class="border-t border-white/10 pt-3 mt-1">
@@ -190,8 +145,7 @@
       <!-- Hero Section Slider -->
       <section
         id="beranda"
-        class="relative w-full h-[85vh] min-h-[600px] overflow-hidden"
-        :class="isDarkMode ? 'bg-[#070a14]' : 'bg-slate-900 text-white'"
+        class="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-[#070a14]"
       >
         <!-- Skeleton Loading Slider -->
         <div
@@ -316,40 +270,26 @@
       <!-- Dewan Pengurus Section -->
       <section
         id="pengurus"
-        class="py-24 relative overflow-hidden transition-colors duration-500"
-        :class="isDarkMode ? 'bg-[#0c1322]' : 'bg-slate-100/70'"
+        class="py-24 relative overflow-hidden bg-[#0c1322]"
       >
         <div
-          v-if="isDarkMode"
           class="pointer-events-none absolute top-0 right-1/3 h-96 w-96 rounded-full bg-knpi-600/10 blur-[130px]"
         />
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="text-center max-w-2xl mx-auto mb-14 reveal">
             <span class="text-xs font-extrabold uppercase tracking-widest text-knpi-500">Struktur Organisasi</span>
-            <h2
-              class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight"
-              :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-            >
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Dewan Pengurus DPD KNPI
             </h2>
-            <p
-              class="mt-3 text-sm leading-relaxed"
-              :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'"
-            >
+            <p class="mt-3 text-sm leading-relaxed text-slate-400">
               Jajaran kepengurusan Komite Nasional Pemuda Indonesia DPD Kota Langsa.
             </p>
           </div>
 
           <div class="max-w-5xl mx-auto reveal reveal-delay-200">
-            <div
-              class="p-4 sm:p-6 md:p-8 rounded-2xl transition-all"
-              :class="isDarkMode ? 'glass-card' : 'bg-white border border-slate-200/80 shadow-xl'"
-            >
-              <div
-                class="relative rounded-xl overflow-hidden aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[400px] flex items-center justify-center border"
-                :class="isDarkMode ? 'bg-slate-950/60 border-white/5' : 'bg-slate-50 border-slate-200/60'"
-              >
+            <div class="p-4 sm:p-6 md:p-8 rounded-2xl transition-all glass-card">
+              <div class="relative rounded-xl overflow-hidden aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[400px] flex items-center justify-center border bg-slate-950/60 border-white/5">
                 <img
                   src="~/assets/ketua,sekret,bendahara knpi langsa.png"
                   alt="Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa"
@@ -364,39 +304,24 @@
       <!-- Visi & Misi Section -->
       <section
         id="visi-misi"
-        class="py-24 relative overflow-hidden transition-colors duration-500"
-        :class="isDarkMode ? 'bg-[#090d16]' : 'bg-white'"
+        class="py-24 relative overflow-hidden bg-[#090d16]"
       >
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div class="text-center max-w-2xl mx-auto mb-14 reveal">
             <span class="text-xs font-extrabold uppercase tracking-widest text-knpi-500">Arah Gerak Organisasi</span>
-            <h2
-              class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight"
-              :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-            >
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Visi & Misi Pemuda
             </h2>
           </div>
 
           <!-- Visi Display Card -->
           <div class="max-w-3xl mx-auto mb-12 reveal reveal-delay-100">
-            <div
-              class="p-8 sm:p-10 text-center rounded-2xl border transition-all"
-              :class="isDarkMode
-                ? 'glass-card border-knpi-500/20 bg-gradient-to-br from-knpi-950/40 via-slate-900/80 to-slate-900/60'
-                : 'bg-gradient-to-br from-knpi-50 via-white to-slate-50 border-slate-200 shadow-xl'"
-            >
-              <div
-                class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl mb-4 border"
-                :class="isDarkMode ? 'bg-knpi-600/20 text-knpi-300 border-knpi-500/30' : 'bg-knpi-100 text-knpi-600 border-knpi-200'"
-              >
+            <div class="p-8 sm:p-10 text-center rounded-2xl border transition-all glass-card border-knpi-500/20 bg-gradient-to-br from-knpi-950/40 via-slate-900/80 to-slate-900/60">
+              <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl mb-4 border bg-knpi-600/20 text-knpi-300 border-knpi-500/30">
                 <LucideTarget :size="28" />
               </div>
               <span class="text-xs font-bold uppercase tracking-widest text-knpi-500">Visi Utama</span>
-              <h3
-                class="mt-2 text-3xl sm:text-5xl font-black tracking-tight"
-                :class="isDarkMode ? 'text-white' : 'text-knpi-900'"
-              >
+              <h3 class="mt-2 text-3xl sm:text-5xl font-black tracking-tight text-white">
                 "PEMUDA HEBAT"
               </h3>
             </div>
@@ -412,17 +337,14 @@
                 { title: 'Revitalisasi Semangat Pemuda dalam Pembentukan Integritas & Karakter Islamiah.', num: '04', icon: 'shield', color: 'amber' },
               ]"
               :key="misi.num"
-              class="p-6 flex items-start gap-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal"
-              :class="[
-                `reveal-delay-${(i + 1) * 100}`,
-                isDarkMode ? 'glass-card-hover' : 'bg-white border-slate-200/90 shadow-md hover:shadow-xl',
-              ]"
+              class="p-6 flex items-start gap-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal glass-card-hover"
+              :class="`reveal-delay-${(i + 1) * 100}`"
             >
               <div
                 class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border"
                 :class="misi.color === 'knpi'
-                  ? (isDarkMode ? 'bg-knpi-600/20 text-knpi-300 border-knpi-500/30' : 'bg-knpi-100 text-knpi-600 border-knpi-200')
-                  : (isDarkMode ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-amber-100 text-amber-600 border-amber-200')"
+                  ? 'bg-knpi-600/20 text-knpi-300 border-knpi-500/30'
+                  : 'bg-amber-500/20 text-amber-300 border-amber-500/30'"
               >
                 <LucideBuilding2
                   v-if="misi.icon === 'building'"
@@ -446,10 +368,7 @@
                   class="text-[11px] font-bold uppercase tracking-wider"
                   :class="misi.color === 'knpi' ? 'text-knpi-500' : 'text-amber-500'"
                 >Misi {{ misi.num }}</span>
-                <h4
-                  class="mt-1 text-sm font-semibold leading-relaxed"
-                  :class="isDarkMode ? 'text-slate-200' : 'text-slate-800'"
-                >
+                <h4 class="mt-1 text-sm font-semibold leading-relaxed text-slate-200">
                   {{ misi.title }}
                 </h4>
               </div>
@@ -461,16 +380,12 @@
       <!-- Program Kerja Section -->
       <section
         id="program-kerja"
-        class="py-24 transition-colors duration-500"
-        :class="isDarkMode ? 'bg-[#0c1322]' : 'bg-slate-100/70'"
+        class="py-24 bg-[#0c1322]"
       >
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center max-w-2xl mx-auto mb-14 reveal">
             <span class="text-xs font-extrabold uppercase tracking-widest text-knpi-500">Pilar Pergerakan</span>
-            <h2
-              class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight"
-              :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-            >
+            <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Program Kerja Unggulan
             </h2>
           </div>
@@ -479,17 +394,11 @@
             <div
               v-for="(prog, index) in programKerja"
               :key="index"
-              class="p-6 flex flex-col justify-between rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal"
-              :class="[
-                `reveal-delay-${(index + 1) * 100}`,
-                isDarkMode ? 'glass-card-hover' : 'bg-white border-slate-200/90 shadow-md hover:shadow-xl',
-              ]"
+              class="p-6 flex flex-col justify-between rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal glass-card-hover"
+              :class="`reveal-delay-${(index + 1) * 100}`"
             >
               <div>
-                <div
-                  class="flex h-12 w-12 items-center justify-center rounded-xl border mb-5"
-                  :class="isDarkMode ? 'bg-knpi-600/20 text-knpi-300 border-knpi-500/30' : 'bg-knpi-100 text-knpi-600 border-knpi-200'"
-                >
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl border mb-5 bg-knpi-600/20 text-knpi-300 border-knpi-500/30">
                   <LucideGraduationCap
                     v-if="prog.icon === 'graduation'"
                     :size="24"
@@ -507,16 +416,10 @@
                     :size="24"
                   />
                 </div>
-                <h4
-                  class="text-base font-bold mb-2"
-                  :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-                >
+                <h4 class="text-base font-bold mb-2 text-white">
                   {{ prog.title }}
                 </h4>
-                <p
-                  class="text-xs leading-relaxed"
-                  :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'"
-                >
+                <p class="text-xs leading-relaxed text-slate-400">
                   {{ prog.desc }}
                 </p>
               </div>
@@ -528,17 +431,13 @@
       <!-- Berita Terkini Section -->
       <section
         id="berita"
-        class="py-24 transition-colors duration-500"
-        :class="isDarkMode ? 'bg-[#090d16]' : 'bg-white'"
+        class="py-24 bg-[#090d16]"
       >
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-end justify-between mb-10 max-w-6xl mx-auto reveal">
             <div>
               <span class="text-xs font-extrabold uppercase tracking-widest text-knpi-500">Publikasi Warta</span>
-              <h2
-                class="mt-1 text-3xl font-extrabold tracking-tight"
-                :class="isDarkMode ? 'text-white' : 'text-slate-900'"
-              >
+              <h2 class="mt-1 text-3xl font-extrabold tracking-tight text-white">
                 Berita Terkini
               </h2>
             </div>
@@ -560,17 +459,13 @@
             <!-- Empty -->
             <div
               v-else-if="daftarBerita.length === 0"
-              class="p-12 text-center rounded-2xl border"
-              :class="isDarkMode ? 'glass-card' : 'bg-slate-50 border-slate-200'"
+              class="p-12 text-center rounded-2xl border glass-card"
             >
               <LucideNewspaper
                 :size="40"
                 class="mx-auto text-slate-500 mb-3"
               />
-              <p
-                class="text-sm font-semibold"
-                :class="isDarkMode ? 'text-slate-300' : 'text-slate-700'"
-              >
+              <p class="text-sm font-semibold text-slate-300">
                 Belum ada berita yang diterbitkan.
               </p>
             </div>
@@ -584,16 +479,10 @@
                 v-for="(item, idx) in daftarBerita"
                 :key="item.id"
                 :to="`/berita/${item.id}`"
-                class="group flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal"
-                :class="[
-                  `reveal-delay-${((idx % 3) + 1) * 100}`,
-                  isDarkMode ? 'glass-card-hover' : 'bg-white border-slate-200/90 shadow-md hover:shadow-xl',
-                ]"
+                class="group flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 reveal glass-card-hover"
+                :class="`reveal-delay-${((idx % 3) + 1) * 100}`"
               >
-                <div
-                  class="aspect-[16/10] overflow-hidden relative"
-                  :class="isDarkMode ? 'bg-slate-950' : 'bg-slate-100'"
-                >
+                <div class="aspect-[16/10] overflow-hidden relative bg-slate-950">
                   <img
                     v-if="item.gambarUrl"
                     :src="item.gambarUrl"
@@ -615,31 +504,19 @@
 
                 <div class="p-5 flex-1 flex flex-col justify-between gap-4">
                   <div>
-                    <span
-                      class="text-[11px] flex items-center gap-1 mb-2"
-                      :class="isDarkMode ? 'text-slate-400' : 'text-slate-500'"
-                    >
+                    <span class="text-[11px] flex items-center gap-1 mb-2 text-slate-400">
                       <LucideCalendar :size="13" />
                       {{ formatTanggal(item.createdAt) }}
                     </span>
-                    <h3
-                      class="text-base font-bold transition-colors line-clamp-2"
-                      :class="isDarkMode ? 'text-white group-hover:text-knpi-300' : 'text-slate-900 group-hover:text-knpi-600'"
-                    >
+                    <h3 class="text-base font-bold transition-colors line-clamp-2 text-white group-hover:text-knpi-300">
                       {{ item.judul }}
                     </h3>
-                    <p
-                      class="mt-2 text-xs line-clamp-2"
-                      :class="isDarkMode ? 'text-slate-400' : 'text-slate-600'"
-                    >
+                    <p class="mt-2 text-xs line-clamp-2 text-slate-400">
                       {{ item.ringkasan }}
                     </p>
                   </div>
 
-                  <div
-                    class="flex items-center gap-1 text-xs font-semibold group-hover:translate-x-1 transition-transform"
-                    :class="isDarkMode ? 'text-knpi-400' : 'text-knpi-600'"
-                  >
+                  <div class="flex items-center gap-1 text-xs font-semibold group-hover:translate-x-1 transition-transform text-knpi-400">
                     <span>Baca Selengkapnya</span>
                     <LucideChevronRight :size="15" />
                   </div>
@@ -695,8 +572,7 @@
 
     <!-- Footer -->
     <footer
-      class="pt-16 pb-8 border-t transition-colors duration-500"
-      :class="isDarkMode ? 'bg-[#070a14] text-slate-400 border-white/10' : 'bg-slate-900 text-slate-300 border-slate-800'"
+      class="pt-16 pb-8 border-t transition-colors duration-500 bg-[#070a14] text-slate-400 border-white/10"
     >
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
@@ -766,12 +642,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 
 definePageMeta({ layout: false })
 
-// Theme & Scroll State
-const isDarkMode = ref(true)
+// Scroll & Animation State
 const isScrolledDown = ref(false)
 const isHeaderHovered = ref(false)
 const menuMobileTerbuka = ref(false)
@@ -852,14 +727,6 @@ onMounted(() => {
     halamanSelesaiMuat.value = true
   }, 100)
 
-  // Restore Theme Preference
-  if (typeof window !== 'undefined') {
-    const savedTheme = localStorage.getItem('knpi-theme')
-    if (savedTheme) {
-      isDarkMode.value = savedTheme === 'dark'
-    }
-  }
-
   // Intersection Observer for Animations (Reveal on Scroll)
   setupRevealObserver()
 })
@@ -867,12 +734,6 @@ onMounted(() => {
 onUnmounted(() => {
   if (slideInterval) clearInterval(slideInterval)
   window.removeEventListener('scroll', handleScroll)
-})
-
-watch(isDarkMode, (val) => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('knpi-theme', val ? 'dark' : 'light')
-  }
 })
 
 useSeoMeta({
