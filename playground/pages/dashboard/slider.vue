@@ -563,8 +563,7 @@
                 <input
                   v-model="form.judul"
                   type="text"
-                  placeholder="Masukkan judul utama slide"
-                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
                   required
                 >
               </div>
@@ -575,8 +574,7 @@
                 <input
                   v-model="form.subjudul"
                   type="text"
-                  placeholder="Masukkan subjudul slide"
-                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
                 >
               </div>
 
@@ -586,8 +584,7 @@
                 <textarea
                   v-model="form.deskripsi"
                   rows="3"
-                  placeholder="Masukkan deskripsi penjelas slide"
-                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 resize-none transition-all"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 resize-none transition-all"
                 />
               </div>
 

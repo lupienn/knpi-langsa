@@ -113,6 +113,22 @@
   .animate-float-slow {
     animation: floatGlow 12s ease-in-out infinite alternate-reverse;
   }
+
+  .animate-card-cascade {
+    opacity: 0;
+    animation: cardCascade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes cardCascade {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes fadeInUp {
@@ -147,5 +163,33 @@
   50% { transform: translateY(-15px) scale(1.05); }
   100% { transform: translateY(0px) scale(1); }
 }
+
+/* Page Transition Effects */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 

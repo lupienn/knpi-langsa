@@ -614,8 +614,7 @@
             >
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <!-- Kolom Kiri: Form Detail Teks Berita (7 Columns) -->
-                <div class="lg:col-span-7 flex flex-col gap-4">
-                  <!-- Judul Artikel -->
+                <div class="lg:col-span-7 flex flex-col gap-4">                    <!-- Judul Artikel -->
                   <div>
                     <label class="block text-xs font-semibold text-slate-300 mb-1.5">
                       Judul Artikel <span class="text-red-400">*</span>
@@ -623,8 +622,7 @@
                     <input
                       v-model="form.judul"
                       type="text"
-                      placeholder="Masukkan judul artikel berita"
-                      class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 transition-all"
+                      class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 transition-all"
                       required
                     >
                   </div>
@@ -688,8 +686,7 @@
                     <textarea
                       v-model="form.ringkasan"
                       rows="2"
-                      placeholder="Masukkan ringkasan singkat artikel"
-                      class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 resize-none transition-all"
+                      class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-sm text-white focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 resize-none transition-all"
                       required
                     />
                   </div>
@@ -812,8 +809,7 @@
                       ref="refKontenTextarea"
                       v-model="form.konten"
                       rows="10"
-                      placeholder="Tuliskan isi konten berita secara lengkap di sini. Gunakan tombol toolbar di atas untuk menambahkan tebal (bold), miring, subjudul, list, atau tautan..."
-                      class="w-full rounded-b-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 resize-y transition-all font-sans min-h-[220px]"
+                      class="w-full rounded-b-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-sm text-white focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 resize-y transition-all font-sans min-h-[220px]"
                       required
                       @keydown="handleKeydownTextarea"
                     />

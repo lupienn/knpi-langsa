@@ -59,7 +59,7 @@
             class="hover:text-knpi-400 transition-colors"
           >Program</NuxtLink>
           <NuxtLink
-            to="/#berita"
+            to="/berita"
             class="text-knpi-400 font-bold"
           >Berita</NuxtLink>
         </nav>
@@ -68,11 +68,11 @@
         <div class="flex items-center gap-3">
           <!-- Back Button -->
           <NuxtLink
-            to="/#berita"
+            to="/berita"
             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all border shadow-sm border-white/10 bg-white/5 text-slate-200 hover:bg-white/10"
           >
             <LucideArrowLeft :size="15" />
-            <span>Kembali</span>
+            <span>Kembali ke Berita</span>
           </NuxtLink>
         </div>
       </div>
@@ -139,7 +139,7 @@
                 class="opacity-50"
               />
               <NuxtLink
-                to="/#berita"
+                to="/berita"
                 class="hover:text-knpi-400 transition-colors"
               >Berita</NuxtLink>
               <LucideChevronRight
@@ -317,7 +317,7 @@
                   <span>Berita Terkait Lainnya</span>
                 </h3>
                 <NuxtLink
-                  to="/#berita"
+                  to="/berita"
                   class="text-xs font-bold text-knpi-400 hover:underline"
                 >
                   Lihat Semua Berita →
@@ -411,7 +411,7 @@
                   </p>
                 </div>
                 <NuxtLink
-                  to="/#berita"
+                  to="/berita"
                   class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-knpi-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition shadow-lg cursor-pointer hover:scale-105"
                 >
                   <span>Eksplorasi Berita Lainnya</span>
@@ -452,7 +452,7 @@
               class="hover:text-knpi-300 transition-colors"
             >Visi &amp; Misi</NuxtLink>
             <NuxtLink
-              to="/#berita"
+              to="/berita"
               class="hover:text-knpi-300 transition-colors"
             >Berita</NuxtLink>
             <NuxtLink

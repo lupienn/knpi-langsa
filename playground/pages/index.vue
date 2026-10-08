@@ -52,10 +52,10 @@
             href="#program-kerja"
             class="transition-colors hover:text-white"
           >Program</a>
-          <a
-            href="#berita"
+          <NuxtLink
+            to="/berita"
             class="transition-colors hover:text-white"
-          >Berita</a>
+          >Berita</NuxtLink>
         </nav>
 
         <!-- Right Controls: Login Button & Mobile Toggle -->
@@ -122,11 +122,11 @@
             class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
           >Program Kerja</a>
-          <a
-            href="#berita"
+          <NuxtLink
+            to="/berita"
             class="px-3.5 py-2.5 rounded-xl transition hover:bg-white/5"
             @click="menuMobileTerbuka = false"
-          >Berita</a>
+          >Berita</NuxtLink>
           <div class="border-t border-white/10 pt-3 mt-1">
             <NuxtLink
               to="/login"
@@ -219,13 +219,13 @@
                     class="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-4 items-center transition-all duration-700 delay-700 transform"
                     :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
-                    <a
-                      href="#berita"
+                    <NuxtLink
+                      to="/berita"
                       class="btn-primary !w-auto !py-3 !px-6 sm:!py-3.5 sm:!px-7 !text-xs shadow-knpi"
                     >
                       <span>Jelajahi Berita</span>
                       <LucideArrowRight :size="16" />
-                    </a>
+                    </NuxtLink>
                     <a
                       href="#visi-misi"
                       class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-5 py-3 sm:px-6 sm:py-3.5 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
@@ -441,6 +441,13 @@
                 Berita Terkini
               </h2>
             </div>
+            <NuxtLink
+              to="/berita"
+              class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-knpi-400 hover:text-knpi-300 transition-colors group"
+            >
+              <span>Lihat Semua Arsip Berita</span>
+              <LucideArrowRight :size="14" class="group-hover:translate-x-1 transition-transform" />
+            </NuxtLink>
           </div>
 
           <div class="max-w-6xl mx-auto">
@@ -523,6 +530,21 @@
                 </div>
               </NuxtLink>
             </div>
+
+            <!-- Bottom CTA ke Halaman /berita -->
+            <div
+              v-if="daftarBerita.length > 0"
+              class="mt-12 text-center reveal"
+            >
+              <NuxtLink
+                to="/berita"
+                class="inline-flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-6 py-3 text-xs font-bold text-slate-200 hover:bg-white/10 hover:text-white hover:border-knpi-500/40 transition shadow-sm cursor-pointer group"
+              >
+                <LucideNewspaper :size="16" class="text-knpi-400" />
+                <span>Buka Seluruh Arsip Berita (Semua Warta)</span>
+                <LucideArrowRight :size="14" class="group-hover:translate-x-1 transition-transform" />
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </section>
@@ -550,13 +572,13 @@
               DPD KNPI Kota Langsa terus berkomitmen sebagai wadah berhimpun seluruh organisasi kepemudaan, memperkuat kemandirian, dan mengawal kemajuan Kota Langsa.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3 pt-3">
-              <a
-                href="#berita"
+              <NuxtLink
+                to="/berita"
                 class="inline-flex items-center gap-2 rounded-xl bg-white text-knpi-900 px-6 py-3 text-xs font-bold shadow-lg hover:bg-slate-100 transition cursor-pointer"
               >
                 <LucideNewspaper :size="16" />
-                <span>Baca Berita Terkini</span>
-              </a>
+                <span>Baca Seluruh Berita</span>
+              </NuxtLink>
               <a
                 href="#pengurus"
                 class="inline-flex items-center gap-2 rounded-xl bg-white/15 border border-white/20 text-white px-6 py-3 text-xs font-bold backdrop-blur-md hover:bg-white/25 transition cursor-pointer"
@@ -608,10 +630,10 @@
                 >Visi & Misi</a>
               </li>
               <li>
-                <a
-                  href="#berita"
+                <NuxtLink
+                  to="/berita"
                   class="hover:text-white transition"
-                >Berita Terkini</a>
+                >Arsip Berita</NuxtLink>
               </li>
               <li>
                 <NuxtLink
