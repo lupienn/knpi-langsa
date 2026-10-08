@@ -124,6 +124,15 @@
     opacity: 0;
     animation: cardCascade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  /* Sembunyikan scrollbar native pada elemen scrollable horizontal */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @keyframes cardCascade {

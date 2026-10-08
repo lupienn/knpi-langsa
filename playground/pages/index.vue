@@ -146,6 +146,8 @@
       <section
         id="beranda"
         class="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-[#070a14]"
+        @touchstart.passive="tanganiTouchStart"
+        @touchend="tanganiTouchEnd"
       >
         <!-- Skeleton Loading Slider -->
         <div
@@ -240,31 +242,53 @@
           </div>
         </template>
 
-        <!-- Slider Navigation Controls -->
-        <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-2.5">
-          <button
-            v-for="(_, index) in slides"
-            :key="'dot-'+index"
-            class="h-2 rounded-full transition-all duration-300 focus:outline-none cursor-pointer"
-            :class="currentSlide === index ? 'w-8 sm:w-10 bg-knpi-400' : 'w-2 bg-white/30 hover:bg-white/60'"
-            @click="currentSlide = index"
-          />
-        </div>
-
+        <!-- Desktop Floating Arrows (Hanya Tampil di Layar Besar, Jauh dari Teks) -->
         <button
-          class="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          class="hidden md:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-2xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer hover:scale-105 active:scale-95 shadow-xl"
           aria-label="Slide sebelumnya"
           @click="prevSlide"
         >
-          <LucideChevronLeft :size="18" />
+          <LucideChevronLeft :size="20" />
         </button>
         <button
-          class="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          class="hidden md:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-2xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer hover:scale-105 active:scale-95 shadow-xl"
           aria-label="Slide selanjutnya"
           @click="nextSlide"
         >
-          <LucideChevronRight :size="18" />
+          <LucideChevronRight :size="20" />
         </button>
+
+        <!-- Bottom Controls: Dots Indicator & Mobile Arrows (Aman di Bawah, Tidak Menutupi Teks) -->
+        <div class="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 sm:gap-3 bg-slate-950/40 md:bg-transparent px-3 py-1.5 md:p-0 rounded-full md:rounded-none backdrop-blur-md md:backdrop-blur-none border border-white/10 md:border-transparent">
+          <!-- Mobile Prev Arrow -->
+          <button
+            class="flex md:hidden w-7 h-7 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 active:scale-90 transition cursor-pointer"
+            aria-label="Slide sebelumnya"
+            @click="prevSlide"
+          >
+            <LucideChevronLeft :size="15" />
+          </button>
+
+          <!-- Dots Indicator -->
+          <div class="flex items-center gap-1.5 sm:gap-2.5">
+            <button
+              v-for="(_, index) in slides"
+              :key="'dot-'+index"
+              class="h-2 rounded-full transition-all duration-300 focus:outline-none cursor-pointer"
+              :class="currentSlide === index ? 'w-6 sm:w-10 bg-knpi-400' : 'w-2 bg-white/30 hover:bg-white/60'"
+              @click="currentSlide = index"
+            />
+          </div>
+
+          <!-- Mobile Next Arrow -->
+          <button
+            class="flex md:hidden w-7 h-7 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20 active:scale-90 transition cursor-pointer"
+            aria-label="Slide selanjutnya"
+            @click="nextSlide"
+          >
+            <LucideChevronRight :size="15" />
+          </button>
+        </div>
       </section>
 
       <!-- Dewan Pengurus Section -->
@@ -734,6 +758,29 @@ const nextSlide = () => {
 
 const prevSlide = () => {
   currentSlide.value = (currentSlide.value - 1 + slides.value.length) % slides.value.length
+}
+
+// Fitur swipe gestur sentuhan jari untuk layar ponsel (mobile)
+let touchStartX = 0
+let touchEndX = 0
+
+const tanganiTouchStart = (e: TouchEvent) => {
+  if (e.changedTouches && e.changedTouches[0]) {
+    touchStartX = e.changedTouches[0].clientX
+  }
+}
+
+const tanganiTouchEnd = (e: TouchEvent) => {
+  if (e.changedTouches && e.changedTouches[0]) {
+    touchEndX = e.changedTouches[0].clientX
+    const jarak = touchEndX - touchStartX
+    // Threshold swipe 40px
+    if (jarak > 40) {
+      prevSlide()
+    } else if (jarak < -40) {
+      nextSlide()
+    }
+  }
 }
 
 // Auto-play slider + ambil berita dari API + Scroll listener

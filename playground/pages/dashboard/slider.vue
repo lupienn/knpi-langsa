@@ -29,60 +29,60 @@
     </div>
 
     <!-- ====== METRIC CARDS ====== -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
       <!-- Total Slide -->
-      <div class="glass-card p-4 flex items-center gap-3.5 border-amber-500/20">
-        <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-          <LucideImages :size="20" />
+      <div class="glass-card p-3 sm:p-4 flex items-center gap-2.5 sm:gap-3.5 border-amber-500/20">
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+          <LucideImages :size="18" class="sm:w-5 sm:h-5" />
         </div>
-        <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div class="min-w-0">
+          <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 truncate">
             Total Slide
           </p>
-          <p class="text-xl font-extrabold text-white mt-0.5">
+          <p class="text-lg sm:text-xl font-extrabold text-white mt-0.5">
             {{ daftarSlider.length }}
           </p>
         </div>
       </div>
 
       <!-- Slide Aktif -->
-      <div class="glass-card p-4 flex items-center gap-3.5 border-emerald-500/20">
-        <div class="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
-          <LucideCheckCircle2 :size="20" />
+      <div class="glass-card p-3 sm:p-4 flex items-center gap-2.5 sm:gap-3.5 border-emerald-500/20">
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
+          <LucideCheckCircle2 :size="18" class="sm:w-5 sm:h-5" />
         </div>
-        <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+        <div class="min-w-0">
+          <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 truncate">
             Slide Aktif
           </p>
-          <p class="text-xl font-extrabold text-emerald-400 mt-0.5">
+          <p class="text-lg sm:text-xl font-extrabold text-emerald-400 mt-0.5">
             {{ totalAktif }}
           </p>
         </div>
       </div>
 
       <!-- Slide Nonaktif -->
-      <div class="glass-card p-4 flex items-center gap-3.5 border-slate-500/20">
-        <div class="p-3 rounded-2xl bg-slate-500/10 text-slate-400 border border-slate-500/20 shrink-0">
-          <LucideEyeOff :size="20" />
+      <div class="glass-card p-3 sm:p-4 flex items-center gap-2.5 sm:gap-3.5 border-slate-500/20">
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-slate-500/10 text-slate-400 border border-slate-500/20 shrink-0">
+          <LucideEyeOff :size="18" class="sm:w-5 sm:h-5" />
         </div>
-        <div>
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-            Slide Nonaktif
+        <div class="min-w-0">
+          <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 truncate">
+            Nonaktif
           </p>
-          <p class="text-xl font-extrabold text-slate-300 mt-0.5">
+          <p class="text-lg sm:text-xl font-extrabold text-slate-300 mt-0.5">
             {{ totalNonaktif }}
           </p>
         </div>
       </div>
 
       <!-- Slide Pertama -->
-      <div class="glass-card p-4 flex items-center gap-3.5 border-amber-500/20">
-        <div class="p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
-          <LucideSparkles :size="20" />
+      <div class="glass-card p-3 sm:p-4 flex items-center gap-2.5 sm:gap-3.5 border-amber-500/20">
+        <div class="p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+          <LucideSparkles :size="18" class="sm:w-5 sm:h-5" />
         </div>
         <div class="min-w-0">
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-            Slide Utamakan #1
+          <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 truncate">
+            Slide Utama
           </p>
           <p class="text-xs font-bold text-amber-300 mt-0.5 truncate">
             {{ daftarSlider[0]?.judul || 'Belum Ada' }}
@@ -92,35 +92,58 @@
     </div>
 
     <!-- ====== SEARCH & FILTER TOOLBAR ====== -->
-    <div class="glass-card p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-      <!-- Search Input -->
-      <div class="relative flex-1 min-w-0">
-        <LucideSearch
-          :size="16"
-          class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
-        />
-        <input
-          v-model="kataKunciCari"
-          type="text"
-          placeholder="Cari judul slide, subjudul, atau deskripsi..."
-          class="w-full rounded-xl border border-white/10 bg-slate-900/80 pl-10 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
-        >
-        <button
-          v-if="kataKunciCari"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
-          @click="kataKunciCari = ''"
-        >
-          <LucideX :size="14" />
-        </button>
+    <div class="glass-card p-3.5 sm:p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+      <!-- Search Input & Mobile View Switcher -->
+      <div class="flex items-center gap-2.5 flex-1 min-w-0">
+        <div class="relative flex-1 min-w-0">
+          <LucideSearch
+            :size="16"
+            class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+          />
+          <input
+            v-model="kataKunciCari"
+            type="text"
+            placeholder="Cari judul slide, subjudul..."
+            class="w-full rounded-xl border border-white/10 bg-slate-900/80 pl-10 pr-8 py-2 text-xs text-white placeholder:text-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 transition-all"
+          >
+          <button
+            v-if="kataKunciCari"
+            class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 p-1"
+            @click="kataKunciCari = ''"
+          >
+            <LucideX :size="14" />
+          </button>
+        </div>
+
+        <!-- View Switcher (Mobile Version) -->
+        <div class="flex md:hidden items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 shrink-0">
+          <button
+            class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
+            :class="tampilanMode === 'grid' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white'"
+            title="Tampilan Kartu Grid"
+            @click="tampilanMode = 'grid'"
+          >
+            <LucideLayoutGrid :size="15" />
+          </button>
+          <button
+            class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
+            :class="tampilanMode === 'tabel' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-slate-400 hover:text-white'"
+            title="Tampilan Tabel Data"
+            @click="tampilanMode = 'tabel'"
+          >
+            <LucideList :size="15" />
+          </button>
+        </div>
       </div>
 
-      <!-- Filter Tabs & View Switcher -->
-      <div class="flex items-center justify-between gap-3 overflow-hidden">
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 max-w-full">
+      <!-- Filter Tabs & Desktop View Switcher -->
+      <div class="flex items-center justify-between md:justify-end gap-2.5 sm:gap-3 min-w-0">
+        <!-- Filter Tabs (Lebar Penuh di Mobile, Tidak Terpotong) -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 -mb-1 md:mb-0 max-w-full min-w-0 flex-1 md:flex-initial no-scrollbar">
           <button
             v-for="tab in tabFilter"
             :key="tab.value"
-            class="shrink-0 flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer"
+            class="shrink-0 flex items-center gap-1.5 rounded-xl border px-2.5 sm:px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer whitespace-nowrap"
             :class="filterAktif === tab.value
               ? 'border-amber-500/40 bg-amber-600/25 text-amber-300 shadow-sm'
               : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200'"
@@ -128,7 +151,7 @@
           >
             <span>{{ tab.label }}</span>
             <span
-              class="px-1.5 py-0.2 rounded-full text-[10px] font-bold"
+              class="px-1.5 py-0.5 rounded-full text-[10px] font-bold"
               :class="filterAktif === tab.value ? 'bg-amber-400/25 text-amber-200' : 'bg-white/10 text-white/70'"
             >
               {{ hitungFilter(tab.value) }}
@@ -136,8 +159,8 @@
           </button>
         </div>
 
-        <!-- View Switcher -->
-        <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 shrink-0">
+        <!-- View Switcher (Desktop Version) -->
+        <div class="hidden md:flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 shrink-0">
           <button
             class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
             :class="tampilanMode === 'grid' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-white/70 hover:text-white hover:bg-white/5'"
@@ -777,7 +800,7 @@
     >
       <div
         v-if="toast.tampil"
-        class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl"
+        class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 left-4 sm:left-auto max-w-sm z-[200] flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl"
         :class="toast.tipe === 'sukses' ? 'border-emerald-500/30 bg-emerald-950/90 text-emerald-300' : 'border-red-500/30 bg-red-950/90 text-red-300'"
       >
         <LucideCheckCircle2

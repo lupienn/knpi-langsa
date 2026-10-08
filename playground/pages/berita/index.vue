@@ -262,12 +262,12 @@
             </div>
 
             <!-- Controls: Category Filter, Sort & View Mode -->
-            <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
-              <!-- Category Tabs -->
-              <div class="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10 overflow-x-auto max-w-full">
+            <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 sm:gap-3 min-w-0">
+              <!-- Category Tabs (Horizontal Scrollable with no-scrollbar) -->
+              <div class="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10 overflow-x-auto max-w-full min-w-0 flex-1 sm:flex-initial no-scrollbar">
                 <button
                   type="button"
-                  class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
+                  class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0"
                   :class="kategoriDipilih === 'semua'
                     ? 'bg-knpi-600 text-white shadow-sm shadow-knpi-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'"
@@ -277,7 +277,7 @@
                 </button>
                 <button
                   type="button"
-                  class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
+                  class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0"
                   :class="kategoriDipilih === 'kegiatan'
                     ? 'bg-knpi-600 text-white shadow-sm shadow-knpi-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'"
@@ -287,7 +287,7 @@
                 </button>
                 <button
                   type="button"
-                  class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
+                  class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0"
                   :class="kategoriDipilih === 'pengumuman'
                     ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'"
@@ -297,7 +297,7 @@
                 </button>
                 <button
                   type="button"
-                  class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
+                  class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0"
                   :class="kategoriDipilih === 'artikel'
                     ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/30'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'"
@@ -310,7 +310,7 @@
               <!-- Sort Order Toggle -->
               <button
                 type="button"
-                class="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition cursor-pointer"
+                class="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition cursor-pointer shrink-0 ml-auto sm:ml-0"
                 :title="urutanTerbaru ? 'Mengurutkan: Terbaru ke Terlama' : 'Mengurutkan: Terlama ke Terbaru'"
                 @click="urutanTerbaru = !urutanTerbaru"
               >
@@ -319,7 +319,7 @@
               </button>
 
               <!-- View Layout Mode Toggle (Grid vs List) -->
-              <div class="hidden sm:flex items-center p-1 rounded-xl bg-white/[0.03] border border-white/10">
+              <div class="hidden sm:flex items-center p-1 rounded-xl bg-white/[0.03] border border-white/10 shrink-0">
                 <button
                   type="button"
                   class="p-1.5 rounded-lg transition cursor-pointer"
@@ -480,13 +480,6 @@
                         <LucideCalendar :size="12" class="text-knpi-400" />
                         {{ formatTanggal(item.createdAt) }}
                       </span>
-                      <span
-                        v-if="item.penulis"
-                        class="flex items-center gap-1 truncate max-w-[140px]"
-                      >
-                        <LucideUser :size="12" class="text-slate-400" />
-                        {{ item.penulis }}
-                      </span>
                     </div>
 
                     <h2 class="text-base font-bold text-white group-hover:text-knpi-300 transition-colors line-clamp-2 leading-snug">
@@ -555,13 +548,6 @@
                       <span class="flex items-center gap-1">
                         <LucideCalendar :size="12" class="text-knpi-400" />
                         {{ formatTanggal(item.createdAt) }}
-                      </span>
-                      <span
-                        v-if="item.penulis"
-                        class="flex items-center gap-1 truncate max-w-[160px]"
-                      >
-                        <LucideUser :size="12" class="text-slate-400" />
-                        {{ item.penulis }}
                       </span>
                     </div>
 

@@ -208,7 +208,7 @@
       </header>
 
       <!-- Main Slot Content -->
-      <main class="flex flex-col gap-5 sm:gap-6 p-3.5 sm:p-6 lg:p-8 flex-1">
+      <main class="flex flex-col gap-5 sm:gap-6 p-3.5 sm:p-6 lg:p-8 flex-1 min-w-0">
         <slot />
       </main>
 

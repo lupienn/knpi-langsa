@@ -69,10 +69,10 @@
           <!-- Back Button -->
           <NuxtLink
             to="/berita"
-            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all border shadow-sm border-white/10 bg-white/5 text-slate-200 hover:bg-white/10"
+            class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all border shadow-sm border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 shrink-0"
           >
             <LucideArrowLeft :size="15" />
-            <span>Kembali ke Berita</span>
+            <span><span class="hidden xs:inline sm:inline">Kembali ke </span>Berita</span>
           </NuxtLink>
         </div>
       </div>
@@ -174,17 +174,8 @@
               {{ berita.judul }}
             </h1>
 
-            <!-- Meta Info Bar with Author Avatar -->
+            <!-- Meta Info Bar -->
             <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium pt-4 border-t border-white/10 text-slate-400">
-              <div
-                v-if="berita.penulis"
-                class="flex items-center gap-2.5"
-              >
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-knpi-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
-                  {{ inisialPenulis }}
-                </div>
-                <span>Oleh <strong class="text-slate-200">{{ berita.penulis }}</strong></span>
-              </div>
               <div class="flex items-center gap-2">
                 <LucideCalendar
                   :size="16"
@@ -584,11 +575,6 @@ function kelasKategori(kat: string) {
   }
   return map[kat] || 'bg-slate-500/20 text-slate-400 border-slate-500/20'
 }
-
-const inisialPenulis = computed(() => {
-  const nama = berita.value?.penulis || 'KNPI'
-  return nama.slice(0, 1).toUpperCase()
-})
 
 const estimasiWaktuBaca = computed(() => {
   if (!berita.value?.konten) return 1

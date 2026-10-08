@@ -146,8 +146,6 @@ Proses seed akan otomatis membuat satu akun administrator bawaan. Gunakan kreden
 | Username | admin    |
 | Password | admin123 |
 
-> Segera ganti password akun ini setelah berhasil masuk pertama kali demi keamanan sistem.
-
 ---
 
 ## Perintah Tersedia
