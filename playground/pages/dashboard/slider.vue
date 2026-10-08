@@ -129,7 +129,7 @@
             <span>{{ tab.label }}</span>
             <span
               class="px-1.5 py-0.2 rounded-full text-[10px] font-bold"
-              :class="filterAktif === tab.value ? 'bg-amber-500/30 text-amber-200' : 'bg-white/10 text-slate-400'"
+              :class="filterAktif === tab.value ? 'bg-amber-400/25 text-amber-200' : 'bg-white/10 text-white/70'"
             >
               {{ hitungFilter(tab.value) }}
             </span>
@@ -140,7 +140,7 @@
         <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 ml-auto md:ml-0">
           <button
             class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
-            :class="tampilanMode === 'grid' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-400 hover:text-white'"
+            :class="tampilanMode === 'grid' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-white/70 hover:text-white hover:bg-white/5'"
             title="Tampilan Kartu Grid"
             @click="tampilanMode = 'grid'"
           >
@@ -148,7 +148,7 @@
           </button>
           <button
             class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
-            :class="tampilanMode === 'tabel' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-slate-400 hover:text-white'"
+            :class="tampilanMode === 'tabel' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-white/70 hover:text-white hover:bg-white/5'"
             title="Tampilan Tabel Data"
             @click="tampilanMode = 'tabel'"
           >
@@ -429,14 +429,18 @@
               </td>
               <td class="px-5 py-4 whitespace-nowrap">
                 <span
-                  class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border"
-                  :class="slide.aktif ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25' : 'bg-slate-500/10 text-slate-400 border-slate-500/25'"
+                  v-if="slide.aktif"
+                  class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
                 >
-                  <span
-                    class="h-1.5 w-1.5 rounded-full"
-                    :class="slide.aktif ? 'bg-emerald-400' : 'bg-slate-500'"
-                  />
-                  {{ slide.aktif ? 'Aktif' : 'Nonaktif' }}
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  Aktif
+                </span>
+                <span
+                  v-else
+                  class="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-full border bg-white/5 text-slate-300 border-white/10"
+                >
+                  <span class="h-1.5 w-1.5 rounded-full bg-slate-500" />
+                  Nonaktif
                 </span>
               </td>
               <td class="px-5 py-4 text-right whitespace-nowrap">
@@ -1054,20 +1058,25 @@ async function pindahUrutan(index: number, arah: 'naik' | 'turun') {
   if (targetIndex < 0 || targetIndex >= sliderFiltered.value.length) return
 
   const arr = [...daftarSlider.value]
-  ;[arr[index], arr[targetIndex]] = [arr[targetIndex], arr[index]]
+  const itemSekarang = arr[index]
+  const itemTarget = arr[targetIndex]
+  if (!itemSekarang || !itemTarget) return
+
+  arr[index] = itemTarget
+  arr[targetIndex] = itemSekarang
   daftarSlider.value = arr
 
   sedangProses.value = true
   try {
     await Promise.all([
-      $fetch(`/api/slider/${arr[index].id}`, {
+      $fetch(`/api/slider/${itemTarget.id}`, {
         method: 'PUT',
-        body: { ...arr[index], urutan: index, aktif: arr[index].aktif },
+        body: { ...itemTarget, urutan: index, aktif: itemTarget.aktif },
         headers: { Authorization: `Bearer ${authStore.token}` },
       }),
-      $fetch(`/api/slider/${arr[targetIndex].id}`, {
+      $fetch(`/api/slider/${itemSekarang.id}`, {
         method: 'PUT',
-        body: { ...arr[targetIndex], urutan: targetIndex, aktif: arr[targetIndex].aktif },
+        body: { ...itemSekarang, urutan: targetIndex, aktif: itemSekarang.aktif },
         headers: { Authorization: `Bearer ${authStore.token}` },
       }),
     ])

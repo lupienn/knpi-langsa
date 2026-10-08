@@ -73,10 +73,6 @@
             to="/#berita"
             class="text-knpi-400 font-bold"
           >Berita</NuxtLink>
-          <NuxtLink
-            to="/#pinjam-gedung"
-            class="hover:text-knpi-400 transition-colors"
-          >Pinjam Gedung</NuxtLink>
         </nav>
 
         <!-- Controls: Theme Toggle & Back Button -->
@@ -294,10 +290,14 @@
           <div class="flex flex-col gap-6">
             <!-- Excerpt Summary Lead Blockquote -->
             <div
-              class="p-5 sm:p-6 rounded-2xl border-l-4 border-knpi-500 text-sm sm:text-base font-medium italic leading-relaxed shadow-sm relative overflow-hidden"
-              :class="isDarkMode ? 'bg-knpi-500/10 text-slate-200 border-r border-t border-b border-knpi-500/20' : 'bg-knpi-50/80 text-slate-700 border-r border-t border-b border-knpi-200/80'"
+              class="p-5 sm:p-6 rounded-2xl border text-sm sm:text-base font-medium italic leading-relaxed shadow-sm relative overflow-hidden flex items-start gap-3.5"
+              :class="isDarkMode ? 'bg-knpi-500/10 text-slate-200 border-knpi-500/30' : 'bg-knpi-50/80 text-slate-700 border-knpi-200'"
             >
-              "{{ berita.ringkasan }}"
+              <LucideQuote
+                :size="20"
+                class="text-knpi-400 shrink-0 mt-0.5"
+              />
+              <span>"{{ berita.ringkasan }}"</span>
             </div>
 
             <!-- Main Body Content Text (Render Rich Text HTML) -->
@@ -468,26 +468,26 @@
               </div>
             </div>
 
-            <!-- Banner Graha Pemuda CTA (Wide Bottom Banner) -->
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-teal-900/60 to-knpi-950 p-6 sm:p-8 border border-emerald-500/20 shadow-2xl text-white">
-              <div class="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-emerald-400/20 blur-3xl" />
+            <!-- Banner Sinergi Pemuda CTA (Wide Bottom Banner) -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-knpi-900 via-blue-900/60 to-slate-950 p-6 sm:p-8 border border-knpi-500/20 shadow-2xl text-white">
+              <div class="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-knpi-400/20 blur-3xl" />
               <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="space-y-2 max-w-xl">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-xs font-bold text-emerald-300 uppercase tracking-wider">
-                    <LucideBuilding2 :size="14" /> Layanan Graha Pemuda KNPI
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-knpi-500/20 border border-knpi-400/30 text-xs font-bold text-knpi-300 uppercase tracking-wider">
+                    <LucideSparkles :size="14" /> Sinergi &amp; Kolaborasi Pemuda
                   </span>
                   <h4 class="text-xl sm:text-2xl font-extrabold leading-tight">
-                    Butuh Lokasi Acara atau Kegiatan Organisasi?
+                    Wadah Kreativitas Pemuda Kota Langsa
                   </h4>
                   <p class="text-xs sm:text-sm text-slate-300/90 leading-relaxed">
-                    Gedung Graha Pemuda DPD KNPI Kota Langsa siap digunakan untuk berbagai kegiatan kepemudaan, rapat, dan seminar organisasi.
+                    DPD KNPI Kota Langsa terus berkomitmen mendorong inovasi, karya nyata, dan peran aktif seluruh organisasi kepemudaan.
                   </p>
                 </div>
                 <NuxtLink
-                  to="/#pinjam-gedung"
-                  class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm hover:bg-emerald-400 transition shadow-lg cursor-pointer hover:scale-105"
+                  to="/#berita"
+                  class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-knpi-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition shadow-lg cursor-pointer hover:scale-105"
                 >
-                  <span>Ajukan Pinjam Gedung</span>
+                  <span>Eksplorasi Berita Lainnya</span>
                   <LucideArrowRight :size="16" />
                 </NuxtLink>
               </div>
@@ -531,10 +531,6 @@
               to="/#berita"
               class="hover:text-knpi-300 transition-colors"
             >Berita</NuxtLink>
-            <NuxtLink
-              to="/#pinjam-gedung"
-              class="hover:text-knpi-300 transition-colors"
-            >Pinjam Gedung</NuxtLink>
             <NuxtLink
               to="/login"
               class="hover:text-knpi-300 transition-colors"

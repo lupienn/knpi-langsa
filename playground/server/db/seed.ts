@@ -59,7 +59,7 @@ async function seed() {
       ['admin'],
     ) as mysql.RowDataPacket[][]
 
-    if (rows.length > 0) {
+    if (rows && rows.length > 0) {
       console.log('ℹ️  Admin sudah ada, melewati seed pengguna admin.')
     }
     else {

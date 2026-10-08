@@ -35,7 +35,7 @@
         </div>
 
         <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
-          Sistem informasi terintegrasi pengelolaan publikasi warta berita kepemudaan dan permohonan pinjam pakai Graha Pemuda Kota Langsa.
+          Sistem informasi terintegrasi pengelolaan publikasi warta berita kepemudaan dan media visual resmi DPD KNPI Kota Langsa.
         </p>
 
         <!-- Feature List -->
@@ -48,10 +48,10 @@
           </div>
 
           <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">
-              <LucideBuilding2 :size="16" />
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">
+              <LucideImages :size="16" />
             </div>
-            <span class="text-xs font-medium text-slate-300">Layanan Permohonan Pinjam Gedung</span>
+            <span class="text-xs font-medium text-slate-300">Manajemen Slider & Visual Beranda</span>
           </div>
 
           <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">

@@ -29,26 +29,6 @@ async function createTables() {
   `)
   console.log('✅ Tabel berita berhasil dibuat.')
 
-  console.log('📦 Membuat tabel pinjam_gedung...')
-  await connection.execute(`
-    CREATE TABLE IF NOT EXISTS pinjam_gedung (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      nama_pemohon VARCHAR(255) NOT NULL,
-      organisasi VARCHAR(255) NOT NULL,
-      no_hp VARCHAR(20) NOT NULL,
-      email VARCHAR(255),
-      keperluan VARCHAR(500) NOT NULL,
-      keterangan TEXT,
-      tanggal_mulai DATE NOT NULL,
-      tanggal_selesai DATE NOT NULL,
-      status ENUM('menunggu', 'disetujui', 'ditolak') NOT NULL DEFAULT 'menunggu',
-      catatan_admin TEXT,
-      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    )
-  `)
-  console.log('✅ Tabel pinjam_gedung berhasil dibuat.')
-
   await connection.end()
   console.log('🎉 Selesai!')
 }

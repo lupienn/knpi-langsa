@@ -14,31 +14,39 @@
               :size="14"
               class="text-amber-300"
             />
-            <span>{{ sapaanWaktu }}, {{ pengguna?.nama?.split(' ')[0] || pengguna?.username || 'User' }}</span>
+            <span>{{ sapaanWaktu }}, {{ pengguna?.nama?.split(' ')[0] || pengguna?.username || 'Pengguna' }}</span>
           </div>
 
           <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
             Dashboard KNPI Kota Langsa
           </h2>
-          <p class="mt-1 text-xs sm:text-sm text-knpi-100/90">
-            Kelola publikasi berita dan permohonan pinjam pakai Graha Pemuda.
+          <p class="mt-1 text-xs sm:text-sm text-knpi-100/90 max-w-xl leading-relaxed">
+            Pusat kendali portal resmi DPD KNPI Kota Langsa. Kelola publikasi berita kegiatan, slider beranda, dan pantau status sistem secara terpadu.
           </p>
         </div>
 
         <div class="flex flex-wrap gap-3 shrink-0">
           <NuxtLink
             to="/dashboard/berita"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-knpi-800 font-bold text-xs shadow-lg hover:bg-knpi-50 transition"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-knpi-800 font-bold text-xs shadow-lg hover:bg-knpi-50 transition active:scale-95"
           >
             <LucidePlus :size="16" />
-            <span>Kelola Berita</span>
+            <span>Tambah Berita</span>
           </NuxtLink>
           <NuxtLink
-            to="/dashboard/pinjam-gedung"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white font-bold text-xs backdrop-blur-md hover:bg-white/25 transition"
+            to="/dashboard/slider"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white font-bold text-xs backdrop-blur-md hover:bg-white/25 transition active:scale-95"
           >
-            <LucideBuilding2 :size="16" />
-            <span>Pinjam Gedung</span>
+            <LucideImages :size="16" />
+            <span>Kelola Slider</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/"
+            target="_blank"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-slate-200 font-semibold text-xs backdrop-blur-md hover:bg-white/20 hover:text-white transition"
+          >
+            <LucideExternalLink :size="15" />
+            <span>Lihat Web</span>
           </NuxtLink>
         </div>
       </div>
@@ -53,6 +61,7 @@
             class="text-knpi-400"
           /> Ringkasan Statistik
         </h3>
+        <span class="text-[11px] text-slate-500 font-medium">Diperbarui secara langsung</span>
       </div>
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -68,232 +77,334 @@
             </div>
           </div>
           <div class="mt-4">
-            <span class="text-3xl font-black text-white tracking-tight">
-              {{ memuatStats ? '...' : totalBerita }}
-            </span>
-            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
-              <LucideTrendingUp :size="13" />
-              <span>Publikasi aktif</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-black text-white tracking-tight">
+                {{ memuatStats ? '...' : totalBerita }}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">artikel</span>
+            </div>
+            <div class="mt-2 flex items-center gap-3 text-[11px] font-medium">
+              <span class="text-emerald-400 flex items-center gap-1">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                {{ totalBeritaTerbit }} Terbit
+              </span>
+              <span class="text-amber-400 flex items-center gap-1">
+                <span class="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                {{ totalBeritaDraf }} Draf
+              </span>
             </div>
           </div>
         </NuxtLink>
 
-        <!-- Card 2: Permohonan Gedung -->
+        <!-- Card 2: Slider Beranda -->
         <NuxtLink
-          to="/dashboard/pinjam-gedung"
+          to="/dashboard/slider"
           class="glass-card-hover p-5 flex flex-col justify-between group cursor-pointer"
         >
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-400">Pinjam Gedung</span>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-400 shadow-lg text-white group-hover:scale-105 transition-transform">
-              <LucideBuilding2 :size="20" />
+            <span class="text-xs font-semibold text-slate-400">Slider Beranda</span>
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg text-white group-hover:scale-105 transition-transform">
+              <LucideImages :size="20" />
             </div>
           </div>
           <div class="mt-4">
-            <span class="text-3xl font-black text-white tracking-tight">
-              {{ memuatStats ? '...' : totalPermohonan }}
-            </span>
-            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-teal-300 font-medium">
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-black text-white tracking-tight">
+                {{ memuatStats ? '...' : totalSlider }}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">slide</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-amber-300 font-medium">
               <LucideCheckCircle2 :size="13" />
-              <span>Pengajuan pinjam pakai</span>
+              <span>Visual promosi beranda</span>
             </div>
           </div>
         </NuxtLink>
 
-        <!-- Card 4: Status Sistem -->
+        <!-- Card 3: Status Server & Database -->
         <div class="glass-card p-5 flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <span class="text-xs font-semibold text-slate-400">Status Server</span>
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg text-white">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg text-white">
               <LucideShieldCheck :size="20" />
             </div>
           </div>
           <div class="mt-4">
             <div class="flex items-center gap-2">
-              <span class="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              <span class="text-xl font-bold text-white">Normal</span>
+              <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span class="text-xl font-bold text-white">Online &amp; Stabil</span>
             </div>
-            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-amber-300 font-medium">
+            <div class="mt-2 flex items-center gap-1.5 text-[11px] text-emerald-300 font-medium">
               <LucideZap :size="13" />
-              <span>Sistem Aktif</span>
+              <span>Basis data terhubung</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ============ QUICK ACCESS & INFO SECTION ============ -->
+    <!-- ============ MAIN CONTENT SECTION ============ -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      <!-- SISI KIRI: Pintasan Modul Utama (8 Columns) -->
-      <div class="lg:col-span-8 flex flex-col gap-4">
-        <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-          <LucideLayers
-            :size="14"
-            class="text-knpi-400"
-          /> Pintasan Modul
-        </h3>
+      <!-- SISI KIRI: Pintasan Modul & Berita Terbaru (8 Columns) -->
+      <div class="lg:col-span-8 flex flex-col gap-6">
+        <!-- Pintasan Modul -->
+        <div class="flex flex-col gap-3">
+          <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+            <LucideLayers
+              :size="14"
+              class="text-knpi-400"
+            /> Akses Cepat Modul
+          </h3>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Tile Berita -->
-          <NuxtLink
-            to="/dashboard/berita"
-            class="glass-card-hover p-6 flex flex-col justify-between group"
-          >
-            <div>
-              <div class="flex items-center gap-3">
-                <div class="p-2.5 rounded-xl bg-knpi-600/20 text-knpi-300 border border-knpi-500/30">
-                  <LucideNewspaper :size="22" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Tile Berita -->
+            <NuxtLink
+              to="/dashboard/berita"
+              class="glass-card-hover p-5 flex flex-col justify-between group"
+            >
+              <div>
+                <div class="flex items-center gap-3">
+                  <div class="p-2.5 rounded-xl bg-knpi-600/20 text-knpi-300 border border-knpi-500/30">
+                    <LucideNewspaper :size="20" />
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-knpi-300 transition-colors">
+                      Kelola Berita
+                    </h4>
+                    <span class="text-[11px] text-slate-400">Publikasi warta pemuda</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 class="text-base font-bold text-white group-hover:text-knpi-300 transition-colors">
-                    Kelola Berita
-                  </h4>
-                  <span class="text-[11px] text-slate-400">Kelola publikasi artikel</span>
-                </div>
+                <p class="mt-3 text-xs text-slate-400 leading-relaxed">
+                  Tulis, edit, dan atur status penerbitan artikel kegiatan organisasi kepemudaan.
+                </p>
               </div>
-              <p class="mt-4 text-xs text-slate-400 leading-relaxed">
-                Buat dan perbarui artikel atau berita kegiatan DPD KNPI Kota Langsa.
+              <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-knpi-400 group-hover:translate-x-1 transition-transform">
+                <span>Buka Modul Berita</span>
+                <LucideArrowRight :size="14" />
+              </div>
+            </NuxtLink>
+
+            <!-- Tile Slider -->
+            <NuxtLink
+              to="/dashboard/slider"
+              class="glass-card-hover p-5 flex flex-col justify-between group"
+            >
+              <div>
+                <div class="flex items-center gap-3">
+                  <div class="p-2.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    <LucideImages :size="20" />
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
+                      Slider Beranda
+                    </h4>
+                    <span class="text-[11px] text-slate-400">Visual halaman muka</span>
+                  </div>
+                </div>
+                <p class="mt-3 text-xs text-slate-400 leading-relaxed">
+                  Kelola foto sorotan dan teks judul banner yang tampil pada beranda website.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                <span>Buka Modul Slider</span>
+                <LucideArrowRight :size="14" />
+              </div>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <!-- Berita Terbaru Widget -->
+        <div class="glass-card p-5 sm:p-6">
+          <div class="flex items-center justify-between pb-4 border-b border-white/10">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <LucideClock
+                  :size="16"
+                  class="text-knpi-400"
+                />
+                Berita Terbaru
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Daftar publikasi artikel terakhir yang tercatat di sistem
               </p>
             </div>
-            <div class="mt-5 flex items-center gap-2 text-xs font-semibold text-knpi-400 group-hover:translate-x-1 transition-transform">
-              <span>Buka Halaman</span>
-              <LucideArrowRight :size="15" />
-            </div>
-          </NuxtLink>
+            <NuxtLink
+              to="/dashboard/berita"
+              class="text-xs font-semibold text-knpi-400 hover:text-knpi-300 transition flex items-center gap-1"
+            >
+              <span>Semua Berita</span>
+              <LucideChevronRight :size="14" />
+            </NuxtLink>
+          </div>
 
-          <!-- Tile Pinjam Gedung -->
-          <NuxtLink
-            to="/dashboard/pinjam-gedung"
-            class="glass-card-hover p-6 flex flex-col justify-between group"
+          <!-- Loading state -->
+          <div
+            v-if="memuatStats"
+            class="py-10 text-center text-xs text-slate-500 flex flex-col items-center gap-2"
           >
-            <div>
-              <div class="flex items-center gap-3">
-                <div class="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  <LucideBuilding2 :size="22" />
-                </div>
-                <div>
-                  <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
-                    Pinjam Pakai Gedung
-                  </h4>
-                  <span class="text-[11px] text-slate-400">Permohonan &amp; Jadwal</span>
-                </div>
-              </div>
-              <p class="mt-4 text-xs text-slate-400 leading-relaxed">
-                Tinjau surat permohonan dan atur persetujuan jadwal pinjam pakai Graha Pemuda.
-              </p>
-            </div>
-            <div class="mt-5 flex items-center gap-2 text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-              <span>Buka Halaman</span>
-              <LucideArrowRight :size="15" />
-            </div>
-          </NuxtLink>
+            <LucideLoader2
+              :size="24"
+              class="animate-spin text-knpi-400"
+            />
+            <span>Memuat data warta...</span>
+          </div>
 
-          <!-- Tile Kelola Slider -->
-          <NuxtLink
-            to="/dashboard/slider"
-            class="glass-card-hover p-6 flex flex-col justify-between group sm:col-span-2"
+          <!-- Empty state -->
+          <div
+            v-else-if="beritaTerbaru.length === 0"
+            class="py-10 text-center text-xs text-slate-500"
           >
-            <div>
-              <div class="flex items-center gap-3">
-                <div class="p-2.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  <LucideImages :size="22" />
+            <p>Belum ada artikel berita yang dibuat.</p>
+            <NuxtLink
+              to="/dashboard/berita"
+              class="inline-block mt-3 text-knpi-400 font-semibold hover:underline"
+            >
+              + Buat berita pertama sekarang
+            </NuxtLink>
+          </div>
+
+          <!-- News List -->
+          <div
+            v-else
+            class="divide-y divide-white/5"
+          >
+            <div
+              v-for="item in beritaTerbaru"
+              :key="item.id"
+              class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white/[0.02] -mx-2 px-2 rounded-xl transition"
+            >
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 mb-1 flex-wrap">
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
+                    :class="item.status === 'terbit' ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'"
+                  >
+                    {{ item.status }}
+                  </span>
+                  <span class="text-[11px] text-slate-400 capitalize">
+                    {{ item.kategori }}
+                  </span>
+                  <span class="text-slate-600">&bull;</span>
+                  <span class="text-[11px] text-slate-500">
+                    {{ formatTanggal(item.createdAt) }}
+                  </span>
                 </div>
-                <div>
-                  <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
-                    Kelola Slider Beranda
-                  </h4>
-                  <span class="text-[11px] text-slate-400">Foto &amp; Deskripsi Slider</span>
-                </div>
+                <h4 class="text-xs sm:text-sm font-semibold text-slate-200 truncate group-hover:text-white">
+                  {{ item.judul }}
+                </h4>
               </div>
-              <p class="mt-4 text-xs text-slate-400 leading-relaxed">
-                Tambah, edit, atau hapus foto dan teks yang tampil di slider halaman utama website KNPI Kota Langsa.
-              </p>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <NuxtLink
+                  to="/dashboard/berita"
+                  class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-medium transition"
+                >
+                  Kelola
+                </NuxtLink>
+              </div>
             </div>
-            <div class="mt-5 flex items-center gap-2 text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
-              <span>Buka Halaman</span>
-              <LucideArrowRight :size="15" />
-            </div>
-          </NuxtLink>
+          </div>
         </div>
       </div>
 
-      <!-- SISI KANAN: Detail Informasi Akun (4 Columns) -->
-      <div class="lg:col-span-4 flex flex-col gap-4">
-        <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-          <LucideUserCheck
-            :size="14"
-            class="text-knpi-400"
-          /> Detail Akun
-        </h3>
+      <!-- SISI KANAN: Detail Informasi Akun & Sistem (4 Columns) -->
+      <div class="lg:col-span-4 flex flex-col gap-6">
+        <!-- Detail Profil Akun -->
+        <div class="flex flex-col gap-3">
+          <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+            <LucideUserCheck
+              :size="14"
+              class="text-knpi-400"
+            /> Profil Pengguna
+          </h3>
 
-        <div class="glass-card p-6 flex flex-col gap-5">
-          <!-- Avatar + Header Profil -->
-          <div class="flex items-center gap-4 pb-4 border-b border-white/10">
-            <div class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-knpi-600 via-knpi-500 to-blue-500 text-lg font-black text-white shadow-knpi">
-              {{ inisialNama }}
-              <span class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-slate-900 bg-emerald-400" />
+          <div class="glass-card p-6 flex flex-col gap-5">
+            <!-- Avatar + Header Profil -->
+            <div class="flex items-center gap-4 pb-4 border-b border-white/10">
+              <div class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-knpi-600 via-knpi-500 to-blue-500 text-lg font-black text-white shadow-knpi">
+                {{ inisialNama }}
+                <span class="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-slate-900 bg-emerald-400" />
+              </div>
+              <div class="min-w-0 flex-1">
+                <h4 class="truncate text-base font-extrabold text-white">
+                  {{ pengguna?.nama || pengguna?.username || '—' }}
+                </h4>
+                <p class="text-xs text-slate-400 truncate">
+                  @{{ pengguna?.username || 'user' }}
+                </p>
+                <div class="mt-1.5">
+                  <span
+                    class="badge"
+                    :class="`badge-${pengguna?.peran}`"
+                  >
+                    {{ labelPeran }}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="min-w-0 flex-1">
-              <h4 class="truncate text-base font-extrabold text-white">
-                {{ pengguna?.nama || pengguna?.username || '—' }}
-              </h4>
-              <p class="text-xs text-slate-400 truncate">
-                @{{ pengguna?.username || 'user' }}
-              </p>
-              <div class="mt-1.5">
-                <span
-                  class="badge"
-                  :class="`badge-${pengguna?.peran}`"
-                >
-                  {{ labelPeran }}
+
+            <!-- Detail Attributes -->
+            <div class="flex flex-col gap-3.5 text-xs">
+              <div class="flex items-center justify-between py-1 border-b border-white/5">
+                <span class="text-slate-400 font-medium flex items-center gap-2">
+                  <LucideUser
+                    :size="14"
+                    class="text-slate-500"
+                  /> Username
+                </span>
+                <span class="font-semibold text-slate-200">{{ pengguna?.username || '—' }}</span>
+              </div>
+
+              <div class="flex items-center justify-between py-1 border-b border-white/5">
+                <span class="text-slate-400 font-medium flex items-center gap-2">
+                  <LucideShield
+                    :size="14"
+                    class="text-slate-500"
+                  /> Hak Akses
+                </span>
+                <span class="font-semibold text-knpi-300 capitalize">{{ labelPeran }}</span>
+              </div>
+
+              <div class="flex items-center justify-between py-1 border-b border-white/5">
+                <span class="text-slate-400 font-medium flex items-center gap-2">
+                  <LucideCalendar
+                    :size="14"
+                    class="text-slate-500"
+                  /> Terdaftar Sejak
+                </span>
+                <span class="font-semibold text-slate-200">{{ tanggalBergabung }}</span>
+              </div>
+
+              <div class="flex items-center justify-between py-1">
+                <span class="text-slate-400 font-medium flex items-center gap-2">
+                  <LucideClock
+                    :size="14"
+                    class="text-slate-500"
+                  /> Status Sesi
+                </span>
+                <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+                  <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> Terhubung
                 </span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Detail Attributes -->
-          <div class="flex flex-col gap-3.5 text-xs">
-            <div class="flex items-center justify-between py-1.5 border-b border-white/5">
-              <span class="text-slate-400 font-medium flex items-center gap-2">
-                <LucideUser
-                  :size="14"
-                  class="text-slate-500"
-                /> Username
-              </span>
-              <span class="font-semibold text-slate-200">{{ pengguna?.username || '—' }}</span>
-            </div>
-
-            <div class="flex items-center justify-between py-1.5 border-b border-white/5">
-              <span class="text-slate-400 font-medium flex items-center gap-2">
-                <LucideShield
-                  :size="14"
-                  class="text-slate-500"
-                /> Hak Akses
-              </span>
-              <span class="font-semibold text-knpi-300 capitalize">{{ labelPeran }}</span>
-            </div>
-
-            <div class="flex items-center justify-between py-1.5 border-b border-white/5">
-              <span class="text-slate-400 font-medium flex items-center gap-2">
-                <LucideCalendar
-                  :size="14"
-                  class="text-slate-500"
-                /> Terdaftar Sejak
-              </span>
-              <span class="font-semibold text-slate-200">{{ tanggalBergabung }}</span>
-            </div>
-
-            <div class="flex items-center justify-between py-1.5">
-              <span class="text-slate-400 font-medium flex items-center gap-2">
-                <LucideClock
-                  :size="14"
-                  class="text-slate-500"
-                /> Sesi Aktif
-              </span>
-              <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
-                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> Terhubung
-              </span>
-            </div>
+        <!-- Info Portal KNPI -->
+        <div class="glass-card p-5 text-xs flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
+            <LucideInfo
+              :size="15"
+              class="text-knpi-400"
+            />
+            <span>Informasi Sistem</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-[11px]">
+            Portal terpadu DPD Komite Nasional Pemuda Indonesia (KNPI) Kota Langsa, Aceh. Dikembangkan dengan Nuxt 3 &amp; Tailwind CSS.
+          </p>
+          <div class="border-t border-white/5 pt-2.5 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Versi Portal</span>
+            <span class="font-mono text-slate-300">v1.2.0</span>
           </div>
         </div>
       </div>
@@ -304,11 +415,24 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'dashboard' })
 
+interface BeritaItem {
+  id: number
+  judul: string
+  ringkasan: string
+  kategori: string
+  status: 'draf' | 'terbit'
+  createdAt: string
+  penulis?: string
+}
+
 const authStore = useAuthStore()
 const pengguna = computed(() => authStore.penggunaLogin)
 
 const totalBerita = ref<number | string>('—')
-const totalPermohonan = ref<number | string>('—')
+const totalBeritaTerbit = ref(0)
+const totalBeritaDraf = ref(0)
+const totalSlider = ref<number | string>('—')
+const beritaTerbaru = ref<BeritaItem[]>([])
 const memuatStats = ref(true)
 
 const inisialNama = computed(() => {
@@ -346,33 +470,47 @@ const ikonWaktu = computed(() => {
   return 'LucideMoon'
 })
 
-// Ambil data statistik dari API backend
+function formatTanggal(str?: string) {
+  if (!str) return '—'
+  return new Date(str).toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+// Ambil data statistik dan berita dari API backend
 onMounted(async () => {
   try {
     const token = authStore.token
     const headers = token ? { Authorization: `Bearer ${token}` } : undefined
-    const [resBerita, resPermohonan] = await Promise.allSettled([
-      $fetch<unknown[]>('/api/berita', { headers }),
-      $fetch<unknown[]>('/api/pinjam-gedung', { headers }),
+    const [resBerita, resSlider] = await Promise.allSettled([
+      $fetch<{ berhasil: boolean, data: BeritaItem[] }>('/api/berita', { headers }),
+      $fetch<{ berhasil: boolean, data: unknown[] }>('/api/slider', { headers }),
     ])
 
-    if (resBerita.status === 'fulfilled' && Array.isArray(resBerita.value)) {
-      totalBerita.value = resBerita.value.length
+    if (resBerita.status === 'fulfilled') {
+      const items = resBerita.value?.data || (Array.isArray(resBerita.value) ? resBerita.value : [])
+      totalBerita.value = items.length
+      totalBeritaTerbit.value = items.filter(b => b.status === 'terbit').length
+      totalBeritaDraf.value = items.filter(b => b.status === 'draf').length
+      beritaTerbaru.value = items.slice(0, 5)
     }
     else {
       totalBerita.value = 0
     }
 
-    if (resPermohonan.status === 'fulfilled' && Array.isArray(resPermohonan.value)) {
-      totalPermohonan.value = resPermohonan.value.length
+    if (resSlider.status === 'fulfilled') {
+      const items = resSlider.value?.data || (Array.isArray(resSlider.value) ? resSlider.value : [])
+      totalSlider.value = items.length
     }
     else {
-      totalPermohonan.value = 0
+      totalSlider.value = 0
     }
   }
   catch {
     totalBerita.value = 0
-    totalPermohonan.value = 0
+    totalSlider.value = 0
   }
   finally {
     memuatStats.value = false

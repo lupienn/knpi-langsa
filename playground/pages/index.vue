@@ -72,15 +72,10 @@
             :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
             class="transition-colors"
           >Berita</a>
-          <a
-            href="#pinjam-gedung"
-            :class="isDarkMode ? 'hover:text-white' : 'hover:text-slate-900'"
-            class="transition-colors"
-          >Pinjam Gedung</a>
         </nav>
 
         <!-- Right Controls: Theme Toggle & Login Button -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2.5 sm:gap-3">
           <!-- Toggle Light / Dark Mode -->
           <button
             type="button"
@@ -101,18 +96,95 @@
             />
           </button>
 
-          <!-- Login Button (Sembunyi saat scroll kebawah jika tidak di-hover) -->
+          <!-- Login Button (Sembunyi saat scroll kebawah jika tidak di-hover di layar besar) -->
           <NuxtLink
             to="/login"
-            class="btn-primary !w-auto !py-2.5 !px-5 !text-xs transition-all duration-300 transform"
-            :class="isScrolledDown && !isHeaderHovered ? 'opacity-0 scale-90 pointer-events-none hidden md:hidden' : 'opacity-100 scale-100 flex'"
+            class="btn-primary !w-auto !py-2.5 !px-5 !text-xs transition-all duration-300 transform hidden sm:flex"
+            :class="isScrolledDown && !isHeaderHovered ? 'opacity-0 scale-90 pointer-events-none hidden md:hidden' : 'opacity-100 scale-100'"
           >
             <LucideLogIn :size="15" />
             <span>Masuk Panel</span>
           </NuxtLink>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            type="button"
+            class="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 cursor-pointer"
+            :class="isDarkMode
+              ? 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/15'
+              : 'border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200 shadow-sm'"
+            aria-label="Toggle navigasi mobile"
+            @click="menuMobileTerbuka = !menuMobileTerbuka"
+          >
+            <LucideX
+              v-if="menuMobileTerbuka"
+              :size="18"
+            />
+            <LucideMenu
+              v-else
+              :size="18"
+            />
+          </button>
         </div>
       </div>
     </header>
+
+    <!-- Mobile Menu Drawer -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-4"
+      leave-active-class="transition duration-150 ease-in"
+      leave-to-class="opacity-0 -translate-y-4"
+    >
+      <div
+        v-if="menuMobileTerbuka"
+        class="fixed inset-x-0 top-14 sm:top-20 z-40 md:hidden border-b p-5 backdrop-blur-2xl transition-colors shadow-2xl"
+        :class="isDarkMode ? 'bg-[#0c1322]/95 border-white/10 text-white' : 'bg-white/95 border-slate-200 text-slate-800'"
+      >
+        <nav class="flex flex-col gap-2 font-semibold text-sm">
+          <a
+            href="#beranda"
+            class="px-3.5 py-2.5 rounded-xl transition"
+            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            @click="menuMobileTerbuka = false"
+          >Beranda</a>
+          <a
+            href="#pengurus"
+            class="px-3.5 py-2.5 rounded-xl transition"
+            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            @click="menuMobileTerbuka = false"
+          >Pengurus</a>
+          <a
+            href="#visi-misi"
+            class="px-3.5 py-2.5 rounded-xl transition"
+            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            @click="menuMobileTerbuka = false"
+          >Visi &amp; Misi</a>
+          <a
+            href="#program-kerja"
+            class="px-3.5 py-2.5 rounded-xl transition"
+            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            @click="menuMobileTerbuka = false"
+          >Program Kerja</a>
+          <a
+            href="#berita"
+            class="px-3.5 py-2.5 rounded-xl transition"
+            :class="isDarkMode ? 'hover:bg-white/5' : 'hover:bg-slate-100'"
+            @click="menuMobileTerbuka = false"
+          >Berita</a>
+          <div class="border-t border-white/10 pt-3 mt-1">
+            <NuxtLink
+              to="/login"
+              class="btn-primary !w-full !py-2.5 !text-xs"
+              @click="menuMobileTerbuka = false"
+            >
+              <LucideLogIn :size="15" />
+              <span>Masuk Panel Administrasi</span>
+            </NuxtLink>
+          </div>
+        </nav>
+      </div>
+    </Transition>
 
     <main>
       <!-- Hero Section Slider -->
@@ -195,17 +267,17 @@
                   >
                     <a
                       href="#berita"
-                      class="btn-primary !w-auto !py-3.5 !px-7 !text-xs"
+                      class="btn-primary !w-auto !py-3.5 !px-7 !text-xs shadow-knpi"
                     >
                       <span>Jelajahi Berita</span>
                       <LucideArrowRight :size="16" />
                     </a>
                     <a
-                      href="#pinjam-gedung"
-                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                      href="#visi-misi"
+                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3.5 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
                     >
-                      <LucideBuilding2 :size="16" />
-                      <span>Pinjam Gedung</span>
+                      <LucideCompass :size="16" />
+                      <span>Visi &amp; Misi</span>
                     </a>
                   </div>
                 </div>
@@ -576,26 +648,44 @@
         </div>
       </section>
 
-      <!-- Pinjam Gedung Promo CTA -->
+      <!-- Sinergi Pemuda KNPI Banner CTA -->
       <section
-        id="pinjam-gedung"
-        class="py-20 relative overflow-hidden bg-gradient-to-br from-knpi-900 via-knpi-800 to-blue-900 border-y border-white/10"
+        class="py-20 relative overflow-hidden bg-gradient-to-br from-knpi-900 via-knpi-800 to-blue-900 border-y border-white/10 text-white"
       >
-        <div class="container mx-auto px-4 relative z-10 text-center">
-          <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl font-extrabold text-white mb-3">
-              Layanan Pinjam Pakai Graha Pemuda
+        <div class="pointer-events-none absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-float" />
+        <div class="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-knpi-400/20 blur-3xl animate-float-slow" />
+        <div class="pointer-events-none absolute inset-0 bg-grid-pattern opacity-10" />
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div class="max-w-3xl mx-auto space-y-4 reveal">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs font-bold text-knpi-200">
+              <LucideSparkles
+                :size="14"
+                class="text-amber-300"
+              /> Wadah Kolaborasi &amp; Kreativitas
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Bersatu, Bangkit, dan Berdaya Bersama Pemuda Kota Langsa
             </h2>
-            <p class="text-slate-200 text-xs sm:text-sm mb-6 leading-relaxed">
-              Fasilitas gedung KNPI Kota Langsa siap digunakan untuk kegiatan kemasyarakatan dan kepemudaan.
+            <p class="text-slate-200 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
+              DPD KNPI Kota Langsa terus berkomitmen sebagai wadah berhimpun seluruh organisasi kepemudaan, memperkuat kemandirian, dan mengawal kemajuan Kota Langsa.
             </p>
-            <NuxtLink
-              to="/dashboard/pinjam-gedung"
-              class="inline-flex items-center gap-2 rounded-xl bg-white text-knpi-900 px-6 py-3 text-xs font-bold shadow-lg hover:bg-slate-100 transition cursor-pointer"
-            >
-              <LucideBuilding2 :size="16" />
-              <span>Pengajuan Pinjam Gedung</span>
-            </NuxtLink>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-3">
+              <a
+                href="#berita"
+                class="inline-flex items-center gap-2 rounded-xl bg-white text-knpi-900 px-6 py-3 text-xs font-bold shadow-lg hover:bg-slate-100 transition cursor-pointer"
+              >
+                <LucideNewspaper :size="16" />
+                <span>Baca Berita Terkini</span>
+              </a>
+              <a
+                href="#pengurus"
+                class="inline-flex items-center gap-2 rounded-xl bg-white/15 border border-white/20 text-white px-6 py-3 text-xs font-bold backdrop-blur-md hover:bg-white/25 transition cursor-pointer"
+              >
+                <LucideUsers :size="16" />
+                <span>Dewan Pengurus</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -682,6 +772,7 @@ definePageMeta({ layout: false })
 const isDarkMode = ref(true)
 const isScrolledDown = ref(false)
 const isHeaderHovered = ref(false)
+const menuMobileTerbuka = ref(false)
 const halamanSelesaiMuat = ref(false)
 
 const handleScroll = () => {

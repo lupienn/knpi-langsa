@@ -544,9 +544,13 @@
 
             <!-- Excerpt Blockquote -->
             <div
-              class="p-4 rounded-xl bg-white/[0.03] border-l-4 border-knpi-500 text-sm italic text-slate-300 leading-relaxed"
+              class="p-4 rounded-xl bg-white/[0.04] border border-knpi-500/20 text-sm italic text-slate-300 leading-relaxed shadow-sm flex items-start gap-3"
             >
-              "{{ itemPratinjau.ringkasan }}"
+              <LucideQuote
+                :size="18"
+                class="text-knpi-400 shrink-0 mt-0.5"
+              />
+              <span>"{{ itemPratinjau.ringkasan }}"</span>
             </div>
 
             <!-- Content HTML -->
@@ -1109,7 +1113,7 @@ let timerDebounceRiwayat: ReturnType<typeof setTimeout> | null = null
 watch(() => form.konten, (valBaru, valLama) => {
   if (isUndoingOrRedoing.value) return
 
-  clearTimeout(timerDebounceRiwayat)
+  if (timerDebounceRiwayat) clearTimeout(timerDebounceRiwayat)
   timerDebounceRiwayat = setTimeout(() => {
     if (valLama !== undefined && valLama !== valBaru) {
       if (riwayatUndo.value[riwayatUndo.value.length - 1] !== valLama) {

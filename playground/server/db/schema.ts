@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, int, timestamp, mysqlEnum, text, date, tinyint } from 'drizzle-orm/mysql-core'
+import { mysqlTable, varchar, int, timestamp, mysqlEnum, text, tinyint } from 'drizzle-orm/mysql-core'
 
 // Tabel pengguna
 export const pengguna = mysqlTable('pengguna', {
@@ -30,26 +30,6 @@ export const berita = mysqlTable('berita', {
 
 export type Berita = typeof berita.$inferSelect
 export type BeritaBaru = typeof berita.$inferInsert
-
-// Tabel pinjam pakai gedung
-export const pinjamGedung = mysqlTable('pinjam_gedung', {
-  id: int('id').primaryKey().autoincrement(),
-  namaPemohon: varchar('nama_pemohon', { length: 255 }).notNull(),
-  organisasi: varchar('organisasi', { length: 255 }).notNull(),
-  noHp: varchar('no_hp', { length: 20 }).notNull(),
-  email: varchar('email', { length: 255 }),
-  keperluan: varchar('keperluan', { length: 500 }).notNull(),
-  keterangan: text('keterangan'),
-  tanggalMulai: date('tanggal_mulai').notNull(),
-  tanggalSelesai: date('tanggal_selesai').notNull(),
-  status: mysqlEnum('status', ['menunggu', 'disetujui', 'ditolak']).notNull().default('menunggu'),
-  catatanAdmin: text('catatan_admin'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
-})
-
-export type PinjamGedung = typeof pinjamGedung.$inferSelect
-export type PinjamGedungBaru = typeof pinjamGedung.$inferInsert
 
 // Tabel slider beranda
 export const slider = mysqlTable('slider', {

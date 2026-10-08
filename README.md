@@ -12,7 +12,6 @@ Website resmi Dewan Pengurus Daerah Komite Nasional Pemuda Indonesia (DPD KNPI) 
 - Profil dewan pengurus (Ketua, Sekretaris, Bendahara)
 - Visi, misi, dan program kerja organisasi
 - Berita dan informasi terkini
-- Formulir pengajuan pinjam pakai Graha Pemuda
 - Tampilan responsif dengan dukungan mode gelap dan terang
 
 ### Panel Administrasi
@@ -20,9 +19,8 @@ Website resmi Dewan Pengurus Daerah Komite Nasional Pemuda Indonesia (DPD KNPI) 
 - Login admin dengan autentikasi berbasis JWT
 - Kelola berita: tambah, edit, hapus, ubah status publikasi
 - Kelola slider beranda: tambah, edit, aktifkan/nonaktifkan slide
-- Kelola pengajuan pinjam gedung: lihat, setujui, atau tolak permohonan
 - Unggah gambar sampul artikel dan gambar slider
-- Dashboard statistik ringkas
+- Dashboard statistik ringkas warta dan sistem
 
 ---
 
@@ -59,14 +57,12 @@ knpi-langsa/
 │   │   └── dashboard/           # Halaman-halaman admin
 │   │       ├── index.vue
 │   │       ├── berita.vue
-│   │       ├── slider.vue
-│   │       └── pinjam-gedung.vue
+│   │       └── slider.vue
 │   ├── server/
 │   │   ├── api/                 # API routes (Nitro)
 │   │   │   ├── auth/
 │   │   │   ├── berita/
 │   │   │   ├── slider/
-│   │   │   ├── pinjam-gedung/
 │   │   │   ├── publik/
 │   │   │   └── upload.post.ts
 │   │   ├── db/

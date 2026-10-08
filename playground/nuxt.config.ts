@@ -31,8 +31,6 @@ export default defineNuxtConfig({
   },
   compatibilityDate: 'latest',
 
-  myModule: {},
-
   tailwindcss: {
     configPath: '~/tailwind.config.ts',
     exposeConfig: false,

@@ -79,23 +79,6 @@
         </NuxtLink>
 
         <NuxtLink
-          to="/dashboard/pinjam-gedung"
-          class="nav-item"
-          :class="{ active: route.path.startsWith('/dashboard/pinjam-gedung') }"
-        >
-          <LucideBuilding2
-            :size="18"
-            class="shrink-0"
-          />
-          <span class="flex-1">Pinjam Pakai Gedung</span>
-          <LucideChevronRight
-            v-if="route.path.startsWith('/dashboard/pinjam-gedung')"
-            :size="14"
-            class="opacity-70"
-          />
-        </NuxtLink>
-
-        <NuxtLink
           to="/dashboard/slider"
           class="nav-item"
           :class="{ active: route.path.startsWith('/dashboard/slider') }"
@@ -302,17 +285,15 @@ const judulHalaman = computed(() => {
   const path = route.path
   if (path === '/dashboard') return 'Dashboard'
   if (path.startsWith('/dashboard/berita')) return 'Kelola Berita'
-  if (path.startsWith('/dashboard/pinjam-gedung')) return 'Pinjam Pakai Gedung'
   if (path.startsWith('/dashboard/slider')) return 'Kelola Slider Beranda'
   return 'Dashboard'
 })
 
 const deskripsiHalaman = computed(() => {
   const path = route.path
-  if (path === '/dashboard') return 'Ringkasan data dan aktivitas sistem'
-  if (path.startsWith('/dashboard/berita')) return 'Manajemen warta & artikel publikasi'
-  if (path.startsWith('/dashboard/pinjam-gedung')) return 'Pengajuan & persetujuan sewa gedung'
-  if (path.startsWith('/dashboard/slider')) return 'Atur foto dan deskripsi slider halaman beranda'
+  if (path === '/dashboard') return 'Ringkasan warta, slider beranda, dan status portal'
+  if (path.startsWith('/dashboard/berita')) return 'Manajemen publikasi warta & artikel kegiatan'
+  if (path.startsWith('/dashboard/slider')) return 'Atur foto dan deskripsi slider visual beranda'
   return 'Sistem Informasi KNPI Kota Langsa'
 })
 
