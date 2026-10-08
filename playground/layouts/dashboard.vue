@@ -6,7 +6,7 @@
 
     <!-- ============ SIDEBAR ============ -->
     <aside
-      class="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-white/[0.08] bg-[#0c1322]/90 backdrop-blur-2xl transition-transform duration-300 shadow-2xl"
+      class="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] lg:w-64 flex-col border-r border-white/[0.08] bg-[#0c1322]/95 backdrop-blur-2xl transition-transform duration-300 shadow-2xl"
       :class="sidebarTerbuka ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
     >
       <!-- Brand Header -->
@@ -14,6 +14,7 @@
         <NuxtLink
           to="/dashboard"
           class="flex items-center gap-3 group"
+          @click="sidebarTerbuka = false"
         >
           <img
             :src="logoKnpi"
@@ -27,7 +28,7 @@
         </NuxtLink>
 
         <button
-          class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5"
+          class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
           @click="sidebarTerbuka = false"
         >
           <LucideX :size="18" />
@@ -44,6 +45,7 @@
           to="/dashboard"
           class="nav-item"
           :class="{ active: route.path === '/dashboard' }"
+          @click="sidebarTerbuka = false"
         >
           <LucideLayoutDashboard
             :size="18"
@@ -65,6 +67,7 @@
           to="/dashboard/berita"
           class="nav-item"
           :class="{ active: route.path.startsWith('/dashboard/berita') }"
+          @click="sidebarTerbuka = false"
         >
           <LucideNewspaper
             :size="18"
@@ -82,6 +85,7 @@
           to="/dashboard/slider"
           class="nav-item"
           :class="{ active: route.path.startsWith('/dashboard/slider') }"
+          @click="sidebarTerbuka = false"
         >
           <LucideImages
             :size="18"
@@ -103,6 +107,7 @@
           to="/"
           target="_blank"
           class="nav-item text-slate-400 hover:text-slate-200"
+          @click="sidebarTerbuka = false"
         >
           <LucideGlobe
             :size="18"
@@ -136,7 +141,7 @@
           </div>
           <button
             id="btn-logout"
-            class="flex shrink-0 items-center justify-center rounded-lg border border-red-500/30 bg-red-500/10 p-2 text-red-400 transition hover:bg-red-500/20 hover:text-red-300"
+            class="flex shrink-0 items-center justify-center rounded-lg border border-red-500/30 bg-red-500/10 p-2 text-red-400 transition hover:bg-red-500/20 hover:text-red-300 cursor-pointer"
             :disabled="sedangLogout"
             title="Keluar dari Sistem"
             @click="modalLogout = true"
@@ -157,9 +162,9 @@
     <!-- ============ MAIN CONTENT AREA ============ -->
     <div class="flex flex-1 flex-col lg:pl-64 min-w-0">
       <!-- Topbar Header -->
-      <header class="sticky top-0 z-30 flex items-center gap-4 border-b border-white/[0.08] bg-[#070a14]/85 px-5 py-4 backdrop-blur-xl">
+      <header class="sticky top-0 z-30 flex items-center gap-3 sm:gap-4 border-b border-white/[0.08] bg-[#070a14]/90 px-4 sm:px-6 py-3.5 sm:py-4 backdrop-blur-xl">
         <button
-          class="flex items-center justify-center rounded-xl border border-white/10 bg-slate-900/60 p-2 text-slate-300 hover:bg-white/10 lg:hidden transition"
+          class="flex items-center justify-center rounded-xl border border-white/10 bg-slate-900/60 p-2 text-slate-300 hover:bg-white/10 lg:hidden transition cursor-pointer"
           aria-label="Buka Menu"
           @click="sidebarTerbuka = !sidebarTerbuka"
         >
@@ -168,34 +173,47 @@
 
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
-            <h1 class="text-lg font-bold tracking-tight text-white truncate">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white truncate">
               {{ judulHalaman }}
             </h1>
           </div>
-          <p class="text-xs text-slate-400 truncate">
+          <p class="text-[11px] sm:text-xs text-slate-400 truncate">
             {{ deskripsiHalaman }}
           </p>
         </div>
 
         <!-- Right Topbar Utilities -->
-        <div class="hidden sm:flex items-center gap-3">
-          <div class="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/60 px-3.5 py-1.5 text-xs text-slate-400 font-medium">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="hidden md:flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/60 px-3.5 py-1.5 text-xs text-slate-400 font-medium">
             <LucideCalendar
               :size="14"
               class="text-knpi-400"
             />
             <span>{{ tanggalSekarang }}</span>
           </div>
+
+          <NuxtLink
+            to="/"
+            target="_blank"
+            class="flex items-center gap-1.5 rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2 text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition"
+            title="Lihat Website Publik"
+          >
+            <LucideGlobe
+              :size="15"
+              class="text-knpi-400"
+            />
+            <span class="hidden sm:inline">Web Publik</span>
+          </NuxtLink>
         </div>
       </header>
 
       <!-- Main Slot Content -->
-      <main class="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 flex-1 animate-fade-in-up">
+      <main class="flex flex-col gap-5 sm:gap-6 p-3.5 sm:p-6 lg:p-8 flex-1 animate-fade-in-up">
         <slot />
       </main>
 
       <!-- Footer Bar -->
-      <footer class="border-t border-white/[0.06] py-4 px-6 text-center text-xs text-slate-500">
+      <footer class="border-t border-white/[0.06] py-4 px-4 sm:px-6 text-center text-xs text-slate-500">
         DPD KNPI Kota Langsa &copy; {{ new Date().getFullYear() }} — Sistem Informasi Terpadu
       </footer>
     </div>

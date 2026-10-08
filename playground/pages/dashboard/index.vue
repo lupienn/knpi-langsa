@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-6">
     <!-- ============ WELCOME HERO BANNER ============ -->
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-knpi-900 via-knpi-700 to-blue-600 p-6 sm:p-8 shadow-2xl border border-white/10">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-knpi-900 via-knpi-700 to-blue-600 p-5 sm:p-8 shadow-2xl border border-white/10">
       <div class="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl animate-float" />
       <div class="pointer-events-none absolute -bottom-16 right-32 h-48 w-48 rounded-full bg-knpi-400/25 blur-2xl animate-float-slow" />
       <div class="pointer-events-none absolute inset-0 bg-grid-pattern opacity-10" />
@@ -25,17 +25,17 @@
           </p>
         </div>
 
-        <div class="flex flex-wrap gap-3 shrink-0">
+        <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
           <NuxtLink
             to="/dashboard/berita"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-knpi-800 font-bold text-xs shadow-lg hover:bg-knpi-50 transition active:scale-95"
+            class="flex-1 sm:flex-none justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-knpi-800 font-bold text-xs shadow-lg hover:bg-knpi-50 transition active:scale-95"
           >
             <LucidePlus :size="16" />
             <span>Tambah Berita</span>
           </NuxtLink>
           <NuxtLink
             to="/dashboard/slider"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white font-bold text-xs backdrop-blur-md hover:bg-white/25 transition active:scale-95"
+            class="flex-1 sm:flex-none justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 border border-white/20 text-white font-bold text-xs backdrop-blur-md hover:bg-white/25 transition active:scale-95"
           >
             <LucideImages :size="16" />
             <span>Kelola Slider</span>
@@ -43,7 +43,7 @@
           <NuxtLink
             to="/"
             target="_blank"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-slate-200 font-semibold text-xs backdrop-blur-md hover:bg-white/20 hover:text-white transition"
+            class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-slate-200 font-semibold text-xs backdrop-blur-md hover:bg-white/20 hover:text-white transition"
           >
             <LucideExternalLink :size="15" />
             <span>Lihat Web</span>
@@ -64,7 +64,7 @@
         <span class="text-[11px] text-slate-500 font-medium">Diperbarui secara langsung</span>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div class="grid grid-cols-1 gap-3.5 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <!-- Card 1: Total Berita -->
         <NuxtLink
           to="/dashboard/berita"
@@ -122,7 +122,7 @@
         </NuxtLink>
 
         <!-- Card 3: Status Server & Database -->
-        <div class="glass-card p-5 flex flex-col justify-between">
+        <div class="glass-card p-5 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
           <div class="flex items-center justify-between">
             <span class="text-xs font-semibold text-slate-400">Status Server</span>
             <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg text-white">

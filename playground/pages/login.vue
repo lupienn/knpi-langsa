@@ -1,11 +1,11 @@
 <template>
-  <div class="relative min-h-screen w-full flex items-center justify-center bg-[#070a14] px-4 py-12 text-slate-100 selection:bg-knpi-500/30 selection:text-knpi-200 overflow-hidden">
+  <div class="relative min-h-screen w-full flex items-center justify-center bg-[#070a14] px-4 py-8 sm:py-12 text-slate-100 selection:bg-knpi-500/30 selection:text-knpi-200 overflow-hidden">
     <!-- Ambient Dynamic Background Glows -->
     <div class="pointer-events-none absolute -top-40 -left-40 h-[550px] w-[550px] rounded-full bg-knpi-600/15 blur-[140px]" />
     <div class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px]" />
     <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full bg-knpi-950/40 blur-[160px]" />
 
-    <div class="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
       <!-- SISI KIRI: Branding & Feature Highlights -->
       <div class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left gap-6 px-2 animate-fade-in-up">
         <NuxtLink
@@ -48,7 +48,7 @@
           </div>
 
           <div class="flex items-center gap-3.5 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30 shrink-0">
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">
               <LucideImages :size="16" />
             </div>
             <span class="text-xs font-medium text-slate-300">Manajemen Slider & Visual Beranda</span>
@@ -65,7 +65,7 @@
 
       <!-- SISI KANAN: Form Login Card -->
       <div class="lg:col-span-6 flex flex-col items-center animate-fade-in-up duration-700">
-        <div class="glass-card w-full max-w-md p-6 sm:p-8 shadow-card-hover border-white/10">
+        <div class="glass-card w-full max-w-md p-5 sm:p-8 shadow-card-hover border-white/10">
           <div class="mb-6">
             <h2 class="text-lg font-bold text-white tracking-tight">
               Masuk Panel Administrasi

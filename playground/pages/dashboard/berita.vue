@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-6">
     <!-- ====== HEADER BANNER EDITORIAL ====== -->
     <div
-      class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-knpi-900 via-knpi-800/80 to-blue-950 p-6 sm:p-8 shadow-2xl border border-knpi-500/20"
+      class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-knpi-900 via-knpi-800/80 to-blue-950 p-5 sm:p-8 shadow-2xl border border-knpi-500/20"
     >
       <div class="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-knpi-400/15 blur-3xl" />
       <div class="pointer-events-none absolute -bottom-10 left-20 h-40 w-40 rounded-full bg-blue-500/20 blur-2xl" />
@@ -23,7 +23,7 @@
         </div>
         <button
           id="btn-tambah-berita"
-          class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-knpi-500 to-knpi-600 text-white font-bold text-sm shadow-lg shadow-knpi-500/20 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+          class="w-full sm:w-auto justify-center shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-knpi-500 to-knpi-600 text-white font-bold text-sm shadow-lg shadow-knpi-500/20 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
           @click="bukaFormTambah"
         >
           <LucidePenSquare :size="18" />
@@ -80,15 +80,15 @@
       </div>
 
       <!-- Card Kegiatan -->
-      <div class="glass-card p-4 flex items-center gap-3.5 border-violet-500/20">
-        <div class="p-3 rounded-2xl bg-violet-500/10 text-violet-400 border border-violet-500/20 shrink-0">
+      <div class="glass-card p-4 flex items-center gap-3.5 border-sky-500/20">
+        <div class="p-3 rounded-2xl bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
           <LucideTag :size="20" />
         </div>
         <div>
           <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
             Kegiatan
           </p>
-          <p class="text-xl font-extrabold text-violet-400 mt-0.5">
+          <p class="text-xl font-extrabold text-sky-400 mt-0.5">
             {{ totalKegiatan }}
           </p>
         </div>
@@ -119,9 +119,9 @@
       </div>
 
       <!-- Filter Pills & View Switcher -->
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="flex items-center justify-between gap-3 overflow-hidden">
         <!-- Filter Tabs -->
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 max-w-full">
           <button
             v-for="tab in tabFilter"
             :key="tab.value"
@@ -142,7 +142,7 @@
         </div>
 
         <!-- View Switcher (Grid vs Table) -->
-        <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 ml-auto md:ml-0">
+        <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 shrink-0">
           <button
             class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
             :class="tampilanMode === 'grid' ? 'bg-knpi-500/20 text-knpi-300 border border-knpi-500/30' : 'text-slate-400 hover:text-white'"
@@ -572,7 +572,7 @@
     >
       <div
         v-if="tampilForm"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-3 sm:p-4 backdrop-blur-md"
         @click.self="tampilForm = false"
       >
         <div class="glass-card w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative">
@@ -582,7 +582,7 @@
           />
 
           <!-- Modal Header -->
-          <div class="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-slate-900/60 shrink-0">
+          <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/[0.08] bg-slate-900/60 shrink-0">
             <div class="flex items-center gap-2.5">
               <span class="p-2 rounded-xl bg-knpi-500/10 text-knpi-400 border border-knpi-500/20">
                 <LucidePenSquare :size="18" />
@@ -606,7 +606,7 @@
 
           <!-- Modal Body Form (2 Column Split Grid) -->
           <form
-            class="flex-1 overflow-y-auto p-6 flex flex-col justify-between gap-6"
+            class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col justify-between gap-6"
             @submit.prevent="simpanBerita"
           >
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -850,7 +850,7 @@
                   <!-- Dropzone Upload (Tinggi Penuh di Kanan) -->
                   <div
                     v-if="!previewGambar && !form.gambarUrl"
-                    class="relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/15 bg-slate-900/50 min-h-[340px] p-6 text-center hover:border-knpi-500/50 hover:bg-knpi-500/[0.03] transition-all cursor-pointer group"
+                    class="relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/15 bg-slate-900/50 min-h-[220px] sm:min-h-[340px] p-4 sm:p-6 text-center hover:border-knpi-500/50 hover:bg-knpi-500/[0.03] transition-all cursor-pointer group"
                     @click="($refs.inputGambar as HTMLInputElement)?.click()"
                     @dragover.prevent
                     @drop.prevent="handleDrop"
@@ -892,10 +892,10 @@
             </div>
 
             <!-- Footer Buttons -->
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+            <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-4 border-t border-white/10">
               <button
                 type="button"
-                class="px-6 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer"
+                class="w-full sm:w-auto px-6 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer text-center"
                 @click="tampilForm = false"
               >
                 Batal
@@ -903,7 +903,7 @@
               <button
                 type="submit"
                 :disabled="sedangMenyimpan || sedangUpload"
-                class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-knpi-600 to-knpi-500 text-xs font-bold text-white shadow-lg shadow-knpi-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-knpi-600 to-knpi-500 text-xs font-bold text-white shadow-lg shadow-knpi-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
               >
                 <LucideLoader
                   v-if="sedangMenyimpan"

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-6">
     <!-- ====== HEADER BANNER ====== -->
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-900/60 via-amber-800/40 to-knpi-900 p-6 sm:p-8 shadow-2xl border border-amber-500/20">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-900/60 via-amber-800/40 to-knpi-900 p-5 sm:p-8 shadow-2xl border border-amber-500/20">
       <div class="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-amber-400/15 blur-3xl" />
       <div class="pointer-events-none absolute -bottom-10 left-20 h-40 w-40 rounded-full bg-knpi-400/20 blur-2xl" />
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -19,7 +19,7 @@
         </div>
         <button
           id="btn-tambah-slide"
-          class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 font-bold text-sm shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition cursor-pointer"
+          class="w-full sm:w-auto justify-center shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 font-bold text-sm shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition cursor-pointer"
           @click="bukaFormTambah"
         >
           <LucidePlus :size="18" />
@@ -115,8 +115,8 @@
       </div>
 
       <!-- Filter Tabs & View Switcher -->
-      <div class="flex flex-wrap items-center gap-2">
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+      <div class="flex items-center justify-between gap-3 overflow-hidden">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 max-w-full">
           <button
             v-for="tab in tabFilter"
             :key="tab.value"
@@ -137,7 +137,7 @@
         </div>
 
         <!-- View Switcher -->
-        <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 ml-auto md:ml-0">
+        <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 shrink-0">
           <button
             class="p-1.5 rounded-lg text-xs font-semibold transition cursor-pointer"
             :class="tampilanMode === 'grid' ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30' : 'text-white/70 hover:text-white hover:bg-white/5'"
@@ -520,12 +520,12 @@
     >
       <div
         v-if="modalForm"
-        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-3 sm:p-4 backdrop-blur-md"
         @click.self="tutupModal"
       >
         <div class="glass-card w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden shadow-2xl relative">
           <!-- Header -->
-          <div class="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-slate-900/60">
+          <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/[0.08] bg-slate-900/60">
             <div class="flex items-center gap-2.5">
               <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
                 <LucideImages :size="18" />
@@ -549,7 +549,7 @@
 
           <!-- Body Form -->
           <form
-            class="flex-1 overflow-y-auto p-6 flex flex-col gap-4"
+            class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4"
             @submit.prevent="simpanSlide"
           >
             <!-- Judul -->
@@ -687,10 +687,10 @@
             </div>
 
             <!-- Footer Buttons -->
-            <div class="flex gap-3 pt-2">
+            <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-2">
               <button
                 type="button"
-                class="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer"
+                class="w-full sm:w-auto px-6 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer text-center"
                 @click="tutupModal"
               >
                 Batal
@@ -699,7 +699,7 @@
                 id="btn-simpan-slide"
                 type="submit"
                 :disabled="sedangProses || sedangUpload || !form.gambarUrl"
-                class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 py-2.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 py-2.5 text-xs font-bold text-white shadow-lg shadow-amber-500/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
               >
                 <LucideLoader
                   v-if="sedangProses"

@@ -323,7 +323,7 @@
                 <span>Bagikan Artikel Ini</span>
               </div>
 
-              <div class="flex items-center gap-2">
+              <div class="flex flex-wrap items-center justify-center gap-2">
                 <button
                   class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 transition cursor-pointer"
                   title="Bagikan ke WhatsApp"
@@ -582,7 +582,7 @@
     >
       <div
         v-if="toast.tampil"
-        class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl border-emerald-500/30 bg-emerald-950/90 text-emerald-300 text-xs font-semibold"
+        class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-[200] flex items-center justify-center sm:justify-start gap-3 rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-xl border-emerald-500/30 bg-emerald-950/90 text-emerald-300 text-xs font-semibold"
       >
         <LucideCheckCircle :size="18" />
         <span>{{ toast.pesan }}</span>

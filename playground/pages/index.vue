@@ -245,36 +245,36 @@
                   </div>
 
                   <h1
-                    class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
+                    class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 transition-all duration-700 delay-300 transform"
                     :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
                     {{ slide.judul }}
-                    <span class="block text-knpi-300 mt-2">
+                    <span class="block text-knpi-300 mt-1.5 sm:mt-2 text-2xl sm:text-4xl lg:text-5xl font-bold">
                       {{ slide.subjudul }}
                     </span>
                   </h1>
 
                   <p
-                    class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
+                    class="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-xl transition-all duration-700 delay-500 transform"
                     :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
                     {{ slide.deskripsi }}
                   </p>
 
                   <div
-                    class="mt-8 flex flex-wrap gap-4 items-center transition-all duration-700 delay-700 transform"
+                    class="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-4 items-center transition-all duration-700 delay-700 transform"
                     :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
                   >
                     <a
                       href="#berita"
-                      class="btn-primary !w-auto !py-3.5 !px-7 !text-xs shadow-knpi"
+                      class="btn-primary !w-auto !py-3 !px-6 sm:!py-3.5 sm:!px-7 !text-xs shadow-knpi"
                     >
                       <span>Jelajahi Berita</span>
                       <LucideArrowRight :size="16" />
                     </a>
                     <a
                       href="#visi-misi"
-                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-6 py-3.5 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
+                      class="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/20 px-5 py-3 sm:px-6 sm:py-3.5 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20 transition cursor-pointer"
                     >
                       <LucideCompass :size="16" />
                       <span>Visi &amp; Misi</span>
@@ -287,27 +287,29 @@
         </template>
 
         <!-- Slider Navigation Controls -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+        <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-2.5">
           <button
             v-for="(_, index) in slides"
             :key="'dot-'+index"
             class="h-2 rounded-full transition-all duration-300 focus:outline-none cursor-pointer"
-            :class="currentSlide === index ? 'w-10 bg-knpi-400' : 'w-2 bg-white/30 hover:bg-white/60'"
+            :class="currentSlide === index ? 'w-8 sm:w-10 bg-knpi-400' : 'w-2 bg-white/30 hover:bg-white/60'"
             @click="currentSlide = index"
           />
         </div>
 
         <button
-          class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          class="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          aria-label="Slide sebelumnya"
           @click="prevSlide"
         >
-          <LucideChevronLeft :size="20" />
+          <LucideChevronLeft :size="18" />
         </button>
         <button
-          class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          class="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/60 text-white backdrop-blur-md border border-white/10 hover:bg-slate-800 transition cursor-pointer"
+          aria-label="Slide selanjutnya"
           @click="nextSlide"
         >
-          <LucideChevronRight :size="20" />
+          <LucideChevronRight :size="18" />
         </button>
       </section>
 
@@ -345,7 +347,7 @@
               :class="isDarkMode ? 'glass-card' : 'bg-white border border-slate-200/80 shadow-xl'"
             >
               <div
-                class="relative rounded-xl overflow-hidden aspect-video flex items-center justify-center border"
+                class="relative rounded-xl overflow-hidden aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[400px] flex items-center justify-center border"
                 :class="isDarkMode ? 'bg-slate-950/60 border-white/5' : 'bg-slate-50 border-slate-200/60'"
               >
                 <img
