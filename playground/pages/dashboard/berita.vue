@@ -557,7 +557,7 @@
               <!-- Content HTML -->
               <div
                 class="text-xs sm:text-sm text-slate-200 leading-relaxed space-y-3 whitespace-pre-line border-t border-white/5 pt-4 prose prose-invert max-w-none"
-                v-html="itemPratinjau.konten"
+                v-html="formatKontenHtml(itemPratinjau.konten)"
               />
             </div>
           </div>
@@ -790,7 +790,7 @@
                         type="button"
                         class="p-1.5 rounded-lg hover:bg-white/10 hover:text-white transition cursor-pointer text-xs font-bold flex items-center gap-1"
                         title="Sisipkan Tautan (Link)"
-                        @click="sisipkanFormat('<a href=\'https://\' target=\'_blank\'>', '</a>')"
+                        @click="bukaModalLink"
                       >
                         <LucideLink :size="15" />
                       </button>
@@ -968,6 +968,100 @@
                 <span>{{ sedangMenghapus ? 'Menghapus...' : 'Ya, Hapus' }}</span>
               </button>
             </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- ====== MODAL SISIPKAN TAUTAN (LINK) ====== -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        leave-active-class="transition duration-150 ease-in"
+        leave-to-class="opacity-0 scale-95"
+      >
+        <div
+          v-if="tampilModalLink"
+          class="fixed inset-0 z-[130] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md overflow-y-auto"
+          @click.self="tampilModalLink = false"
+        >
+          <div class="glass-card w-full max-w-md p-6 relative overflow-hidden shadow-2xl my-auto">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2.5">
+                <div class="h-9 w-9 rounded-xl bg-knpi-500/20 text-knpi-300 border border-knpi-500/30 flex items-center justify-center">
+                  <LucideLink :size="18" />
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-white">
+                    Sisipkan Tautan / Link
+                  </h3>
+                  <p class="text-[11px] text-slate-400">
+                    Tautan akan aktif dan dapat diklik oleh pembaca
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="p-1 rounded-lg text-slate-400 hover:text-white transition cursor-pointer"
+                @click="tampilModalLink = false"
+              >
+                <LucideX :size="16" />
+              </button>
+            </div>
+
+            <form
+              class="space-y-4"
+              @submit.prevent="terapkanLink"
+            >
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Alamat URL Web / Tautan <span class="text-red-400">*</span>
+                </label>
+                <input
+                  v-model="formLink.url"
+                  type="text"
+                  placeholder="https://www.instagram.com/knpikotalangsa/"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-600 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 transition-all font-mono"
+                  required
+                >
+                <p class="text-[10px] text-slate-400 mt-1">
+                  Bisa berupa link media sosial, website resmi, atau dokumen drive.
+                </p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Teks Tautan (Yang Terlihat di Artikel)
+                </label>
+                <input
+                  v-model="formLink.teks"
+                  type="text"
+                  placeholder="Contoh: Instagram KNPI Kota Langsa"
+                  class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-600 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 transition-all"
+                >
+                <p class="text-[10px] text-slate-400 mt-1">
+                  Jika dikosongkan, teks tautan otomatis sama dengan alamat URL di atas.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-white/5">
+                <button
+                  type="button"
+                  class="px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-xs font-semibold text-slate-300 hover:bg-white/10 transition cursor-pointer"
+                  @click="tampilModalLink = false"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-5 py-2 rounded-xl bg-gradient-to-r from-knpi-600 to-knpi-500 text-xs font-bold text-white shadow-lg shadow-knpi-500/20 hover:brightness-110 transition cursor-pointer flex items-center gap-1.5"
+                >
+                  <LucideCheck :size="14" />
+                  <span>Pasang Tautan</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </Transition>
@@ -1201,6 +1295,58 @@ function handleKeydownTextarea(e: KeyboardEvent) {
   }
 }
 
+// Link Inserter Modal Engine
+const tampilModalLink = ref(false)
+const formLink = reactive({
+  url: '',
+  teks: '',
+})
+const posisiSeleksi = ref({ start: 0, end: 0 })
+
+function bukaModalLink() {
+  const el = refKontenTextarea.value
+  let selected = ''
+  if (el) {
+    posisiSeleksi.value = { start: el.selectionStart, end: el.selectionEnd }
+    selected = form.konten.substring(el.selectionStart, el.selectionEnd)
+  }
+  formLink.teks = selected.trim() || ''
+  formLink.url = ''
+  tampilModalLink.value = true
+}
+
+function terapkanLink() {
+  let url = formLink.url.trim()
+  if (!url) return
+
+  // Pastikan URL memiliki protokol https/http jika berupa domain
+  if (!/^https?:\/\//i.test(url) && !url.startsWith('/') && !url.startsWith('#')) {
+    url = 'https://' + url
+  }
+
+  const teksTautan = formLink.teks.trim() || url
+  const linkHtml = `<a href="${url}" target="_blank" rel="noopener noreferrer">${teksTautan}</a>`
+
+  const el = refKontenTextarea.value
+  if (el) {
+    el.focus()
+    const { start, end } = posisiSeleksi.value
+    if (typeof el.setRangeText === 'function') {
+      el.setRangeText(linkHtml, start, end, 'end')
+      form.konten = el.value
+    }
+    else {
+      form.konten = form.konten.substring(0, start) + linkHtml + form.konten.substring(end)
+    }
+  }
+  else {
+    form.konten += linkHtml
+  }
+
+  tampilModalLink.value = false
+  tampilkanToast('Tautan berhasil disisipkan!')
+}
+
 const fileGambar = ref<File | null>(null)
 const previewGambar = ref<string | null>(null)
 const sedangUpload = ref(false)
@@ -1387,6 +1533,9 @@ async function simpanBerita() {
     tampilkanToast('Harap isi semua kolom wajib.', 'error')
     return
   }
+
+  // Otomatis rapikan tag tautan (link) dan ubah URL polos menjadi tautan aktif
+  form.konten = formatKontenHtml(form.konten)
 
   sedangMenyimpan.value = true
   try {

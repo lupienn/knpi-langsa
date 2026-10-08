@@ -249,7 +249,7 @@
             <!-- Main Body Content Text (Render Rich Text HTML) -->
             <div
               class="text-sm sm:text-base leading-relaxed space-y-5 whitespace-pre-line font-normal prose prose-invert max-w-none text-slate-200"
-              v-html="berita.konten"
+              v-html="formatKontenHtml(berita.konten)"
             />
 
             <!-- Social Sharing & Print Toolbar -->

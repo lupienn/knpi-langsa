@@ -91,6 +91,12 @@
   .badge-admin { @apply bg-knpi-600/20 text-knpi-300 border border-knpi-500/30 shadow-sm; }
   .badge-pengurus { @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-sm; }
   .badge-anggota { @apply bg-slate-500/20 text-slate-300 border border-slate-500/30 shadow-sm; }
+
+  /* Link di dalam artikel warta */
+  .link-artikel,
+  .prose a {
+    @apply text-knpi-400 hover:text-knpi-300 underline underline-offset-4 decoration-knpi-500/60 hover:decoration-knpi-300 font-semibold transition-colors break-all cursor-pointer inline-flex items-center gap-1;
+  }
 }
 
 @layer utilities {

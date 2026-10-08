@@ -399,12 +399,9 @@
             />
             <span>Informasi Sistem</span>
           </div>
-          <p class="text-slate-400 leading-relaxed text-[11px]">
-            Portal terpadu DPD Komite Nasional Pemuda Indonesia (KNPI) Kota Langsa, Aceh. Dikembangkan dengan Nuxt 3 &amp; Tailwind CSS.
-          </p>
-          <div class="border-t border-white/5 pt-2.5 flex items-center justify-between text-[11px] text-slate-500">
+          <div class="flex items-center justify-between text-xs text-slate-400 pt-0.5">
             <span>Versi Portal</span>
-            <span class="font-mono text-slate-300">v1.2.0</span>
+            <span class="font-mono font-bold text-slate-200 px-2.5 py-0.5 rounded-lg bg-white/5 border border-white/10">v1.2.0</span>
           </div>
         </div>
       </div>
