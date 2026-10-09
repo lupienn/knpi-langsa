@@ -262,18 +262,22 @@
                   <LucideMessageCircle :size="18" />
                 </button>
                 <button
-                  class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 transition cursor-pointer"
+                  class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 transition cursor-pointer flex items-center justify-center"
                   title="Bagikan ke Facebook"
                   @click="bagikan('facebook')"
                 >
-                  <LucideFacebook :size="18" />
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
                 </button>
                 <button
-                  class="p-2.5 rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 border border-sky-500/20 transition cursor-pointer"
+                  class="p-2.5 rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 border border-sky-500/20 transition cursor-pointer flex items-center justify-center"
                   title="Bagikan ke X / Twitter"
                   @click="bagikan('twitter')"
                 >
-                  <LucideTwitter :size="18" />
+                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
                 </button>
                 <button
                   class="p-2.5 rounded-xl bg-slate-500/10 text-slate-300 hover:bg-slate-500/20 border border-slate-500/20 transition cursor-pointer"
@@ -281,13 +285,6 @@
                   @click="salinLink"
                 >
                   <LucideCopy :size="18" />
-                </button>
-                <button
-                  class="p-2.5 rounded-xl bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 border border-amber-500/20 transition cursor-pointer"
-                  title="Cetak Artikel"
-                  @click="cetakHalaman"
-                >
-                  <LucidePrinter :size="18" />
                 </button>
               </div>
             </div>
@@ -450,6 +447,20 @@
               to="/login"
               class="hover:text-knpi-300 transition-colors"
             >Masuk Panel</NuxtLink>
+            <a
+              href="https://www.instagram.com/knpikotalangsa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 hover:text-pink-400 transition-colors"
+              title="Instagram @knpikotalangsa"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+              <span>Instagram</span>
+            </a>
           </div>
 
           <!-- Copyright -->
@@ -658,10 +669,6 @@ function bagikan(platform: 'whatsapp' | 'facebook' | 'twitter') {
 function salinLink() {
   navigator.clipboard.writeText(window.location.href)
   tampilkanToast('Tautan artikel telah disalin ke clipboard!')
-}
-
-function cetakHalaman() {
-  window.print()
 }
 
 onMounted(() => {
