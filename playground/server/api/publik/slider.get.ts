@@ -14,7 +14,7 @@ export default defineEventHandler(async () => {
   const data = await db
     .select()
     .from(slider)
-    .where(eq(slider.aktif, 1))
+    .where(eq(slider.aktif, true))
     .orderBy(asc(slider.urutan))
 
   return { berhasil: true, data }

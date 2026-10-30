@@ -721,9 +721,7 @@
           </div>
         </div>
 
-        <div class="border-t border-white/5 pt-6 text-center text-[11px] text-slate-500">
-          <p>&copy; {{ new Date().getFullYear() }} DPD KNPI Kota Langsa. Seluruh hak cipta dilindungi.</p>
-        </div>
+        <FooterPartners />
       </div>
     </footer>
   </div>

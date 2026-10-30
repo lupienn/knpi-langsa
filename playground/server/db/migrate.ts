@@ -1,36 +1,31 @@
-import mysql from 'mysql2/promise'
 import * as dotenv from 'dotenv'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import { migrate } from 'drizzle-orm/postgres-js/migrator'
+import { fileURLToPath } from 'node:url'
+import postgres from 'postgres'
+import { createPostgresOptions } from './postgres-options'
 
-dotenv.config({ path: '../.env' })
+dotenv.config({ path: fileURLToPath(new URL('../../../.env', import.meta.url)) })
 
-async function createTables() {
-  const connection = await mysql.createConnection({
-    host: process.env.NUXT_DB_HOST || '127.0.0.1',
-    port: Number(process.env.NUXT_DB_PORT) || 3306,
-    database: process.env.NUXT_DB_DATABASE || 'knpi-langsa',
-    user: process.env.NUXT_DB_USERNAME || 'root',
-    password: process.env.NUXT_DB_PASSWORD || '',
-  })
+async function runMigrations() {
+  const databaseUrl = process.env.SUPABASE_DIRECT_URL || process.env.NUXT_SUPABASE_DATABASE_URL
+  if (!databaseUrl) throw new Error('SUPABASE_DIRECT_URL atau NUXT_SUPABASE_DATABASE_URL belum diatur.')
 
-  console.log('📦 Membuat tabel berita...')
-  await connection.execute(`
-    CREATE TABLE IF NOT EXISTS berita (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      judul VARCHAR(255) NOT NULL,
-      ringkasan VARCHAR(500) NOT NULL,
-      konten TEXT NOT NULL,
-      kategori ENUM('kegiatan', 'pengumuman', 'artikel') NOT NULL DEFAULT 'kegiatan',
-      gambar_url VARCHAR(500),
-      status ENUM('draf', 'terbit') NOT NULL DEFAULT 'draf',
-      penulis_id INT NOT NULL,
-      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    )
-  `)
-  console.log('✅ Tabel berita berhasil dibuat.')
+  const client = postgres(databaseUrl, createPostgresOptions(databaseUrl, 1))
+  const db = drizzle(client)
 
-  await connection.end()
-  console.log('🎉 Selesai!')
+  try {
+    await migrate(db, {
+      migrationsFolder: fileURLToPath(new URL('./migrations', import.meta.url)),
+    })
+    console.log('✅ Migrasi PostgreSQL Supabase selesai.')
+  }
+  finally {
+    await client.end({ timeout: 5 })
+  }
 }
 
-createTables().catch(console.error)
+runMigrations().catch((error) => {
+  console.error('❌ Migrasi gagal:', error)
+  process.exitCode = 1
+})

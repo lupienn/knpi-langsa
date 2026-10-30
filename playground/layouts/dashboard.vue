@@ -214,7 +214,7 @@
 
       <!-- Footer Bar -->
       <footer class="border-t border-white/[0.06] py-4 px-4 sm:px-6 text-center text-xs text-slate-500">
-        DPD KNPI Kota Langsa &copy; {{ new Date().getFullYear() }} — Sistem Informasi Terpadu
+        DPD KNPI KOTA LANGSA x OSN &copy; {{ new Date().getFullYear() }} — Sistem Informasi Terpadu
       </footer>
     </div>
 

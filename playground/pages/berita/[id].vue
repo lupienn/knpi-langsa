@@ -462,12 +462,8 @@
               <span>Instagram</span>
             </a>
           </div>
-
-          <!-- Copyright -->
-          <div class="text-xs text-slate-400">
-            &copy; {{ new Date().getFullYear() }} DPD KNPI Kota Langsa.
-          </div>
         </div>
+        <FooterPartners class="mt-10" />
       </div>
     </footer>
 

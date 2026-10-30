@@ -669,15 +669,15 @@
           </div>
         </div>
 
-        <div class="border-t border-white/[0.04] pt-6 text-center text-[11px] text-slate-500">
-          <p>&copy; {{ new Date().getFullYear() }} DPD KNPI Kota Langsa.</p>
-        </div>
+        <FooterPartners />
       </div>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+import ketuaKnpiImage from '~/assets/ketua-knpi.jpeg'
+import pengurusKnpiImage from '~/assets/ketua,sekret,bendahara knpi langsa.png'
 import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 
 definePageMeta({ layout: false })
@@ -702,19 +702,19 @@ interface SlideItem {
 
 const slidesFallback: SlideItem[] = [
   {
-    gambarUrl: '/images/slider/1.jpeg',
+    gambarUrl: pengurusKnpiImage,
     judul: 'Bakti Pada Negeri',
     subjudul: 'Sinergi & Kolaborasi Pemuda',
     deskripsi: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
   },
   {
-    gambarUrl: '/images/slider/2.jpeg',
+    gambarUrl: ketuaKnpiImage,
     judul: 'Pemuda Hebat',
     subjudul: 'Membangun Kota Langsa',
     deskripsi: 'Menjadi wadah berhimpunnya seluruh organisasi kepemudaan untuk bersama-sama menciptakan pemimpin masa depan yang berintegritas dan inovatif.',
   },
   {
-    gambarUrl: '/images/slider/3.jpeg',
+    gambarUrl: pengurusKnpiImage,
     judul: 'Bersatu Kita Maju',
     subjudul: 'Kemandirian & Aksi Nyata',
     deskripsi: 'Mendorong kemandirian ekonomi, sosial, dan budaya di kalangan pemuda melalui program-program strategis yang langsung menyentuh masyarakat.',

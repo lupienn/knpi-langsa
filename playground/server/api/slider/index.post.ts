@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
     deskripsi: body.deskripsi || null,
     gambarUrl: body.gambarUrl,
     urutan: body.urutan ?? 0,
-    aktif: body.aktif !== undefined ? (body.aktif ? 1 : 0) : 1,
+    aktif: body.aktif !== undefined ? Boolean(body.aktif) : true,
   })
 
   return { berhasil: true, pesan: 'Slide berhasil ditambahkan.' }

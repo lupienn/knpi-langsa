@@ -20,10 +20,6 @@
           <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
             Dashboard KNPI Kota Langsa
           </h2>
-          <p class="mt-1 text-xs sm:text-sm text-knpi-100/90 max-w-xl leading-relaxed">
-            Pusat kendali portal resmi DPD KNPI Kota Langsa. Kelola publikasi berita kegiatan, slider beranda, dan
-            pantau status sistem secara terpadu.
-          </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
@@ -158,9 +154,6 @@
                     <span class="text-[11px] text-slate-400">Publikasi warta pemuda</span>
                   </div>
                 </div>
-                <p class="mt-3 text-xs text-slate-400 leading-relaxed">
-                  Tulis, edit, dan atur status penerbitan artikel kegiatan organisasi kepemudaan.
-                </p>
               </div>
               <div
                 class="mt-4 flex items-center gap-2 text-xs font-semibold text-knpi-400 group-hover:translate-x-1 transition-transform">
@@ -183,9 +176,6 @@
                     <span class="text-[11px] text-slate-400">Visual halaman muka</span>
                   </div>
                 </div>
-                <p class="mt-3 text-xs text-slate-400 leading-relaxed">
-                  Kelola foto sorotan dan teks judul banner yang tampil pada beranda website.
-                </p>
               </div>
               <div
                 class="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
@@ -204,9 +194,6 @@
                 <LucideClock :size="16" class="text-knpi-400" />
                 Berita Terbaru
               </h3>
-              <p class="text-xs text-slate-400 mt-0.5">
-                Daftar publikasi artikel terakhir yang tercatat di sistem
-              </p>
             </div>
             <NuxtLink to="/dashboard/berita"
               class="text-xs font-semibold text-knpi-400 hover:text-knpi-300 transition flex items-center gap-1">

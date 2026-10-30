@@ -11,7 +11,7 @@ export function formatKontenHtml(raw: string | null | undefined): string {
 
   // 1. Perbaiki tag <a> rusak di mana href hanya 'https://' atau 'http://' tetapi URL asli ada di dalam teks
   html = html.replace(
-    /<a\s+[^>]*href=['"]https?:\/\/?['"][^>]*>([\s\S]*?)<\/a>/gi,
+    /<a\s[^>]*href=['"]https?:\/\/?['"][^>]*>([\s\S]*?)<\/a>/gi,
     (match, textInside) => {
       const cleanText = textInside.trim()
       if (/^https?:\/\/[^\s<]+$/i.test(cleanText)) {
@@ -22,7 +22,7 @@ export function formatKontenHtml(raw: string | null | undefined): string {
   )
 
   // 2. Perbaiki tag <a> yang terpotong baris baru (newline) di antara atributnya
-  html = html.replace(/<a\s+([\s\S]*?)>/gi, (match, attrs) => {
+  html = html.replace(/<a\s([^>]*)>/gi, (match, attrs) => {
     let cleanAttrs = attrs.replace(/\r?\n/g, ' ').trim()
     if (!/target=/i.test(cleanAttrs)) {
       cleanAttrs += ' target="_blank"'
@@ -42,13 +42,15 @@ export function formatKontenHtml(raw: string | null | undefined): string {
 
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
+    if (!token) continue
+
     if (token.startsWith('<')) {
       if (/^<a[\s>]/i.test(token)) insideAnchor = true
       if (/^<\/a>/i.test(token)) insideAnchor = false
       continue
     }
 
-    if (!insideAnchor && token) {
+    if (!insideAnchor) {
       // Ubah URL polos menjadi link <a> yang dapat diklik
       tokens[i] = token.replace(
         /(https?:\/\/[^\s<"']+)/g,

@@ -1,11 +1,11 @@
 import { randomUUID } from 'node:crypto'
-import { writeFile, mkdir } from 'node:fs/promises'
-import { join, extname } from 'node:path'
+import { extensionForImageType, isSupportedImageType } from '../utils/storage-file'
+import { useSupabaseAdmin } from '../utils/supabase'
 
 /**
  * Endpoint untuk mengunggah file gambar.
- * File disimpan ke folder public/uploads/ agar bisa diakses secara publik.
- * Mengembalikan URL relatif gambar yang bisa langsung digunakan.
+ * File disimpan ke bucket publik Supabase Storage dan endpoint mengembalikan
+ * public URL yang dapat langsung disimpan pada tabel berita/slider.
  */
 export default defineEventHandler(async (event) => {
   // Pastikan hanya user yang login bisa upload
@@ -27,8 +27,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Validasi tipe file
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
-  if (file.type && !allowedTypes.includes(file.type)) {
+  if (!isSupportedImageType(file.type)) {
     throw createError({ statusCode: 400, statusMessage: 'Format file tidak didukung. Gunakan JPG, PNG, WebP, atau GIF.' })
   }
 
@@ -39,17 +38,29 @@ export default defineEventHandler(async (event) => {
   }
 
   // Buat nama file unik
-  const ext = extname(file.filename) || '.jpg'
-  const namaFile = `${Date.now()}-${randomUUID().slice(0, 8)}${ext}`
+  const config = useRuntimeConfig()
+  const bucket = String(config.supabaseStorageBucket || 'knpi-media')
+  const ext = extensionForImageType(file.type)
+  const objectPath = `gambar/${Date.now()}-${randomUUID()}.${ext}`
+  const supabase = useSupabaseAdmin()
 
-  // Simpan ke public/uploads/ (pastikan masuk ke folder playground jika script dijalankan dari root)
-  const baseDir = process.cwd().endsWith('playground') ? process.cwd() : join(process.cwd(), 'playground')
-  const uploadDir = join(baseDir, 'public', 'uploads')
-  await mkdir(uploadDir, { recursive: true })
-  const filePath = join(uploadDir, namaFile)
-  await writeFile(filePath, file.data)
+  const { error } = await supabase.storage
+    .from(bucket)
+    .upload(objectPath, file.data, {
+      contentType: file.type,
+      cacheControl: '31536000',
+      upsert: false,
+    })
 
-  // Kembalikan URL relatif
-  const url = `/uploads/${namaFile}`
+  if (error) {
+    console.error('Supabase Storage upload gagal:', error.message)
+    throw createError({
+      statusCode: 502,
+      statusMessage: 'Gagal mengunggah gambar ke penyimpanan.',
+    })
+  }
+
+  const { data } = supabase.storage.from(bucket).getPublicUrl(objectPath)
+  const url = data.publicUrl
   return { berhasil: true, url }
 })

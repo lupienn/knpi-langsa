@@ -3,16 +3,20 @@
   "name": "my-module-playground",
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
-    "seed": "npx tsx server/db/seed.ts",
-    "db:generate": "npx drizzle-kit generate",
-    "db:push": "npx drizzle-kit push"
+    "dev": "nuxt dev --dotenv ../.env",
+    "build": "nuxt build --dotenv ../.env",
+    "generate": "nuxt generate --dotenv ../.env",
+    "seed": "tsx server/db/seed.ts",
+    "db:check": "tsx server/db/check.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "migrate:mysql-to-supabase": "tsx server/db/migrate-mysql-to-supabase.ts"
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@pinia/nuxt": "^0.11.3",
+    "@supabase/supabase-js": "^2.76.1",
     "@types/bcryptjs": "latest",
     "bcryptjs": "^3.0.2",
     "drizzle-kit": "^0.31.1",
@@ -23,6 +27,10 @@
     "nuxt": "^4.4.4",
     "nuxt-lucide-icons": "^2.1.0",
     "pinia": "^3.0.4",
+    "postgres": "^3.4.7",
     "shadcn-nuxt": "^2.6.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
   }
 }

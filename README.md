@@ -38,8 +38,9 @@ Website resmi Dewan Pengurus Daerah Komite Nasional Pemuda Indonesia (DPD KNPI) 
 
 - Nuxt Nitro (server-side API routes)
 - Drizzle ORM
-- MySQL 8
-- bcryptjs (enkripsi password)
+- Supabase PostgreSQL
+- Supabase Storage
+- bcryptjs (hashing password)
 - jose (JWT authentication)
 
 ---
@@ -71,8 +72,7 @@ knpi-langsa/
 │   │   │   └── seed.ts          # Script seed data awal
 │   │   └── middleware/          # Middleware autentikasi
 │   ├── stores/                  # Pinia stores
-│   └── public/
-│       └── uploads/             # Direktori file gambar yang diunggah
+│   └── public/uploads/          # Sumber file lama saat migrasi Storage
 └── README.md
 ```
 
@@ -83,7 +83,8 @@ knpi-langsa/
 ### Prasyarat
 
 - Node.js 18 atau lebih baru
-- MySQL 8 berjalan di sistem lokal
+- Proyek Supabase
+- MySQL lama hanya diperlukan bila memindahkan data existing
 
 ### 1. Clone repository
 
@@ -100,32 +101,32 @@ npm install
 
 ### 3. Konfigurasi environment
 
-Buat file `.env` dengan isi berikut:
+Buat `.env` dari `.env.example`, kemudian isi connection string, Project URL,
+service-role key, dan JWT secret. Panduan lengkap tersedia di
+[`docs/SUPABASE_MIGRATION.md`](docs/SUPABASE_MIGRATION.md).
 
 ```env
-NUXT_DB_HOST=127.0.0.1
-NUXT_DB_PORT=3306
-NUXT_DB_DATABASE=knpi-langsa
-NUXT_DB_USERNAME=root
-NUXT_DB_PASSWORD=
-
-NUXT_JWT_SECRET=k9x2mPqL8nRvTwZaYcDfHjBsEuNgOiXl (sebagai contoh)
+NUXT_SUPABASE_DATABASE_URL=postgresql://...
+SUPABASE_DIRECT_URL=postgresql://...
+NUXT_SUPABASE_URL=https://PROJECT_REF.supabase.co
+NUXT_SUPABASE_SERVICE_ROLE_KEY=...
+NUXT_JWT_SECRET=...
 ```
 
 ### 4. Buat tabel database
 
 ```bash
-cd playground
-npx drizzle-kit push
+npm run db:migrate
 ```
 
 ### 5. Isi data awal (seed)
 
 ```bash
-npm run seed
+npm run db:seed
 ```
 
-Perintah ini akan membuat akun admin default dan data contoh.
+Perintah ini membuat akun admin awal jika belum ada. Password diambil dari
+`SEED_ADMIN_PASSWORD`.
 
 ### 6. Jalankan aplikasi
 
@@ -144,7 +145,7 @@ Proses seed akan otomatis membuat satu akun administrator bawaan. Gunakan kreden
 | Field    | Nilai    |
 |----------|----------|
 | Username | admin    |
-| Password | admin123 |
+| Password | Nilai `SEED_ADMIN_PASSWORD` |
 
 ---
 
@@ -154,9 +155,12 @@ Proses seed akan otomatis membuat satu akun administrator bawaan. Gunakan kreden
 |-----------------------|-----------------------------------------|
 | `npm run dev`         | Jalankan server pengembangan            |
 | `npm run build`       | Build untuk produksi                    |
-| `npm run seed`        | Isi data awal ke database               |
+| `npm run db:seed`     | Isi akun admin awal ke Supabase         |
+| `npm run db:migrate`  | Terapkan migrasi PostgreSQL Supabase    |
+| `npm run db:migrate-data` | Salin data dan upload MySQL lama    |
+| `npm run db:check`    | Periksa koneksi, skema, dan jumlah data |
 | `npm run db:generate` | Generate migrasi Drizzle                |
-| `npm run db:push`     | Terapkan skema database ke MySQL        |
+| `npm run db:push`     | Sinkronkan skema langsung ke PostgreSQL |
 | `npm run lint`        | Periksa kode dengan ESLint              |
 
 ---

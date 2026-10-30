@@ -15,11 +15,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // Private (server-only)
-    dbHost: process.env.NUXT_DB_HOST || '127.0.0.1',
-    dbPort: process.env.NUXT_DB_PORT || '3306',
-    dbDatabase: process.env.NUXT_DB_DATABASE || 'knpi-langsa',
-    dbUsername: process.env.NUXT_DB_USERNAME || 'root',
-    dbPassword: process.env.NUXT_DB_PASSWORD || '',
+    supabaseDatabaseUrl: process.env.NUXT_SUPABASE_DATABASE_URL || '',
+    supabaseUrl: process.env.NUXT_SUPABASE_URL || '',
+    supabaseServiceRoleKey: process.env.NUXT_SUPABASE_SERVICE_ROLE_KEY || '',
+    supabaseStorageBucket: process.env.NUXT_SUPABASE_STORAGE_BUCKET || 'knpi-media',
+    supabaseDbPoolSize: Number(process.env.NUXT_SUPABASE_DB_POOL_SIZE || '1'),
     jwtSecret: process.env.NUXT_JWT_SECRET || 'fallback-secret-ganti-segera',
 
     // Public (exposed ke client)
