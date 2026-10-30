@@ -3,7 +3,7 @@
     <div class="flex items-center justify-center gap-4 sm:gap-10 mb-6">
       <img
         src="~/assets/logo-knpi.png"
-        alt="Logo DPD KNPI Kota Langsa"
+        alt="Logo DPD KNPI KOTA LANGSA"
         class="h-12 w-10 sm:h-16 sm:w-14 object-contain"
         width="250"
         height="254"

@@ -14,23 +14,22 @@
         <!-- Logo Brand -->
         <NuxtLink
           to="/"
-          class="flex items-center gap-3 group shrink-0"
+          class="flex min-w-0 items-center gap-3 group"
         >
           <img
             src="~/assets/logo-knpi.png"
-            alt="Logo KNPI Langsa"
-            class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            alt="Logo DPD KNPI KOTA LANGSA"
+            class="h-9 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
           >
-          <div>
-            <span class="block text-sm font-black tracking-tight text-white group-hover:text-knpi-300 transition-colors">
-              KNPI Langsa
+          <div class="min-w-0 max-w-[9rem] sm:max-w-[11rem]">
+            <span class="block text-xs lg:text-sm leading-snug font-black tracking-tight text-white group-hover:text-knpi-300 transition-colors">
+              DPD KNPI KOTA LANGSA
             </span>
-            <span class="block text-[10px] font-medium text-slate-500">Kota Langsa</span>
           </div>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-400">
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-400">
           <a href="#beranda" class="transition-colors hover:text-white relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-knpi-400 after:transition-all hover:after:w-full">Beranda</a>
           <a href="#pengurus" class="transition-colors hover:text-white relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-knpi-400 after:transition-all hover:after:w-full">Pengurus</a>
           <a href="#visi-misi" class="transition-colors hover:text-white relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-knpi-400 after:transition-all hover:after:w-full">Visi & Misi</a>
@@ -39,7 +38,7 @@
         </nav>
 
         <!-- Right Controls -->
-        <div class="flex items-center gap-2.5">
+        <div class="flex shrink-0 items-center gap-2.5">
           <NuxtLink
             to="/login"
             class="hidden sm:inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-4 py-2 text-xs font-bold text-white hover:bg-white/15 hover:border-knpi-500/50 transition-all duration-200"
@@ -51,7 +50,7 @@
           <!-- Mobile Hamburger Toggle -->
           <button
             type="button"
-            class="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/15 transition-all duration-300 cursor-pointer"
+            class="flex lg:hidden h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/15 transition-all duration-300 cursor-pointer"
             aria-label="Toggle navigasi mobile"
             @click="menuMobileTerbuka = !menuMobileTerbuka"
           >
@@ -71,7 +70,8 @@
     >
       <div
         v-if="menuMobileTerbuka"
-        class="fixed inset-x-0 top-14 z-40 md:hidden border-b p-5 backdrop-blur-2xl shadow-2xl bg-[#060914]/97 border-white/10"
+        class="fixed inset-x-0 z-40 lg:hidden border-b p-5 backdrop-blur-2xl shadow-2xl bg-[#060914]/97 border-white/10"
+        :class="isScrolledDown ? 'top-[60px]' : 'top-[76px]'"
       >
         <nav class="flex flex-col gap-1 font-semibold text-sm">
           <a href="#beranda" class="px-3.5 py-3 rounded-xl transition hover:bg-white/5 text-slate-300" @click="menuMobileTerbuka = false">Beranda</a>
@@ -171,7 +171,7 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-knpi-400 opacity-75" />
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-knpi-500" />
               </span>
-              <span class="text-xs font-bold tracking-[0.2em] uppercase text-knpi-400">DPD KNPI Kota Langsa</span>
+              <span class="text-xs font-bold tracking-[0.2em] uppercase text-knpi-400">DPD KNPI KOTA LANGSA</span>
             </div>
 
             <!-- Headline — large and commanding -->
@@ -199,7 +199,7 @@
               class="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mb-10 transition-all duration-700 delay-300"
               :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
             >
-              {{ slides[currentSlide]?.deskripsi || 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.' }}
+              {{ slides[currentSlide]?.deskripsi || 'DPD KNPI KOTA LANGSA berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.' }}
             </p>
 
             <!-- CTAs -->
@@ -295,10 +295,10 @@
               <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1] tracking-[-0.02em] mb-6" style="text-wrap: balance;">
                 Dewan<br>
                 <span class="text-slate-400">Pengurus</span><br>
-                DPD KNPI
+                DPD KNPI KOTA LANGSA
               </h2>
               <p class="text-sm leading-relaxed text-slate-400 max-w-sm mb-8">
-                Jajaran kepengurusan Komite Nasional Pemuda Indonesia DPD Kota Langsa yang berkomitmen membangun pemuda Aceh yang berdaya.
+                Jajaran kepengurusan DPD KNPI KOTA LANGSA yang berkomitmen membangun pemuda Aceh yang berdaya.
               </p>
               <div class="flex items-center gap-3">
                 <div class="h-px w-14 bg-knpi-500/60" />
@@ -312,7 +312,7 @@
                 <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-knpi-500/50 to-transparent" />
                 <img
                   src="~/assets/ketua,sekret,bendahara knpi langsa.png"
-                  alt="Ketua, Sekretaris, dan Bendahara KNPI Kota Langsa"
+                  alt="Ketua, Sekretaris, dan Bendahara DPD KNPI KOTA LANGSA"
                   class="w-full h-auto object-contain"
                 >
               </div>
@@ -598,7 +598,7 @@
               Bersatu, Bangkit, dan<br>Berdaya Bersama
             </h2>
             <p class="text-slate-300/80 text-sm leading-relaxed max-w-xl mx-auto mb-10">
-              DPD KNPI Kota Langsa terus berkomitmen sebagai wadah berhimpun seluruh organisasi kepemudaan, memperkuat kemandirian, dan mengawal kemajuan Kota Langsa.
+              DPD KNPI KOTA LANGSA terus berkomitmen sebagai wadah berhimpun seluruh organisasi kepemudaan, memperkuat kemandirian, dan mengawal kemajuan Kota Langsa.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4">
               <NuxtLink
@@ -627,11 +627,11 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           <div>
             <div class="flex items-center gap-3 mb-4">
-              <img src="~/assets/logo-knpi.png" alt="Logo KNPI Langsa" class="h-9 w-auto">
-              <span class="text-base font-black text-white">KNPI Kota Langsa</span>
+              <img src="~/assets/logo-knpi.png" alt="Logo DPD KNPI KOTA LANGSA" class="h-9 w-auto">
+              <span class="text-base font-black text-white">DPD KNPI KOTA LANGSA</span>
             </div>
             <p class="text-xs leading-relaxed text-slate-400 max-w-sm mb-5">
-              Wadah berhimpun organisasi kepemudaan DPD KNPI Kota Langsa.
+              Wadah berhimpun organisasi kepemudaan DPD KNPI KOTA LANGSA.
             </p>
             <a
               href="https://www.instagram.com/knpikotalangsa/"
@@ -705,7 +705,7 @@ const slidesFallback: SlideItem[] = [
     gambarUrl: pengurusKnpiImage,
     judul: 'Bakti Pada Negeri',
     subjudul: 'Sinergi & Kolaborasi Pemuda',
-    deskripsi: 'Komite Nasional Pemuda Indonesia (KNPI) berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
+    deskripsi: 'DPD KNPI KOTA LANGSA berupaya mewujudkan visi pemuda yang tangguh, berperan aktif dalam pembangunan, dan berbakti untuk kemajuan bangsa.',
   },
   {
     gambarUrl: ketuaKnpiImage,
@@ -786,8 +786,8 @@ onUnmounted(() => {
 })
 
 useSeoMeta({
-  title: 'KNPI Langsa',
-  description: 'Situs resmi Komite Nasional Pemuda Indonesia (KNPI) Kota Langsa.',
+  title: 'DPD KNPI KOTA LANGSA',
+  description: 'Situs resmi DPD KNPI KOTA LANGSA.',
 })
 
 useHead({

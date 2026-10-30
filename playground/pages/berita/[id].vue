@@ -20,24 +20,23 @@
         <!-- Logo Brand -->
         <NuxtLink
           to="/"
-          class="flex items-center gap-3.5 group shrink-0"
+          class="flex min-w-0 items-center gap-3.5 group"
         >
           <img
             src="~/assets/logo-knpi.png"
-            alt="Logo KNPI Langsa"
-            class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            alt="Logo DPD KNPI KOTA LANGSA"
+            class="h-9 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
           >
-          <div>
-            <span class="block text-base font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
-              KNPI Langsa
+          <div class="min-w-0 max-w-[9rem] sm:max-w-[11rem]">
+            <span class="block text-xs lg:text-sm leading-snug font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
+              DPD KNPI KOTA LANGSA
             </span>
-            <span class="block text-[10px] font-medium text-slate-400">Kota Langsa</span>
           </div>
         </NuxtLink>
 
         <!-- Desktop Navigation Links (Sembunyi saat scroll kebawah) -->
         <nav
-          class="hidden md:flex items-center gap-7 text-sm font-semibold transition-all duration-300 transform text-slate-400"
+          class="hidden lg:flex items-center gap-7 text-sm font-semibold transition-all duration-300 transform text-slate-400"
           :class="[
             isScrolledDown && !isHeaderHovered ? 'opacity-0 -translate-y-2 pointer-events-none w-0 h-0 overflow-hidden' : 'opacity-100 translate-y-0',
           ]"
@@ -65,7 +64,7 @@
         </nav>
 
         <!-- Controls: Back Button -->
-        <div class="flex items-center gap-3">
+        <div class="flex shrink-0 items-center gap-3">
           <!-- Back Button -->
           <NuxtLink
             to="/berita"
@@ -221,7 +220,7 @@
               :size="13"
               class="text-knpi-400"
             />
-            <span>Dokumentasi Resmi DPD KNPI Kota Langsa</span>
+            <span>Dokumentasi Resmi DPD KNPI KOTA LANGSA</span>
           </div>
         </div>
 
@@ -395,7 +394,7 @@
                     Wadah Kreativitas Pemuda Kota Langsa
                   </h4>
                   <p class="text-xs sm:text-sm text-slate-300/90 leading-relaxed">
-                    DPD KNPI Kota Langsa terus berkomitmen mendorong inovasi, karya nyata, dan peran aktif seluruh organisasi kepemudaan.
+                    DPD KNPI KOTA LANGSA terus berkomitmen mendorong inovasi, karya nyata, dan peran aktif seluruh organisasi kepemudaan.
                   </p>
                 </div>
                 <NuxtLink
@@ -420,11 +419,11 @@
           <div class="flex items-center gap-3">
             <img
               src="~/assets/logo-knpi.png"
-              alt="Logo KNPI"
+              alt="Logo DPD KNPI KOTA LANGSA"
               class="h-9 w-auto object-contain"
             >
             <div>
-              <span class="block text-sm font-bold text-white">DPD KNPI Kota Langsa</span>
+              <span class="block text-sm font-bold text-white">DPD KNPI KOTA LANGSA</span>
               <span class="block text-xs text-slate-400">Komite Nasional Pemuda Indonesia</span>
             </div>
           </div>
@@ -613,7 +612,7 @@ async function muatDetailBerita() {
     if (res.berhasil) {
       berita.value = res.data
       useSeoMeta({
-        title: `${res.data.judul} — KNPI Langsa`,
+        title: `${res.data.judul} — DPD KNPI KOTA LANGSA`,
         description: res.data.ringkasan,
         ogImage: res.data.gambarUrl || undefined,
       })
@@ -649,7 +648,7 @@ async function muatBeritaLainnya() {
 // Social Sharing
 function bagikan(platform: 'whatsapp' | 'facebook' | 'twitter') {
   const url = encodeURIComponent(window.location.href)
-  const text = encodeURIComponent(berita.value?.judul || 'Berita KNPI Langsa')
+  const text = encodeURIComponent(berita.value?.judul || 'Berita DPD KNPI KOTA LANGSA')
 
   if (platform === 'whatsapp') {
     window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank')

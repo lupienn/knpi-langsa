@@ -13,22 +13,21 @@
       <div class="flex items-center justify-between border-b border-white/[0.08] px-5 py-5">
         <NuxtLink
           to="/dashboard"
-          class="flex items-center gap-3 group"
+          class="flex min-w-0 items-center gap-3 group"
           @click="sidebarTerbuka = false"
         >
           <img
             :src="logoKnpi"
-            alt="Logo KNPI"
-            class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            alt="Logo DPD KNPI KOTA LANGSA"
+            class="h-9 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
           >
-          <div>
-            <span class="block text-sm font-bold text-white tracking-tight leading-none group-hover:text-knpi-300 transition-colors">KNPI Langsa</span>
-            <span class="block text-[10px] text-slate-400 mt-1 font-medium">Kota Langsa</span>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-white tracking-tight leading-snug group-hover:text-knpi-300 transition-colors">DPD KNPI KOTA LANGSA</span>
           </div>
         </NuxtLink>
 
         <button
-          class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
+          class="lg:hidden shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
           @click="sidebarTerbuka = false"
         >
           <LucideX :size="18" />
@@ -314,7 +313,7 @@ const deskripsiHalaman = computed(() => {
   if (path === '/dashboard') return 'Ringkasan warta, slider beranda, dan status portal'
   if (path.startsWith('/dashboard/berita')) return 'Manajemen publikasi warta & artikel kegiatan'
   if (path.startsWith('/dashboard/slider')) return 'Atur foto dan deskripsi slider visual beranda'
-  return 'Sistem Informasi KNPI Kota Langsa'
+  return 'Sistem Informasi DPD KNPI KOTA LANGSA'
 })
 
 async function handleLogout() {

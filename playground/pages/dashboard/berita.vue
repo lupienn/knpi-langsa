@@ -18,7 +18,7 @@
             Kelola Berita &amp; Informasi
           </h2>
           <p class="mt-1 text-sm text-slate-300/80">
-            Pusat kendali pembuatan, penerbitan, dan pengelolaan warta resmi DPD KNPI Kota Langsa.
+            Pusat kendali pembuatan, penerbitan, dan pengelolaan warta resmi DPD KNPI KOTA LANGSA.
           </p>
         </div>
         <button
@@ -1059,7 +1059,7 @@
                 <input
                   v-model="formLink.teks"
                   type="text"
-                  placeholder="Contoh: Instagram KNPI Kota Langsa"
+                  placeholder="Contoh: Instagram DPD KNPI KOTA LANGSA"
                   class="w-full rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-600 focus:border-knpi-500 focus:outline-none focus:ring-1 focus:ring-knpi-500/50 transition-all"
                 >
                 <p class="text-[10px] text-slate-400 mt-1">
@@ -1122,6 +1122,11 @@ definePageMeta({
   layout: 'dashboard',
 })
 
+useSeoMeta({
+  title: 'Kelola Berita — DPD KNPI KOTA LANGSA',
+  description: 'Pengelolaan warta dan publikasi resmi DPD KNPI KOTA LANGSA.',
+})
+
 interface BeritaItem {
   id: number
   judul: string
@@ -1168,7 +1173,7 @@ const pesanEmptyState = computed(() => {
 const subJudulFormModal = computed(() => {
   return modeEdit.value
     ? 'Perbarui konten artikel berita yang telah ada'
-    : 'Isi formulir editorial untuk publikasi warta DPD KNPI Langsa'
+    : 'Isi formulir editorial untuk publikasi warta DPD KNPI KOTA LANGSA'
 })
 
 const labelTombolSubmit = computed(() => {

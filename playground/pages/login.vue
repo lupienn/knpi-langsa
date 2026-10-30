@@ -22,20 +22,20 @@
           <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-900/80 border border-white/10 shadow-card backdrop-blur-xl p-3 shrink-0">
             <img
               :src="logoKnpi"
-              alt="Logo KNPI Kota Langsa"
+              alt="Logo DPD KNPI KOTA LANGSA"
               class="h-full w-full object-contain"
             >
           </div>
           <div>
             <span class="text-xs font-extrabold uppercase tracking-widest text-knpi-400">Portal Resmi</span>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
-              DPD KNPI Kota Langsa
+              DPD KNPI KOTA LANGSA
             </h1>
           </div>
         </div>
 
         <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
-          Sistem informasi terintegrasi pengelolaan publikasi warta berita kepemudaan dan media visual resmi DPD KNPI Kota Langsa.
+          Sistem informasi terintegrasi pengelolaan publikasi warta berita kepemudaan dan media visual resmi DPD KNPI KOTA LANGSA.
         </p>
 
         <!-- Feature List -->
@@ -200,7 +200,7 @@
 
           <div class="mt-6 border-t border-white/10 pt-4 text-center">
             <p class="text-[11px] text-slate-500">
-              &copy; {{ tahunSekarang }} DPD KNPI Kota Langsa. Hak Cipta Dilindungi.
+              &copy; {{ tahunSekarang }} DPD KNPI KOTA LANGSA. Hak Cipta Dilindungi.
             </p>
           </div>
         </div>
@@ -256,7 +256,7 @@ async function handleLogin() {
 }
 
 useSeoMeta({
-  title: 'Masuk Panel — KNPI Kota Langsa',
-  description: 'Halaman masuk Sistem Informasi DPD KNPI Kota Langsa.',
+  title: 'Masuk Panel — DPD KNPI KOTA LANGSA',
+  description: 'Halaman masuk Sistem Informasi DPD KNPI KOTA LANGSA.',
 })
 </script>

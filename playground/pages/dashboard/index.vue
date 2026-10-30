@@ -18,7 +18,7 @@
           </div>
 
           <h2 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
-            Dashboard KNPI Kota Langsa
+            Dashboard DPD KNPI KOTA LANGSA
           </h2>
         </div>
 
@@ -427,7 +427,7 @@ onMounted(async () => {
 })
 
 useSeoMeta({
-  title: 'Dashboard — KNPI Langsa',
-  description: 'Dashboard Sistem Informasi Terpadu KNPI Kota Langsa.',
+  title: 'Dashboard — DPD KNPI KOTA LANGSA',
+  description: 'Dashboard Sistem Informasi Terpadu DPD KNPI KOTA LANGSA.',
 })
 </script>

@@ -10,6 +10,7 @@
 const authStore = useAuthStore()
 
 useHead({
+  title: 'DPD KNPI KOTA LANGSA',
   htmlAttrs: {
     lang: 'id',
     class: 'dark',
@@ -17,6 +18,10 @@ useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
   ],
+})
+
+useSeoMeta({
+  ogSiteName: 'DPD KNPI KOTA LANGSA',
 })
 
 onMounted(async () => {

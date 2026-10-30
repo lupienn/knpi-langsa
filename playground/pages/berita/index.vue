@@ -17,23 +17,22 @@
         <!-- Logo Brand -->
         <NuxtLink
           to="/"
-          class="flex items-center gap-3.5 group shrink-0"
+          class="flex min-w-0 items-center gap-3.5 group"
         >
           <img
             src="~/assets/logo-knpi.png"
-            alt="Logo KNPI Langsa"
-            class="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            alt="Logo DPD KNPI KOTA LANGSA"
+            class="h-9 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105"
           >
-          <div>
-            <span class="block text-base font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
-              KNPI Langsa
+          <div class="min-w-0 max-w-[9rem] sm:max-w-[11rem]">
+            <span class="block text-xs lg:text-sm leading-snug font-extrabold tracking-tight transition-colors text-white group-hover:text-knpi-300">
+              DPD KNPI KOTA LANGSA
             </span>
-            <span class="block text-[10px] font-medium text-slate-400">Kota Langsa</span>
           </div>
         </NuxtLink>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
+        <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-400">
           <NuxtLink
             to="/#beranda"
             class="transition-colors hover:text-white"
@@ -67,7 +66,7 @@
         </nav>
 
         <!-- Right Controls: Login & Mobile Hamburger -->
-        <div class="flex items-center gap-3">
+        <div class="flex shrink-0 items-center gap-3">
           <NuxtLink
             to="/login"
             class="btn-primary !w-auto !py-2.5 !px-5 !text-xs hidden sm:flex items-center gap-2"
@@ -79,7 +78,7 @@
           <!-- Mobile Hamburger Toggle -->
           <button
             type="button"
-            class="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/15 transition cursor-pointer"
+            class="flex lg:hidden h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 hover:bg-white/15 transition cursor-pointer"
             aria-label="Buka menu navigasi"
             @click="menuMobileTerbuka = !menuMobileTerbuka"
           >
@@ -105,7 +104,8 @@
     >
       <div
         v-if="menuMobileTerbuka"
-        class="fixed inset-x-0 top-16 z-40 md:hidden border-b p-5 backdrop-blur-2xl transition-colors shadow-2xl bg-[#0c1322]/95 border-white/10 text-white"
+        class="fixed inset-x-0 z-40 lg:hidden border-b p-5 backdrop-blur-2xl transition-colors shadow-2xl bg-[#0c1322]/95 border-white/10 text-white"
+        :class="isScrolledDown ? 'top-16' : 'top-20'"
       >
         <nav class="flex flex-col gap-2 font-semibold text-sm">
           <NuxtLink
@@ -206,7 +206,7 @@
                 class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl transition-all duration-700 delay-450 transform"
                 :class="halamanSelesaiMuat ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'"
               >
-                Jelajahi seluruh arsip informasi warta, agenda kegiatan, pengumuman, serta artikel kepemudaan resmi DPD KNPI Kota Langsa.
+                Jelajahi seluruh arsip informasi warta, agenda kegiatan, pengumuman, serta artikel kepemudaan resmi DPD KNPI KOTA LANGSA.
               </p>
             </div>
 
@@ -637,13 +637,13 @@
             <div class="flex items-center gap-3 mb-4">
               <img
                 src="~/assets/logo-knpi.png"
-                alt="Logo KNPI Langsa"
+                alt="Logo DPD KNPI KOTA LANGSA"
                 class="h-9 w-auto"
               >
-              <span class="text-lg font-bold text-white">KNPI Kota Langsa</span>
+              <span class="text-lg font-bold text-white">DPD KNPI KOTA LANGSA</span>
             </div>
             <p class="text-xs leading-relaxed text-slate-400 max-w-sm mb-5">
-              Wadah berhimpun organisasi kepemudaan DPD KNPI Kota Langsa, merajut kolaborasi demi kemajuan bangsa.
+              Wadah berhimpun organisasi kepemudaan DPD KNPI KOTA LANGSA, merajut kolaborasi demi kemajuan bangsa.
             </p>
             <a
               href="https://www.instagram.com/knpikotalangsa/"
@@ -733,8 +733,8 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: 'Arsip Berita & Warta Publikasi — KNPI Kota Langsa',
-  description: 'Seluruh arsip publikasi warta berita resmi, kegiatan, pengumuman, dan artikel kepemudaan DPD KNPI Kota Langsa.',
+  title: 'Arsip Berita & Warta Publikasi — DPD KNPI KOTA LANGSA',
+  description: 'Seluruh arsip publikasi warta berita resmi, kegiatan, pengumuman, dan artikel kepemudaan DPD KNPI KOTA LANGSA.',
 })
 
 useHead({

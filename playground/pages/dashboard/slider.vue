@@ -1162,7 +1162,7 @@ onUnmounted(() => {
 })
 
 useSeoMeta({
-  title: 'Slider Beranda — KNPI Langsa',
-  description: 'Manajemen foto dan deskripsi slider halaman beranda KNPI Kota Langsa.',
+  title: 'Slider Beranda — DPD KNPI KOTA LANGSA',
+  description: 'Manajemen foto dan deskripsi slider halaman beranda DPD KNPI KOTA LANGSA.',
 })
 </script>

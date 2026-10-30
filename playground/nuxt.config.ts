@@ -24,7 +24,7 @@ export default defineNuxtConfig({
 
     // Public (exposed ke client)
     public: {
-      appName: process.env.NUXT_PUBLIC_APP_NAME || 'KNPI Langsa',
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'DPD KNPI KOTA LANGSA',
       appUrl: process.env.NUXT_PUBLIC_APP_URL || 'http://localhost:3000',
     },
   },
